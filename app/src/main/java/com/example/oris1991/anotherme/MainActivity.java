@@ -11,9 +11,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements CalendarViewFragment.Delegate{
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate{
 
     CalendarViewFragment calendarFra;
+    NewEventFragment newEventFra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +25,21 @@ public class MainActivity extends AppCompatActivity implements CalendarViewFragm
 
         calendarFra=new CalendarViewFragment();
         FragmentTransaction transaction=getFragmentManager().beginTransaction();
-        transaction.add(R.id.calendar_frag_container,calendarFra);
+        transaction.add(R.id.calendar_frag_container, calendarFra);
         transaction.show(calendarFra);
         transaction.commit();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                newEventFra=new NewEventFragment();
+                FragmentTransaction transaction=getFragmentManager().beginTransaction();
+                transaction.add(R.id.new_event_frag_container,newEventFra);
+                transaction.hide(calendarFra);
+                transaction.show(newEventFra);
+                transaction.commit();
             }
         });
     }
@@ -60,4 +66,14 @@ public class MainActivity extends AppCompatActivity implements CalendarViewFragm
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void endFragment() {
+
+        calendarFra=new CalendarViewFragment();
+        FragmentTransaction transaction=getFragmentManager().beginTransaction();
+        transaction.add(R.id.calendar_frag_container, calendarFra);
+        transaction.hide(newEventFra);
+        transaction.show(calendarFra);
+        transaction.commit();
+    }
 }

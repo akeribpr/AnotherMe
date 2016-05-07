@@ -32,9 +32,7 @@ import java.util.Locale;
  */
 public class CalendarViewFragment extends Fragment{
 
-    interface Delegate{
-       // public Runnable calendarUpdater();
-    }
+
 
     public GregorianCalendar month, itemmonth;// main_content instances.
 
@@ -139,7 +137,7 @@ public class CalendarViewFragment extends Fragment{
 
                 int temp;
                 for (int i=0;i<time.size();i++)
-                    for (int j=0+i;j<time.size();j++)
+                    for (int j=i;j<time.size();j++)
                     {
                         if (Utility.startTime.get(time.get(i)).compareTo(Utility.startTime.get(time.get(j)))>0)
                         {
