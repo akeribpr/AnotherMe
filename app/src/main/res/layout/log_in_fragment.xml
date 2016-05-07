@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/summer">
+
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/a_m_icon"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="?android:attr/actionBarSize"
+
+        >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="enter username:"
+                 />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/usernameEditText"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:inputType="textAutoComplete|textPostalAddress"
+                android:editable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="?android:attr/actionBarSize"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="enter password:"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/passwordEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="textAutoComplete|textPostalAddress"
+            android:editable="true" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Register"
+        android:id="@+id/registerB"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:text="Exit"
+            android:id="@+id/exitB"
+            android:layout_weight="1"
+            android:layout_gravity="bottom" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:text="Submit"
+            android:id="@+id/submitB"
+            android:layout_weight="1"
+            android:layout_gravity="bottom" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
