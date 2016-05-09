@@ -104,9 +104,14 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 // removing the previous view if added
-             /*  if (((ListView) rLayout).getChildCount() > 0) {
-                    ((ListView) rLayout).removeAllViews();
-                }*/
+               if (((ListView) rLayout).getChildCount() > 0) {
+                    //((ListView) rLayout).removeAllViews();
+                   ListView father= (ListView)rLayout.getParent();
+
+                   father.removeView(rLayout);
+                }
+
+
                 desc = new ArrayList<String>();
                 date = new ArrayList<String>();
                 time =new ArrayList<Integer>();

@@ -17,14 +17,14 @@
                 android:layout_height="wrap_content"
 
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Event name:"
+                android:text="Event title:"
                 android:id="@+id/event_text" />
 
            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:id="@+id/EventNameEditText"
+                android:id="@+id/EventTitleEditText"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
                 android:inputType="textAutoComplete|textPostalAddress"
@@ -32,6 +32,118 @@
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="?android:attr/actionBarSize"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Event description:"
+            android:id="@+id/event_desc_text" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/EventDescEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="textAutoComplete|textPostalAddress"
+            android:editable="true" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start time:"
+            android:id="@+id/textStartTime"
+            android:autoText="false"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.DateEditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:ems="10"
+            android:id="@+id/startTimeEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="date"
+            android:editable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="end time:"
+            android:id="@+id/textEndTime"
+            android:autoText="false"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.DateEditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:ems="10"
+            android:id="@+id/endTimeEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="date"
+            android:editable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="?android:attr/actionBarSize"
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Event location:"
+             />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/EventLocationEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="textAutoComplete|textPostalAddress"
+            android:editable="true" />
+
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/solution_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="82dp" />
 
     <LinearLayout
         android:orientation="horizontal"

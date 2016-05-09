@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Another Me</string>
     <string name="action_settings">Settings</string>
+    <string-array name="solution_array">
+        <item>SMS</item>
+        <item>Pop-up</item>
+    </string-array>
 </resources>
+
+

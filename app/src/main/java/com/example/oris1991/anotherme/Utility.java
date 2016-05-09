@@ -15,16 +15,23 @@
  */
 package com.example.oris1991.anotherme;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.util.Log;
+
+import com.example.oris1991.anotherme.Model.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author Mukesh Y
@@ -45,17 +52,18 @@ public class Utility {
 		cursor.moveToFirst();
 
 
+
 		// fetching calendars name
 		String CNames[] = new String[cursor.getCount()];
 
 		SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
-		String date1 = format.format(new Date(Long.parseLong(cursor.getString(3))));
-		Log.d("ss",date1);
+
 		// fetching calendars id
 		nameOfEvent.clear();
 		startDates.clear();
 		endDates.clear();
 		descriptions.clear();
+		startTime.clear();
 		for (int i = 0; i < CNames.length; i++) {
 
 			nameOfEvent.add(cursor.getString(1));
@@ -68,6 +76,24 @@ public class Utility {
 
 		}
 		return nameOfEvent;
+	}
+
+	public static void insertCalendarEvent(Context context,Event newEvent) {
+
+		long calID = 1;
+
+		ContentValues values = new ContentValues();
+
+		values.put("calendar_id", calID);
+		values.put("title",newEvent.getTitle());
+		values.put("description", newEvent.getDescription());
+		values.put("dtstart", newEvent.getStartTime());
+		values.put("dtend",newEvent.getEndTime());
+		values.put("eventLocation", newEvent.getLocation());
+		values.put("eventTimezone", TimeZone.getDefault().getID());
+
+		Uri calendarUri =context.getContentResolver().insert(Uri.parse("content://com.android.calendar/events"), values);
+
 	}
 
 	public static String getDate(long milliSeconds) {
