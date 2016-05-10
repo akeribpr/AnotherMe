@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -104,12 +105,12 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 // removing the previous view if added
-               if (((ListView) rLayout).getChildCount() > 0) {
+         /*      if (((ListView) rLayout).getChildCount() > 0) {
                     //((ListView) rLayout).removeAllViews();
-                   ListView father= (ListView)rLayout.getParent();
+                   LinearLayout father= (LinearLayout)rLayout.getParent();
 
                    father.removeView(rLayout);
-                }
+                }*/
 
 
                 desc = new ArrayList<String>();
@@ -157,9 +158,10 @@ public class CalendarViewFragment extends Fragment{
                 }
 
                 rLayout.setAdapter(adapterEvent);
+                adapterEvent.notifyDataSetChanged();
 
 
-            /*    if (desc.size() > 0) {
+        /*        if (desc.size() > 0) {
                     for (int i = 0; i < desc.size(); i++) {
                         TextView rowTextView = new TextView(MainActivity.this);
 

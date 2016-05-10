@@ -47,7 +47,7 @@ public class Utility {
 		Cursor cursor = context.getContentResolver()
 				.query(Uri.parse("content://com.android.calendar/events"),
 						new String[] { "calendar_id", "title", "description",
-								"dtstart", "dtend", "eventLocation" },null,
+								"dtstart", "dtend", "eventLocation" },"deleted != 1",
 						null, null);
 		cursor.moveToFirst();
 

@@ -38,13 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingTop="?android:attr/actionBarSize"
+        android:layout_marginTop="20dp"
 
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Event description:"
             android:id="@+id/event_desc_text" />
@@ -71,7 +70,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="start time:"
+            android:text="start date:"
             android:id="@+id/textStartTime"
             android:autoText="false"
             android:textSize="20dp" />
@@ -80,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:ems="10"
-            android:id="@+id/startTimeEditText"
+            android:id="@+id/startDateEditText"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:inputType="date"
@@ -96,8 +95,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="end time:"
-            android:id="@+id/textEndTime"
+            android:text="end date:"
             android:autoText="false"
             android:textSize="20dp" />
 
@@ -105,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:ems="10"
-            android:id="@+id/endTimeEditText"
+            android:id="@+id/endDateEditText"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:inputType="date"
@@ -114,10 +112,58 @@
 
     <LinearLayout
         android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start time:"
+            android:autoText="false"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.TimeEditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:ems="10"
+            android:id="@+id/startTimeEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="time"
+            android:editable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start time:"
+            android:autoText="false"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.TimeEditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:ems="10"
+            android:id="@+id/endTimeEditText"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:inputType="time"
+            android:editable="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingTop="?android:attr/actionBarSize"
+        android:layout_marginTop="20dp"
 
         >
         <TextView

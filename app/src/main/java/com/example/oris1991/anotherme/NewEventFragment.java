@@ -36,8 +36,10 @@ public class NewEventFragment extends Fragment {
         final Delegate delegate = (Delegate) getActivity();
         final TextView eventTitle = (TextView) view.findViewById(R.id.EventTitleEditText);
         final TextView eventDesc = (TextView) view.findViewById(R.id.EventDescEditText);
-        final DateEditText eventStart = (DateEditText) view.findViewById(R.id.startTimeEditText);
-        final DateEditText eventEnd = (DateEditText) view.findViewById(R.id.endTimeEditText);
+        final DateEditText eventStartDate = (DateEditText) view.findViewById(R.id.startDateEditText);
+        final DateEditText eventEndDate = (DateEditText) view.findViewById(R.id.endDateEditText);
+        final TimeEditText eventStartTime = (TimeEditText) view.findViewById(R.id.startTimeEditText);
+        final TimeEditText eventEndTime = (TimeEditText) view.findViewById(R.id.endTimeEditText);
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
 
         spinner = (Spinner) view.findViewById(R.id.solution_spinner);
@@ -55,10 +57,10 @@ public class NewEventFragment extends Fragment {
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
-                beginTime.set(eventStart.getYear(),eventStart.getMonth(), eventStart.getDay(), 7, 30);
+                beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
                 startMillis = beginTime.getTimeInMillis();
                 Calendar endTime = Calendar.getInstance();
-                endTime.set(eventEnd.getYear(), eventStart.getMonth(), eventStart.getDay(), 8, 45);
+                endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
                 final Event newEvent= new Event(eventTitle.getText().toString(),eventDesc.getText().toString(),startMillis,endMillis,eventLocation.getText().toString(),spinner.getSelectedItem().toString());
