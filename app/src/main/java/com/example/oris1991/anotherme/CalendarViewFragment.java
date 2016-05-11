@@ -3,6 +3,7 @@ package com.example.oris1991.anotherme;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -66,9 +67,13 @@ public class CalendarViewFragment extends Fragment{
         month = (GregorianCalendar) GregorianCalendar.getInstance();
         itemmonth = (GregorianCalendar) month.clone();
 
+        date = new ArrayList<String>();
         items = new ArrayList<String>();
 
+
         adapter = new CalendarAdapter(getActivity(), month);
+
+        rLayout.setAdapter(adapterEvent);
 
         GridView gridview = (GridView) view.findViewById(R.id.gridview);
         gridview.setAdapter(adapter);
@@ -101,6 +106,21 @@ public class CalendarViewFragment extends Fragment{
             }
         });
 
+
+        rLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
+                adapter.notifyDataSetChanged();
+                handler.post(calendarUpdater);
+                adapterEvent.notifyDataSetChanged();
+
+            }
+        });
+
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
@@ -114,9 +134,7 @@ public class CalendarViewFragment extends Fragment{
 
 
                 desc = new ArrayList<String>();
-                date = new ArrayList<String>();
                 time =new ArrayList<Integer>();
-
 
                 ((CalendarAdapter) parent.getAdapter()).setSelected(v);
                 String selectedGridDate = CalendarAdapter.dayString
@@ -157,7 +175,7 @@ public class CalendarViewFragment extends Fragment{
                     desc.add(Utility.nameOfEvent.get(time.get(i))+"  "+Utility.startTime.get(time.get(i)));
                 }
 
-                rLayout.setAdapter(adapterEvent);
+
                 adapterEvent.notifyDataSetChanged();
 
 

@@ -42,12 +42,14 @@ public class Utility {
 	public static ArrayList<String> endDates = new ArrayList<String>();
 	public static ArrayList<String> descriptions = new ArrayList<String>();
 	public static ArrayList<String> startTime = new ArrayList<String>();
+	public static ArrayList<String> startDateAndTime = new ArrayList<String>();
+	public static ArrayList<Long> eventId = new ArrayList<Long>();
 
 	public static ArrayList<String> readCalendarEvent(Context context) {
 		Cursor cursor = context.getContentResolver()
 				.query(Uri.parse("content://com.android.calendar/events"),
 						new String[] { "calendar_id", "title", "description",
-								"dtstart", "dtend", "eventLocation" },"deleted != 1",
+								"dtstart", "dtend", "eventLocation"},"deleted != 1",
 						null, null);
 		cursor.moveToFirst();
 
@@ -61,9 +63,11 @@ public class Utility {
 		// fetching calendars id
 		nameOfEvent.clear();
 		startDates.clear();
-		endDates.clear();
+		//endDates.clear();
 		descriptions.clear();
 		startTime.clear();
+		eventId.clear();
+		startDateAndTime.clear();
 		for (int i = 0; i < CNames.length; i++) {
 
 			nameOfEvent.add(cursor.getString(1));
@@ -72,6 +76,8 @@ public class Utility {
 			descriptions.add(cursor.getString(2));
 			CNames[i] = cursor.getString(1);
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
+			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
+			startDateAndTime.add(cursor.getString(3));
 			cursor.moveToNext();
 
 		}
@@ -88,11 +94,44 @@ public class Utility {
 		values.put("title",newEvent.getTitle());
 		values.put("description", newEvent.getDescription());
 		values.put("dtstart", newEvent.getStartTime());
-		values.put("dtend",newEvent.getEndTime());
+		values.put("dtend", newEvent.getEndTime());
 		values.put("eventLocation", newEvent.getLocation());
 		values.put("eventTimezone", TimeZone.getDefault().getID());
 
+
 		Uri calendarUri =context.getContentResolver().insert(Uri.parse("content://com.android.calendar/events"), values);
+
+	}
+
+	public static void deleteCalendarEvent(Context context,int numberOfEvent) {
+
+
+		//Log.d("Tag",eventId.get(numberOfEvent));
+	/*	long calID = 1;
+
+		ContentValues values = new ContentValues();
+
+		values.put("calendar_id", calID);
+		values.put("title",newEvent.getTitle());
+		values.put("description", newEvent.getDescription());
+		values.put("dtstart", newEvent.getStartTime());
+		values.put("dtend",newEvent.getEndTime());
+		values.put("eventLocation", newEvent.getLocation());
+		values.put("eventTimezone", TimeZone.getDefault().getID());*/
+
+
+		//Uri calendarUri =context.getContentResolver().delete(Uri.parse("content://com.android.calendar/events"),"");
+
+		String[] selectionsArgs = new String[] {nameOfEvent.get(numberOfEvent),startDateAndTime.get(numberOfEvent)};
+		int calendarUri =context.getContentResolver().delete(Uri.parse(String.valueOf(CalendarContract.Events.CONTENT_URI)), "title=? and  dtstart=?  ",
+				selectionsArgs);
+		/*String[] selectionsArgs = new String[] {String.valueOf(numberOfEvent)};
+		int calendarUri =context.getContentResolver().delete(Uri.parse(String.valueOf(CalendarContract.Events.CONTENT_URI)), CalendarContract.Events._ID+"=?",
+				selectionsArgs);*/
+		Log.d("Tag",String.valueOf(calendarUri));
+
+
+
 
 	}
 

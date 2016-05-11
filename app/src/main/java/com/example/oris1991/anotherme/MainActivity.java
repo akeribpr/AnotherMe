@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +32,21 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.commit();
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 newEventFra=new NewEventFragment();
                 FragmentTransaction transaction=getFragmentManager().beginTransaction();
-                transaction.add(R.id.new_event_frag_container,newEventFra);
+                transaction.add(R.id.new_event_frag_container, newEventFra);
                 transaction.hide(calendarFra);
                 transaction.show(newEventFra);
                 transaction.commit();
+                fab.setVisibility(view.GONE);
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,5 +82,8 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.hide(newEventFra);
         transaction.show(calendarFra);
         transaction.commit();
+        fab.setVisibility(View.VISIBLE);
+
+
     }
 }
