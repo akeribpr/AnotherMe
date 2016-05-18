@@ -18,7 +18,7 @@ public class LogInFragment extends Fragment {
         public void startRegister();
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

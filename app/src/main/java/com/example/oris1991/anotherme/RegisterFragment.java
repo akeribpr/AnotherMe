@@ -3,7 +3,6 @@ package com.example.oris1991.anotherme;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import android.widget.Button;
  * Created by oris1991 on 08/05/2016.
  */
 public class RegisterFragment extends Fragment {
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

@@ -52,7 +52,7 @@ public class CalendarViewFragment extends Fragment{
     View view;
     Context mContext;
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
