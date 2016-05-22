@@ -64,7 +64,7 @@ public class Utility {
 		nameOfEvent.clear();
 		startDates.clear();
 		//endDates.clear();
-		descriptions.clear();
+		//descriptions.clear();
 		startTime.clear();
 		eventId.clear();
 		startDateAndTime.clear();
@@ -73,7 +73,7 @@ public class Utility {
 			nameOfEvent.add(cursor.getString(1));
 			startDates.add(getDate(Long.parseLong(cursor.getString(3))));
 //			endDates.add(getDate(Long.parseLong(cursor.getString(4))));
-			descriptions.add(cursor.getString(2));
+		//	descriptions.add(cursor.getString(2));
 			CNames[i] = cursor.getString(1);
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
 			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
@@ -92,7 +92,6 @@ public class Utility {
 
 		values.put("calendar_id", calID);
 		values.put("title",newEvent.getTitle());
-		values.put("description", newEvent.getDescription());
 		values.put("dtstart", newEvent.getStartTime());
 		values.put("dtend", newEvent.getEndTime());
 		values.put("eventLocation", newEvent.getLocation());

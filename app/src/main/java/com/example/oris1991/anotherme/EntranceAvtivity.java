@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * Created by oris1991 on 07/05/2016.
  */
-public class EntranceAvtivity extends Activity implements LogInFragment.Delegate {
+public class EntranceAvtivity extends Activity implements LogInFragment.Delegate,RegisterFragment.Delegate {
 
     LogInFragment logInFra;
     RegisterFragment registerFra;
@@ -31,5 +31,10 @@ public class EntranceAvtivity extends Activity implements LogInFragment.Delegate
         transaction.hide(logInFra);
         transaction.show(registerFra);
         transaction.commit();
+    }
+
+    @Override
+    public void finishFra() {
+        finish();
     }
 }

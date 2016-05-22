@@ -7,17 +7,13 @@ public class Event {
     long startTime;
     long endTime;
     String Title;
-    String description;
     String location;
-    String solution;
 
-    public Event( String title, String description,long startTime, long endTime, String location, String solution) {
+    public Event( String title,long startTime, long endTime, String location) {
         Title = title;
-        this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.solution = solution;
     }
 
     public String getTitle() {
@@ -29,13 +25,6 @@ public class Event {
         Title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getLocation() {
         return location;
@@ -43,14 +32,6 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getSolution() {
-        return solution;
-    }
-
-    public void setSolution(String solution) {
-        this.solution = solution;
     }
 
     public long getEndTime() {

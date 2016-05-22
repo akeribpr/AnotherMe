@@ -8,6 +8,21 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_history"
+        android:orderInCategory="100"
+        android:title="@string/action_history"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_popup_templates"
+        android:orderInCategory="100"
+        android:title="@string/action_popup_templates"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sms_templates"
+        android:orderInCategory="100"
+        android:title="@string/action_sms_templates"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_camera"
         android:orderInCategory="100"
         android:title="@string/action_camera"

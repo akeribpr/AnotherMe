@@ -4,6 +4,9 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -30,10 +33,21 @@
                 android:inputType="textAutoComplete|textPostalAddress"
                 android:editable="true" />
 
+            <CheckBox
+                android:id="@+id/autoGenerateCheckBox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Auto generate?"
+                android:textColor="#000" />
+
+
+
 
     </LinearLayout>
 
-    <LinearLayout
+
+   <!-- <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,7 +73,7 @@
             android:editable="true" />
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:orientation="horizontal"
@@ -186,10 +200,12 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/solution_spinner"
+    <Button
+        android:id="@+id/toDoButton"
         android:layout_width="fill_parent"
-        android:layout_height="82dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="What to do"/>
 
     <LinearLayout
         android:orientation="horizontal"

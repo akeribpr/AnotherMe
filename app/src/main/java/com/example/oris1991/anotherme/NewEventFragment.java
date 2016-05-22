@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ public class NewEventFragment extends Fragment {
     Spinner spinner;
 
     interface Delegate{
-        public void endFragment();
+        public void endFragment(int code);
     }
 
 
@@ -34,19 +35,15 @@ public class NewEventFragment extends Fragment {
         View view = inflater.inflate(R.layout.new_event_fragment, container, false);
         final Delegate delegate = (Delegate) getActivity();
         final TextView eventTitle = (TextView) view.findViewById(R.id.EventTitleEditText);
-        final TextView eventDesc = (TextView) view.findViewById(R.id.EventDescEditText);
         final DateEditText eventStartDate = (DateEditText) view.findViewById(R.id.startDateEditText);
         final DateEditText eventEndDate = (DateEditText) view.findViewById(R.id.endDateEditText);
         final TimeEditText eventStartTime = (TimeEditText) view.findViewById(R.id.startTimeEditText);
         final TimeEditText eventEndTime = (TimeEditText) view.findViewById(R.id.endTimeEditText);
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.autoGenerateCheckBox);
 
-        spinner = (Spinner) view.findViewById(R.id.solution_spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.solution_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        //spinner.getSelectedItem().toString()
+
+        Button toDo= (Button) view.findViewById(R.id.toDoButton);
         Button save= (Button) view.findViewById(R.id.saveB);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +59,19 @@ public class NewEventFragment extends Fragment {
                 endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
-                final Event newEvent= new Event(eventTitle.getText().toString(),eventDesc.getText().toString(),startMillis,endMillis,eventLocation.getText().toString(),spinner.getSelectedItem().toString());
+                final Event newEvent= new Event(eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
                 Utility.insertCalendarEvent(getActivity().getApplicationContext(),newEvent);
-                delegate.endFragment();
+                delegate.endFragment(1);
+            }
+        });
+
+        toDo.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                delegate.endFragment(2);
+
             }
         });
 

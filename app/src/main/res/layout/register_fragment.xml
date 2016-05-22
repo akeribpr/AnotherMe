@@ -61,7 +61,7 @@
             android:id="@+id/passwordEditText"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:inputType="textAutoComplete|textPostalAddress"
+            android:inputType="textPassword"
             android:editable="true" />
 
     </LinearLayout>
@@ -88,7 +88,7 @@
             android:id="@+id/password2EditText"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:inputType="textAutoComplete|textPostalAddress"
+            android:inputType="textPassword"
             android:editable="true" />
 
     </LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+
+    <EditText
+        android:id="@+id/template_sms_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:textSize="15sp" >
+    </EditText>
+
+    <Button
+        android:id="@+id/pick_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/template_sms_txt"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="dddd"
+         >
+    </Button>
+
+
+
+</RelativeLayout>

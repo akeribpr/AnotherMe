@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 
     <application
@@ -32,6 +33,21 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/action_history"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".PopupTemplates"
+            android:label="@string/action_popup_templates"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".SmsTemplates"
+            android:label="@string/action_sms_templates"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
