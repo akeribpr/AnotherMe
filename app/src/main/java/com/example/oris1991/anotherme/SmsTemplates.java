@@ -88,26 +88,17 @@ public class SmsTemplates extends AppCompatActivity {
         myDialog.setCancelable(false);
 
         templateText = (EditText)findViewById(R.id.template_sms_txt);;
-        text.setMovementMethod(ScrollingMovementMethod.getInstance());
-        text.setText(message);
+     /*   text.setMovementMethod(ScrollingMovementMethod.getInstance());
+        text.setText(message);*/
 
-        Button login = (Button) myDialog.findViewById(R.id.buttonlogin);
-        login.setOnClickListener(new View.OnClickListener() {
+
+        Button createAccount= (Button) myDialog.findViewById(R.id.pick_contact);
+        createAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);
                 myDialog.dismiss();
-
-
-            }
-        });
-
-        Button createAccount= (Button) myDialog.findViewById(R.id.buttoncreateaccount);
-        createAccount.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-
-                myDialog.dismiss();
-
-
             }
         });
 
