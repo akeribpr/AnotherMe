@@ -61,8 +61,9 @@ public class SmsTemplates extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent, PICK_CONTACT_REQUEST);
+             /*   Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);*/
+                newTemplateSmsDialog("sss","sss",SmsTemplates.this);
             }
 
         });
