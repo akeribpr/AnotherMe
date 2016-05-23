@@ -17,6 +17,8 @@ public class SoluttionFragment  extends Fragment{
 
         View view = inflater.inflate(R.layout.solution_fragment, container, false);
 
+
+
         return view;
     }
 }

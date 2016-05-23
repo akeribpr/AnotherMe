@@ -63,7 +63,8 @@ public class SmsOrPopupSql {
     }*/
 
     public static List<SMSOrPopup> getSmsPopups(SQLiteDatabase db) {
-        Cursor cursor = db.query(SMSPOPUP_TABLE,null, null, null, null, null, null);
+        String [] selectionArgs ={"SMS","Popup"};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"or " + SP_TYPE + " = ?",selectionArgs, null, null, null);
 
         List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
         if (cursor.moveToFirst()) {

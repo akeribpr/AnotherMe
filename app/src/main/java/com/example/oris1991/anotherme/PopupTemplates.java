@@ -1,13 +1,19 @@
 package com.example.oris1991.anotherme;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +35,8 @@ public class PopupTemplates  extends AppCompatActivity{
     ListView list;
     List<SMSOrPopup> data;
     MyAddapter adapter;
+    FloatingActionButton fab;
+    EditText templateText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +45,52 @@ public class PopupTemplates  extends AppCompatActivity{
 
         list = (ListView) findViewById(R.id.pop_up_list);
 
-        data = Model.instance().getSmsOrPopups();
+        data = Model.instance().getPopupsTemplates();
 
         adapter = new MyAddapter();
         list.setAdapter(adapter);
 
-        SMSOrPopup sp = new SMSOrPopup("Popup template",null,null,"sorry i am late");
-        Model.instance().add(sp);
-        data = Model.instance().getPopupsTemplates();
-        adapter.notifyDataSetChanged();
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             /*   Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                startActivityForResult(intent, PICK_CONTACT_REQUEST);*/
+                newTemplatePopupDialog("Enter template text:", PopupTemplates.this);
+            }
+
+        });
+    }
+
+    public void newTemplatePopupDialog(String title, final Context activity) {
+
+        final Dialog myDialog = new Dialog(activity);
+        myDialog.setContentView(R.layout.popup_templates_dialog);
+        myDialog.setTitle(title);
+        myDialog.setCancelable(false);
+
+        Button submitButton= (Button) myDialog.findViewById(R.id.submitPopupTemplate);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                templateText = (EditText) myDialog.findViewById(R.id.template_popup_txt);
+
+                SMSOrPopup sp = new SMSOrPopup("Popup template",null, null, templateText.getText().toString());
+                Model.instance().add(sp);
+                data = Model.instance().getPopupsTemplates();
+                adapter.notifyDataSetChanged();
+                myDialog.dismiss();
+            }
+        });
+
+        Button cancelButton= (Button) myDialog.findViewById(R.id.cancelPopupTemplate);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
 
 
+        myDialog.show();
     }
 
 

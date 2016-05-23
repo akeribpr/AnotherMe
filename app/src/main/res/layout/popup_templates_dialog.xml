@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/template_sms_txt"
+        android:id="@+id/template_popup_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -14,19 +13,6 @@
         android:paddingRight="18dp"
         android:textSize="15sp" >
     </EditText>
-
-    <Button
-        android:id="@+id/pick_contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/template_sms_txt"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:text="Pick a contact"
-
-         >
-    </Button>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -38,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="68dp"
             android:text="Cancel"
-            android:id="@+id/cancelSmsTemplate"
+            android:id="@+id/cancelPopupTemplate"
             android:layout_weight="1"
             android:layout_gravity="bottom"
             />
@@ -47,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="68dp"
             android:text="Submit"
-            android:id="@+id/submitSmsTemplate"
+            android:id="@+id/submitPopupTemplate"
             android:layout_weight="1"
             android:layout_gravity="bottom"
             />
@@ -55,6 +41,4 @@
 
     </LinearLayout>
 
-
-
-</RelativeLayout>
+</LinearLayout>

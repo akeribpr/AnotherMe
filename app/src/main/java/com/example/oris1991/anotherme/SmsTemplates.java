@@ -37,7 +37,8 @@ public class SmsTemplates extends AppCompatActivity {
     MyAddapter adapter;
     FloatingActionButton fab;
     int PICK_CONTACT_REQUEST =1;
-    EditText templateText;
+    String phoneNumber;
+    EditText templateTextt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +46,15 @@ public class SmsTemplates extends AppCompatActivity {
 
         setContentView(R.layout.sms_templates);
 
+
         list = (ListView) findViewById(R.id.sms_list);
 
-        data = Model.instance().getSmsOrPopups();
+        data = Model.instance().getSmsTemplates();
 
         adapter = new MyAddapter();
         list.setAdapter(adapter);
 
-        SMSOrPopup sp = new SMSOrPopup("Sms template","Itzik Choen",null,"sorry i am late...");
-        Model.instance().add(sp);
-        data = Model.instance().getSmsTemplates();
-        adapter.notifyDataSetChanged();
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +62,7 @@ public class SmsTemplates extends AppCompatActivity {
             public void onClick(View view) {
              /*   Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 startActivityForResult(intent, PICK_CONTACT_REQUEST);*/
-                newTemplateSmsDialog("sss","sss",SmsTemplates.this);
+                newTemplateSmsDialog("Enter template text:", SmsTemplates.this);
             }
 
         });
@@ -77,35 +76,52 @@ public class SmsTemplates extends AppCompatActivity {
             Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
             cursor.moveToFirst();
             int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            Log.d("phone number", cursor.getString(column));
+            phoneNumber=cursor.getString(column);
         }
     }
 
-    public void newTemplateSmsDialog(String title, String message, final Context activity) {
+    public void newTemplateSmsDialog(String title, final Context activity) {
 
         final Dialog myDialog = new Dialog(activity);
         myDialog.setContentView(R.layout.sms_templates_dialog);
         myDialog.setTitle(title);
         myDialog.setCancelable(false);
 
-        templateText = (EditText)findViewById(R.id.template_sms_txt);;
-     /*   text.setMovementMethod(ScrollingMovementMethod.getInstance());
-        text.setText(message);*/
+        //Log.d("ddd",templateText.toString());
 
 
         Button createAccount= (Button) myDialog.findViewById(R.id.pick_contact);
         createAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+
                 Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 startActivityForResult(intent, PICK_CONTACT_REQUEST);
+            }
+        });
+
+        Button submitButton= (Button) myDialog.findViewById(R.id.submitSmsTemplate);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                templateTextt = (EditText)myDialog.findViewById(R.id.template_sms_txt);
+
+                SMSOrPopup sp = new SMSOrPopup("Sms template",phoneNumber,null,templateTextt.getText().toString());
+                Model.instance().add(sp);
+                data = Model.instance().getSmsTemplates();
+                adapter.notifyDataSetChanged();
+                myDialog.dismiss();
+            }
+        });
+
+        Button cancelButton= (Button) myDialog.findViewById(R.id.cancelSmsTemplate);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 myDialog.dismiss();
             }
         });
 
 
         myDialog.show();
-
     }
 
     class MyAddapter extends BaseAdapter {

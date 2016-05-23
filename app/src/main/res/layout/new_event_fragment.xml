@@ -41,39 +41,8 @@
                 android:text="Auto generate?"
                 android:textColor="#000" />
 
-
-
-
     </LinearLayout>
 
-
-   <!-- <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_marginTop="20dp"
-
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Event description:"
-            android:id="@+id/event_desc_text" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/EventDescEditText"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:inputType="textAutoComplete|textPostalAddress"
-            android:editable="true" />
-
-
-    </LinearLayout>-->
 
     <LinearLayout
         android:orientation="horizontal"
