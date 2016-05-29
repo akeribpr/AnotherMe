@@ -1,13 +1,17 @@
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.LogIn;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
+import com.example.oris1991.anotherme.LogIn.LogInFragment;
+import com.example.oris1991.anotherme.LogIn.RegisterFragment;
+import com.example.oris1991.anotherme.R;
+
 /**
  * Created by oris1991 on 07/05/2016.
  */
-public class EntranceAvtivity extends Activity implements LogInFragment.Delegate,RegisterFragment.Delegate {
+public class LogInActivity extends Activity implements LogInFragment.Delegate,RegisterFragment.Delegate {
 
     LogInFragment logInFra;
     RegisterFragment registerFra;

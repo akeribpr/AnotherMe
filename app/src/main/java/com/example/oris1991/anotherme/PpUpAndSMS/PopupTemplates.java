@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.PpUpAndSMS;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.sqlLite.Model;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
 
