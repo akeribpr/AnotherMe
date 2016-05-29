@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.sqlLite;
 
+import com.example.oris1991.anotherme.Model.SMSOrPopup;
+
 import java.util.List;
 
 /**

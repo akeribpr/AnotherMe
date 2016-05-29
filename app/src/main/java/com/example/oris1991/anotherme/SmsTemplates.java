@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.oris1991.anotherme.sqlLite.Model;
-import com.example.oris1991.anotherme.sqlLite.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.SMSOrPopup;
 
 import java.util.List;
 

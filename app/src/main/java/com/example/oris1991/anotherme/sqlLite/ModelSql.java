@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.oris1991.anotherme.Model.SMSOrPopup;
 import com.example.oris1991.anotherme.MyApplication;
 
 import java.util.List;

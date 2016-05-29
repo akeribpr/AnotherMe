@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.oris1991.anotherme.sqlLite.Event;
+import com.example.oris1991.anotherme.Model.Event;
 
 import java.util.Calendar;
 
