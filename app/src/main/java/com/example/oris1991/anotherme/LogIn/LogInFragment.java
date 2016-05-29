@@ -33,6 +33,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     private Boolean saveLogin;
     Delegate delegate;
 
+
     interface Delegate{
         public void startRegister();
         public void finishFra();

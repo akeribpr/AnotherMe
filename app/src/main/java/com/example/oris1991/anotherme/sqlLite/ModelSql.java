@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
 import com.example.oris1991.anotherme.MyApplication;
 
@@ -20,6 +21,16 @@ public class ModelSql {
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
 
+    }
+
+    public void register(LogIn logIn){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        LogInSql.register(db, logIn);
+    }
+
+    public LogIn checkLogIn(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+       return LogInSql.getUser(db);
     }
 
     public void add(SMSOrPopup sp) {

@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme.PpUpAndSMS;
+package com.example.oris1991.anotherme.PopUpAndSMS;
 
 import android.app.Dialog;
 import android.content.Context;
