@@ -142,6 +142,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             startActivity(intent);
             return true;
         }
+        if (id == R.id.action_register)
+        {
+           //TODO
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

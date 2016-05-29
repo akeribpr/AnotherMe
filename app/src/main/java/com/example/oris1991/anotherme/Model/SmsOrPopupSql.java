@@ -26,41 +26,30 @@ public class SmsOrPopupSql {
         db.insert(SMSPOPUP_TABLE, SP_SENTTO, values);
     }
 
-/*    public static SMSOrPopup getSmsOrPopup(SQLiteDatabase db, String sp) {
-        String[] params = new String[1];
-        params[0] = stid;
-        Cursor cursor = db.query(STUDENTS_TABLE, null, STUDENTS_ID + " = ?", params, null, null, null);
 
+    public static List<SMSOrPopup> getSmsForPerson(SQLiteDatabase db,String person) {
+        String [] selectionArgs ={"Sms template",person};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"and " + SP_SENTTO + " = ?",selectionArgs, null, null, null);
+
+        List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
         if (cursor.moveToFirst()) {
-            int idIndex = cursor.getColumnIndex(STUDENTS_ID);
-            int fnameIndex = cursor.getColumnIndex(STUDENTS_FNAME);
-            int lnameIndex = cursor.getColumnIndex(STUDENTS_LNAME);
-            int phoneIndex = cursor.getColumnIndex(STUDENTS_PHONE);
-            int addressIndex = cursor.getColumnIndex(STUDENTS_ADDRESS);
-            int imageNameIndex = cursor.getColumnIndex(STUDENTS_IMAGE_NAME);
-            int checkedIndex = cursor.getColumnIndex(STUDENTS_CHECKED);
-            int birthDateIndex = cursor.getColumnIndex(STUDENTS_BIRTH_DATE);
-            int birthTimeIndex = cursor.getColumnIndex(STUDENTS_BIRTH_TIME);
-
-            String id = cursor.getString(idIndex);
-            String fname = cursor.getString(fnameIndex);
-            String lname = cursor.getString(lnameIndex);
-            String phone = cursor.getString(phoneIndex);
-            String address = cursor.getString(addressIndex);
-            String imageName = cursor.getString(imageNameIndex);
-            String checked = cursor.getString(checkedIndex);
-            boolean isChecked = true;
-            if (checked.equals("NO")) {
-                isChecked = false;
-            }
-            String birthDate = cursor.getString(birthDateIndex);
-            String birthTime = cursor.getString(birthTimeIndex);
-            Student st = new Student(id, fname, lname, phone, address, imageName,isChecked,birthDate,birthTime);
-            return st;
+            int typeIndex = cursor.getColumnIndex(SP_TYPE);
+            int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int timeIndex = cursor.getColumnIndex(SP_TIME);
+            int textIndex = cursor.getColumnIndex(SP_TEXT);
+            do {
+                String type = cursor.getString(typeIndex);
+                String sent = cursor.getString(sentIndex);
+                String time = cursor.getString(timeIndex);
+                String text = cursor.getString(textIndex);
+                SMSOrPopup sp = new SMSOrPopup(type,sent,time,text);
+                list.add(sp);
+            } while (cursor.moveToNext());
 
         }
-        return null;
-    }*/
+
+        return list;
+    }
 
     public static List<SMSOrPopup> getSmsPopups(SQLiteDatabase db) {
         String [] selectionArgs ={"SMS","Popup"};

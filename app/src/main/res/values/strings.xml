@@ -7,9 +7,11 @@
     <string name="action_camera">Camera</string>
     <string name="action_SMS">SMS</string>
     <string name="action_notification">Notification</string>
-    <string-array name="solution_array">
-        <item>SMS</item>
-        <item>Pop-up</item>
+    <string name="action_register">Register</string>
+    <string-array name="action_array">
+        <item>פגישה</item>
+        <item>סרט</item>
+        <item>ביביסיטר</item>
     </string-array>
     <string name="title_activity_connector">ConnectorActivity</string>
 </resources>

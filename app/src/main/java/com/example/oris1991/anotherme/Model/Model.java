@@ -22,10 +22,10 @@ public class Model {
         sqlModel.add(sp);
     }
 
-  /*  public Student getStudent(String id) {
+    public List<SMSOrPopup> getSmsForPerson(String person) {
 
-        return sqlModel.getStudent(id);
-    }*/
+        return sqlModel.getSmsForPerson( person);
+    }
 
     public List<SMSOrPopup> getSmsOrPopups() {
 
