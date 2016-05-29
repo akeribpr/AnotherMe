@@ -15,20 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.sqlLite.SMSOrPopup;
 
 import java.util.List;
 

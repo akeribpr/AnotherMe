@@ -2,9 +2,7 @@ package com.example.oris1991.anotherme;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,15 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.sqlLite.SMSOrPopup;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.List;
 
 /**

@@ -1,8 +1,6 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Dialog;
-import android.app.FragmentTransaction;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +19,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.sqlLite.SMSOrPopup;
 
 import java.util.List;
 

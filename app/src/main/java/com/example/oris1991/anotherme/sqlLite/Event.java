@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme.Model;
+package com.example.oris1991.anotherme.sqlLite;
 
 /**
  * Created by oris1991 on 09/05/2016.

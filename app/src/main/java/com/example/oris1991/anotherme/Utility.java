@@ -15,16 +15,14 @@
  */
 package com.example.oris1991.anotherme;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.Event;
+import com.example.oris1991.anotherme.sqlLite.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

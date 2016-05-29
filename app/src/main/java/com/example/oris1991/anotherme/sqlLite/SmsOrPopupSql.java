@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme.Model;
+package com.example.oris1991.anotherme.sqlLite;
 
 import android.content.ContentValues;
 import android.database.Cursor;

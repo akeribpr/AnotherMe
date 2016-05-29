@@ -1,21 +1,18 @@
 package com.example.oris1991.anotherme;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.oris1991.anotherme.Model.Event;
+import com.example.oris1991.anotherme.sqlLite.Event;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * Created by oris1991 on 07/05/2016.

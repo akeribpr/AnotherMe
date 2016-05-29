@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.show(calendarFra);
         transaction.commit();
 
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
