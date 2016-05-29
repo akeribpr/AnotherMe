@@ -31,6 +31,11 @@ public class ModelSql {
         return StudentSql.getStudent(db, id);
     }*/
 
+    public List<SMSOrPopup> getSmsForPerson(String person) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return SmsOrPopupSql.getSmsForPerson(db, person);
+    }
+
     public List<SMSOrPopup> getSmsOrPopups() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsPopups(db);
