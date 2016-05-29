@@ -11,6 +11,7 @@
         <item>SMS</item>
         <item>Pop-up</item>
     </string-array>
+    <string name="title_activity_connector">ConnectorActivity</string>
 </resources>
 
 
