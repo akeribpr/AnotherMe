@@ -99,6 +99,30 @@ public class SmsOrPopupSql {
         return list;
     }
 
+    public static List<SMSOrPopup> getLocation(SQLiteDatabase db) {
+        String [] selectionArgs ={"Location"};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_TYPE + " = ?",selectionArgs, null, null, null);
+
+        List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
+        if (cursor.moveToFirst()) {
+            int typeIndex = cursor.getColumnIndex(SP_TYPE);
+            int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int timeIndex = cursor.getColumnIndex(SP_TIME);
+            int textIndex = cursor.getColumnIndex(SP_TEXT);
+            do {
+                String type = cursor.getString(typeIndex);
+                String sent = cursor.getString(sentIndex);
+                String time = cursor.getString(timeIndex);
+                String text = cursor.getString(textIndex);
+                SMSOrPopup sp = new SMSOrPopup(type,sent,time,text);
+                list.add(sp);
+            } while (cursor.moveToNext());
+
+        }
+
+        return list;
+    }
+
     public static List<SMSOrPopup> getSmsTemplates(SQLiteDatabase db) {
         String [] selectionArgs ={"Sms template"};
         Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_TYPE + " = ?",selectionArgs, null, null, null);
