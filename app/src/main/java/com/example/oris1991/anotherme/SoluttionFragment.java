@@ -175,8 +175,9 @@ public class SoluttionFragment  extends Fragment{
 
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
         dataSms = Model.instance().getSmsForPerson(phoneNumber);
-        SMSOrPopup ns = new SMSOrPopup("Sms template",null,null,"nothing");
-        dataSms.add(ns);
+
+        //SMSOrPopup ns = new SMSOrPopup("Sms template",null,null,"nothing");
+        //dataSms.add(ns);
         adapterSms = new AdapterSmsList();
 
         listSms.setAdapter(adapterSms);
@@ -185,6 +186,7 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                //add by id to solution sms
                 smsTemplateChoose.setText(dataSms.get(position).getText().toString());
                 myDialog.dismiss();
             }
@@ -204,8 +206,8 @@ public class SoluttionFragment  extends Fragment{
 
         listPopup = (ListView) myDialog.findViewById(R.id.popup_dialog_list);
         dataPopup = Model.instance().getPopupsTemplates();
-        SMSOrPopup np = new SMSOrPopup("Popup template",null,null,"nothing");
-        dataPopup.add(np);
+//        SMSOrPopup np = new SMSOrPopup("Popup template",null,null,"nothing");
+//        dataPopup.add(np);
         adapterPopup = new AdapterPopupList();
 
         listPopup.setAdapter(adapterPopup);
