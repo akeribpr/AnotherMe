@@ -37,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.LogIn.LogInActivity;
 import com.example.oris1991.anotherme.Model.Gps;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
@@ -232,9 +233,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_register)
+        if (id == R.id.action_login)
         {
-            //TODO
+            Intent intent = new Intent(getApplicationContext(),
+                    LogInActivity.class);
+            startActivity(intent);
             return true;
         }
 
