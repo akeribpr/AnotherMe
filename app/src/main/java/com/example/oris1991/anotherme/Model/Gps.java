@@ -6,10 +6,20 @@ package com.example.oris1991.anotherme.Model;
 public class Gps {
     String latitude;
     String longitude;
+    String time;
 
-    public Gps(String latitude, String longitude) {
-        this.latitude = latitude;
+    public Gps(String time, String longitude, String latitude) {
+        this.time = time;
         this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getLatitude() {

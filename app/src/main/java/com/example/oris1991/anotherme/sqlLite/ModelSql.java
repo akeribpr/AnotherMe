@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.oris1991.anotherme.Model.Gps;
 import com.example.oris1991.anotherme.MyApplication;
 
 import java.util.List;
@@ -15,10 +16,11 @@ public class ModelSql {
     private static final int VERSION = 1;
 
     MyDBHelper dbHelper;
+    MyDBHelperGps dbGpsHelper;
 
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
-
+        dbGpsHelper= new MyDBHelperGps(MyApplication.getAppContext());
     }
 
     public void add(SMSOrPopup sp) {
@@ -50,6 +52,18 @@ public class ModelSql {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsTemplates(db);
     }
+
+    public Gps getGps() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return GpsSql.getGps(db);
+    }
+
+    public void editGps(Gps gps) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        GpsSql.editGps (db,gps);
+
+
+    }
 /*    public void delete(Student st) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         StudentSql.delete(db, st);
@@ -77,6 +91,26 @@ public class ModelSql {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
            SmsOrPopupSql.drop(db);
+            onCreate(db);
+        }
+    }
+
+    class MyDBHelperGps extends SQLiteOpenHelper {
+
+        public MyDBHelperGps(Context context) {
+            super(context, "database.db", null, VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            //create the DB schema
+            GpsSql.create(db);
+
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            GpsSql.drop(db);
             onCreate(db);
         }
     }

@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.sqlLite;
 
+import com.example.oris1991.anotherme.Model.Gps;
+
 import java.util.List;
 
 /**
@@ -24,7 +26,7 @@ public class Model {
 
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
-        return sqlModel.getSmsForPerson( person);
+        return sqlModel.getSmsForPerson(person);
     }
 
     public List<SMSOrPopup> getSmsOrPopups() {
@@ -38,9 +40,19 @@ public class Model {
     }
 
     public List<SMSOrPopup> getSmsTemplates() {
-
         return sqlModel.getSmsTemplates();
     }
+
+  /*  public  Gps getGps() {
+
+        return sqlModel.getGps();
+    }
+
+    public  void editGps(Gps gps) {
+
+        return sqlModel.editGps(gps);
+    }*/
+
 
    /* public void delete(Student st) {
         sqlModel.delete(st);
