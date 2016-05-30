@@ -40,6 +40,11 @@ public class ModelSql {
 
     }
 
+    public  int numberOfRow(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return SmsOrPopupSql.numberOfRow(db);
+    }
+
     public void add(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         SmsOrPopupSql.add(db, sp);

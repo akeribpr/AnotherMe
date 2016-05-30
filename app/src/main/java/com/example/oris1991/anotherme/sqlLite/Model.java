@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.sqlLite;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
 
@@ -61,7 +63,10 @@ public class Model {
 
         return sqlModel.getSmsTemplates();
     }
+    public  int numberOfRow( ){
 
+        return sqlModel.numberOfRow();
+    }
    /* public void delete(Student st) {
         sqlModel.delete(st);
     }*/

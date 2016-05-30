@@ -10,9 +10,8 @@ public class Task {
     String Title;
     String location;
     int whatToDo;
-
-
     Solution solution;
+
     public Task(String title, long startTime, long endTime, String location,int whatToDo) {
         Title = title;
         this.startTime = startTime;

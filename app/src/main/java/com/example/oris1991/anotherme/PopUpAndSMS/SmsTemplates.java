@@ -102,8 +102,9 @@ public class SmsTemplates extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 templateTextt = (EditText)myDialog.findViewById(R.id.template_sms_txt);
-
-                SMSOrPopup sp = new SMSOrPopup("Sms template",phoneNumber,null,templateTextt.getText().toString());
+                int i = Model.instance().numberOfRow();
+                i++;
+                SMSOrPopup sp = new SMSOrPopup(i,"Sms template",phoneNumber,null,templateTextt.getText().toString());
                 Model.instance().add(sp);
                 data = Model.instance().getSmsTemplates();
                 adapter.notifyDataSetChanged();

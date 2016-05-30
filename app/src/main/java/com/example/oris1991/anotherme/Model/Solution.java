@@ -5,9 +5,11 @@ package com.example.oris1991.anotherme.Model;
  */
 public class Solution {
 
-    long startTime;
-    long endTime;
-    String Title;
-    String location;
+    Double idSolution;
+    Task task;
+  //  SMS sms;
+    Long startTime;
+   // PopUp popUp;
     int whatToDo;
+    //int timeToArriving=TIME;
 }

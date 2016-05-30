@@ -4,16 +4,21 @@ package com.example.oris1991.anotherme.Model;
  * Created by oris1991 on 19/05/2016.
  */
 public class SMSOrPopup {
+
+
+    int id;
     String type;
     String sendto;
     String time;
     String text;
 
-    public SMSOrPopup(String type, String sendto, String time, String text) {
+    public SMSOrPopup(int id,String type, String sendto, String time, String text) {
+        this.id = id;
         this.type = type;
         this.sendto = sendto;
         this.time = time;
         this.text = text;
+
     }
 
     public void setText(String text) {
@@ -48,5 +53,12 @@ public class SMSOrPopup {
 
     public String getText() {
         return text;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

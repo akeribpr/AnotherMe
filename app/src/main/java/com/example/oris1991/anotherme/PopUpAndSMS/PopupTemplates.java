@@ -67,8 +67,9 @@ public class PopupTemplates  extends AppCompatActivity{
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 templateText = (EditText) myDialog.findViewById(R.id.template_popup_txt);
-
-                SMSOrPopup sp = new SMSOrPopup("Popup template",null, null, templateText.getText().toString());
+                int i = Model.instance().numberOfRow();
+                i++;
+                SMSOrPopup sp = new SMSOrPopup(i,"Popup template",null, null, templateText.getText().toString());
                 Model.instance().add(sp);
                 data = Model.instance().getPopupsTemplates();
                 adapter.notifyDataSetChanged();

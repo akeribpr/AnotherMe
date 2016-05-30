@@ -58,7 +58,7 @@ public class NewEventFragment extends Fragment {
                 endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
-                final Task newTask = new Task(eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
+                final Task newTask = new Task(eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString(),1);
 
                 Utility.insertCalendarEvent(getActivity().getApplicationContext(), newTask);
                 delegate.endFragment(1);
