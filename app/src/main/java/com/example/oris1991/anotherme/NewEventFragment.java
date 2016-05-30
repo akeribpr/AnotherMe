@@ -43,6 +43,7 @@ public class NewEventFragment extends Fragment {
 
         Button toDo= (Button) view.findViewById(R.id.toDoButton);
         Button save= (Button) view.findViewById(R.id.saveB);
+        Button cancel= (Button) view.findViewById(R.id.cancelB);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,15 @@ public class NewEventFragment extends Fragment {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                delegate.endFragment(1);
+
+            }
+        });
+
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -72,6 +82,8 @@ public class NewEventFragment extends Fragment {
 
             }
         });
+
+
 
         return view;
     }

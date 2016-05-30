@@ -1,5 +1,6 @@
 package com.example.oris1991.anotherme;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -9,6 +10,7 @@ import android.preference.PreferenceActivity;
  */
 public class SettingsActivity extends PreferenceActivity{
 
+    private static final int PREFERENCE_MODE_PRIVATE=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +18,7 @@ public class SettingsActivity extends PreferenceActivity{
             addPreferencesFromResource(R.xml.preferences);
         Preference customPref = (Preference) findPreference("pref_register_time");
         customPref.setSummary("2.3.16");
+
 
     }
 }
