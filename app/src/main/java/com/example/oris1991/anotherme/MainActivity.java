@@ -30,6 +30,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
+import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
