@@ -1,5 +1,6 @@
 package com.example.oris1991.anotherme;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -9,18 +10,24 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
@@ -30,6 +37,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.Model.Gps;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
@@ -39,13 +47,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate{
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
     SoluttionFragment solFra;
     FloatingActionButton fab;
+    protected LocationManager  mlocManager;
+    SharedPreferences sharedPreferencesPut;
+    SharedPreferences sharedPreferencesGet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +65,27 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Gps gp =new Gps("10:00","232.543","43.4543");
+
         // Make sure that GPS is enabled on the device
-        LocationManager mlocManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mlocManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         boolean enabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if(!enabled) {
             showDialogGPS();
         }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000, 0, this);
 
         calendarFra=new CalendarViewFragment();
         FragmentTransaction transaction=getFragmentManager().beginTransaction();
@@ -82,6 +107,39 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             }
         });
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        SharedPreferences  sharedPreferencesPut = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor =  sharedPreferencesPut.edit();
+        editor.putString("Lat", String.valueOf( location.getLatitude()));
+        editor.putString("Lon", String.valueOf(location.getLongitude()));
+        editor.commit();
+
+        sharedPreferencesGet = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String lat = sharedPreferencesGet.getString("Lat", "no lat");
+        String lon = sharedPreferencesGet.getString("Lon", "no lon");
+        Log.d("Tag", lat);
+        Log.d("Tag", lon);
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Log.d("Latitude","disable");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        Log.d("Latitude","enable");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude", "status");
+    }
+
 
     private void showDialogGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -121,9 +179,9 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-                Intent intent = new Intent(getApplicationContext(),
-                        SettingsActivity.class);
-                startActivity(intent);
+            Intent intent = new Intent(getApplicationContext(),
+                    SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_history) {
@@ -176,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         }
         if (id == R.id.action_register)
         {
-           //TODO
+            //TODO
             return true;
         }
 
@@ -232,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                     startActivityForResult(
                             Intent.createChooser(intent, "Select File"),
                             SELECT_FILE);
-                  //  startActivityForResult(intent, SELECT_FILE);
+                    //  startActivityForResult(intent, SELECT_FILE);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -261,7 +319,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-              //  ivImage.setImageBitmap(thumbnail);
+                //  ivImage.setImageBitmap(thumbnail);
             } else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();
                 String[] projection = {MediaStore.MediaColumns.DATA};
@@ -283,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 options.inSampleSize = scale;
                 options.inJustDecodeBounds = false;
                 bm = BitmapFactory.decodeFile(selectedImagePath, options);
-               // ivImage.setImageBitmap(bm);
+                // ivImage.setImageBitmap(bm);
             }
         }
     }
