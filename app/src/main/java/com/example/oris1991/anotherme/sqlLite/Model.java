@@ -1,5 +1,6 @@
 package com.example.oris1991.anotherme.sqlLite;
 
+import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
 
 import java.util.List;
@@ -16,14 +17,31 @@ public class Model {
         sqlModel = new ModelSql();
     }
 
+
     public static Model instance() {
         return instance;
+    }
+
+    public Boolean checkUser(LogIn logIn){
+
+        return sqlModel.checkUser(logIn);
     }
 
     public void add(SMSOrPopup sp) {
         sqlModel.add(sp);
     }
 
+    public void add(LogIn logIn) {
+        sqlModel.register(logIn);
+    }
+
+    public  void register(LogIn login){
+        sqlModel.register(login);
+    }
+
+    public LogIn getUser(){
+      return  sqlModel.checkLogIn();
+    }
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
         return sqlModel.getSmsForPerson( person);

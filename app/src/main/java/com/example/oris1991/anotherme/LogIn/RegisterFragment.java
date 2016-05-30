@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
+import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.R;
+import com.example.oris1991.anotherme.sqlLite.Model;
 
 /**
  * Created by oris1991 on 08/05/2016.
@@ -24,10 +27,10 @@ public class RegisterFragment extends Fragment {
     }
 
     EditText usernameText,passwordText,password2Text;
-    String pass1,pass2;
+    String pass1,pass2,user;
     Context mcontext;
     Delegate delegate;
-
+    private Model model;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,11 +41,12 @@ public class RegisterFragment extends Fragment {
         passwordText = (EditText)view.findViewById(R.id.passwordEditText);
         password2Text = (EditText)view.findViewById(R.id.password2EditText);
         mcontext = getActivity().getApplicationContext();
-
+        //model = Model.instance();
         Button submit= (Button) view.findViewById(R.id.submitB);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user =  usernameText.getText().toString();
                 pass1 = passwordText.getText().toString();
                 pass2 = password2Text.getText().toString();
 
@@ -58,6 +62,8 @@ public class RegisterFragment extends Fragment {
                     }
                     else
                     {
+                        LogIn logIn = new LogIn(user,pass1);
+                        Model.instance().register(logIn);
                         Intent intent = new Intent(getActivity(),
                                 MainActivity.class);
                         startActivity(intent);

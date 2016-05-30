@@ -16,7 +16,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
+import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.R;
+import com.example.oris1991.anotherme.sqlLite.Model;
 
 
 /**
@@ -32,7 +34,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     Delegate delegate;
-
+   // private Model model;
 
     interface Delegate{
         public void startRegister();
@@ -55,17 +57,24 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         saveLoginCheckBox = (CheckBox)view.findViewById(R.id.saveLoginCheckBox);
         loginPreferences = getActivity().getSharedPreferences("loginPrefs",  Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
+       // model = Model.instance().
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            editTextUsername.setText(loginPreferences.getString("username", ""));
-            editTextPassword.setText(loginPreferences.getString("password", ""));
-            saveLoginCheckBox.setChecked(true);
-        }
-        if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
-        {
+//        if (saveLogin == true) {
+//            editTextUsername.setText(loginPreferences.getString("username", ""));
+//            editTextPassword.setText(loginPreferences.getString("password", ""));
+//            saveLoginCheckBox.setChecked(true);
+//        }
+      //  LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
 
-            startActivity();
-        }
+//        if(Model.instance().checkUser(logIn)){
+////        if(model.checkUser(logIn)){
+//            startActivity();
+//        }
+//        if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
+//        {
+//
+//            startActivity();
+//        }
 
 
 
@@ -96,9 +105,8 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                 loginPrefsEditor.clear();
                 loginPrefsEditor.commit();
             }
-
-            if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
-            {
+            LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
+            if(Model.instance().checkUser(logIn)){
                 startActivity();
             }
             else
