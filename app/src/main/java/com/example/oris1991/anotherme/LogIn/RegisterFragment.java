@@ -43,6 +43,8 @@ public class RegisterFragment extends Fragment {
         mcontext = getActivity().getApplicationContext();
         //model = Model.instance();
         Button submit= (Button) view.findViewById(R.id.submitB);
+        Button exit= (Button) view.findViewById(R.id.exitB);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +72,15 @@ public class RegisterFragment extends Fragment {
                         delegate.finishFra();
                     }
                 }
+            }
+        });
+
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                delegate.finishFra();
             }
         });
 

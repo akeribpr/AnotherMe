@@ -12,6 +12,14 @@
         android:key="pref_register_time"
         android:summary="1.1.16"
         android:title="זמן רישום"/>
+    <Preference
+        android:key="pref_mail"
+        android:title="מייל"
+        android:defaultValue="false"/>
+    <Preference
+        android:key="pref_age"
+        android:title="גיל"
+        android:defaultValue="false"/>
     <CheckBoxPreference android:title="SMS"
         android:defaultValue="false"
         android:key="pref_SMS" />
