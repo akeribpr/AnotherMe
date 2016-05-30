@@ -16,6 +16,7 @@ public class TaskSql {
 
 
     private static final String TASK_TABLE = "Task_Table";
+    private static final String ID = "id";
     private static final String START = "startTime";
     private static final String END = "endTime";
     private static final String TITLE = "Title";
@@ -26,23 +27,24 @@ public class TaskSql {
     public static void addTask(SQLiteDatabase db, Task sp) {
 
         ContentValues values = new ContentValues();
+        values.put(ID, sp.getId());
         values.put(TITLE, sp.getTitle());
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
         values.put(WHAT_TO_DO, sp.getWhatToDo());
-//        values.put(WHAT_TO_DO, sp.getSolution());
-        db.insert(TASK_TABLE, START,values);
+        values.put(SOLUTION, sp.getSolution().getIdSolution());
+        db.insert(TASK_TABLE,ID,values);
     }
 
 
-//    public static LogIn getUser(SQLiteDatabase db) {
-//
-//        LogIn logIn = null;
-//
-//        Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
-//
-//
+    public static Task getTask(SQLiteDatabase db) {
+
+        Task task = null;
+
+        Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
+
+
 //        if (cursor.moveToFirst()) {
 //            int personId = cursor.getColumnIndex(PERSON_ID);
 //            int password = cursor.getColumnIndex(PASSWORD);
@@ -51,29 +53,25 @@ public class TaskSql {
 //            return logIn;
 //        }
 //        return logIn;
-//    }
-//
-//    public static boolean checkUser(SQLiteDatabase db, LogIn sp) {
-//
-//        LogIn logData = getUser(db);
-//        Log.d("Log",logData.getPersonId() +"    "+logData.getPassword());
-//        Log.d("Log",sp.getPersonId() +"    "+sp.getPassword());
-//
-//        if ((logData.getPersonId().equals(sp.getPersonId()))&&(logData.getPassword().equals(sp.getPassword()))) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-//    public static void create(SQLiteDatabase db) {
-//        db.execSQL("create table " +
-//                LOGIN_TABLE + " (" +
-//                PERSON_ID + " TEXT," +
-//                PASSWORD + " TEXT);");
-//    }
-//
-//    public static void drop(SQLiteDatabase db) {
-//        db.execSQL("drop table " + LOGIN_TABLE);
-//    }
+        return null;
+    }
+
+
+    public static void create(SQLiteDatabase db) {
+        db.execSQL("create table " +
+                TASK_TABLE + " (" +
+                ID + " INTEGER," +
+                START + " TEXT," +
+                END + " TEXT," +
+                TITLE + " TEXT," +
+                LOCATION + " TEXT," +
+                WHAT_TO_DO + " INTEGER," +
+                SOLUTION + " INTEGER);");
+    }
+
+    public static void drop(SQLiteDatabase db) {
+        db.execSQL("drop table " + TASK_TABLE);
+    }
+
 
 }

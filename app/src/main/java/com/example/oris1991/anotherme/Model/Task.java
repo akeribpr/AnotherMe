@@ -5,6 +5,9 @@ package com.example.oris1991.anotherme.Model;
  */
 public class Task {
 
+
+
+    int id;
     long startTime;
     long endTime;
     String Title;
@@ -12,8 +15,9 @@ public class Task {
     int whatToDo;
     Solution solution;
 
-    public Task(String title, long startTime, long endTime, String location,int whatToDo) {
-        Title = title;
+    public Task(int id,String title, long startTime, long endTime, String location,int whatToDo) {
+        this.id=id;
+        this.Title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
@@ -68,6 +72,13 @@ public class Task {
     }
     public void setStartTime(long startTime) {
         this.startTime = startTime;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 
