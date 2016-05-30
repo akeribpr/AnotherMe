@@ -1,27 +1,22 @@
 package com.example.oris1991.anotherme;
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.oris1991.anotherme.ExternalCalendar.CalendarAdapter;
+import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -184,7 +179,7 @@ public class CalendarViewFragment extends Fragment{
                         TextView rowTextView = new TextView(MainActivity.this);
 
                         // set some properties of rowTextView or something
-                        rowTextView.setText("Event:" + desc.get(i));
+                        rowTextView.setText("Task:" + desc.get(i));
                         rowTextView.setTextColor(Color.BLACK);
 
 
@@ -248,7 +243,7 @@ public class CalendarViewFragment extends Fragment{
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String itemvalue;
             event = Utility.readCalendarEvent(getActivity().getApplicationContext());
-            Log.d("=====Event====", event.toString());
+            Log.d("=====Task====", event.toString());
             Log.d("=====Date ARRAY====", Utility.startDates.toString());
 
             for (int i = 0; i < Utility.startDates.size(); i++) {

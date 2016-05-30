@@ -10,7 +10,8 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.oris1991.anotherme.sqlLite.Event;
+import com.example.oris1991.anotherme.ExternalCalendar.Utility;
+import com.example.oris1991.anotherme.Model.Task;
 
 import java.util.Calendar;
 
@@ -56,9 +57,9 @@ public class NewEventFragment extends Fragment {
                 endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
-                final Event newEvent= new Event(eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
+                final Task newTask = new Task(eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
-                Utility.insertCalendarEvent(getActivity().getApplicationContext(),newEvent);
+                Utility.insertCalendarEvent(getActivity().getApplicationContext(), newTask);
                 delegate.endFragment(1);
             }
         });

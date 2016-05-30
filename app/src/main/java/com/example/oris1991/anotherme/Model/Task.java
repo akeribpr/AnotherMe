@@ -1,15 +1,18 @@
-package com.example.oris1991.anotherme.sqlLite;
+package com.example.oris1991.anotherme.Model;
 
 /**
  * Created by oris1991 on 09/05/2016.
  */
-public class Event {
+public class Task {
+
     long startTime;
     long endTime;
     String Title;
     String location;
-
-    public Event( String title,long startTime, long endTime, String location) {
+    int whatToDo;
+    String withPerson;
+    Solution solution;
+    public Task(String title, long startTime, long endTime, String location) {
         Title = title;
         this.startTime = startTime;
         this.endTime = endTime;

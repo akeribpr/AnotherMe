@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.oris1991.anotherme.Model.SMSOrPopup;
+
 import java.util.LinkedList;
 import java.util.List;
 

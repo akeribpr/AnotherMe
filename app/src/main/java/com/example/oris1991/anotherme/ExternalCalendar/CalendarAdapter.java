@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.ExternalCalendar;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.oris1991.anotherme.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

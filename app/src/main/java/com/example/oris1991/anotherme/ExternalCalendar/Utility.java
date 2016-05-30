@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.ExternalCalendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,7 +22,7 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.sqlLite.Event;
+import com.example.oris1991.anotherme.Model.Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -82,17 +82,17 @@ public class Utility {
 		return nameOfEvent;
 	}
 
-	public static void insertCalendarEvent(Context context,Event newEvent) {
+	public static void insertCalendarEvent(Context context,Task newTask) {
 
 		long calID = 1;
 
 		ContentValues values = new ContentValues();
 
 		values.put("calendar_id", calID);
-		values.put("title",newEvent.getTitle());
-		values.put("dtstart", newEvent.getStartTime());
-		values.put("dtend", newEvent.getEndTime());
-		values.put("eventLocation", newEvent.getLocation());
+		values.put("title", newTask.getTitle());
+		values.put("dtstart", newTask.getStartTime());
+		values.put("dtend", newTask.getEndTime());
+		values.put("eventLocation", newTask.getLocation());
 		values.put("eventTimezone", TimeZone.getDefault().getID());
 
 

@@ -22,7 +22,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".EntranceAvtivity">
+        <activity android:name=".LogIn.LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,11 +38,11 @@
             android:label="@string/action_history"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".PopupTemplates"
+            android:name=".PopUpAndSMS.PopupTemplates"
             android:label="@string/action_popup_templates"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".SmsTemplates"
+            android:name=".PopUpAndSMS.SmsTemplates"
             android:label="@string/action_sms_templates"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

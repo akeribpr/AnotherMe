@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.LogIn;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -15,6 +15,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.MainActivity;
+import com.example.oris1991.anotherme.R;
+
+
 /**
  * Created by oris1991 on 07/05/2016.
  */
@@ -28,6 +32,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     Delegate delegate;
+
 
     interface Delegate{
         public void startRegister();
@@ -50,7 +55,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         saveLoginCheckBox = (CheckBox)view.findViewById(R.id.saveLoginCheckBox);
         loginPreferences = getActivity().getSharedPreferences("loginPrefs",  Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
             editTextUsername.setText(loginPreferences.getString("username", ""));
@@ -59,6 +63,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         }
         if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
         {
+
             startActivity();
         }
 

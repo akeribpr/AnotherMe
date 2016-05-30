@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme;
+package com.example.oris1991.anotherme.LogIn;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.oris1991.anotherme.MainActivity;
+import com.example.oris1991.anotherme.R;
 
 /**
  * Created by oris1991 on 08/05/2016.
