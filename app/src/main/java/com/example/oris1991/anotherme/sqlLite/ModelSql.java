@@ -14,7 +14,7 @@ import java.util.List;
  * Created by eliav.menachi on 16/03/2016.
  */
 public class ModelSql {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     MyDBHelper dbHelper;
 

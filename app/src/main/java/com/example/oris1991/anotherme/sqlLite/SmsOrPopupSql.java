@@ -17,6 +17,7 @@ public class SmsOrPopupSql {
     private static final String ID = "id";
     private static final String SP_TYPE = "type";
     private static final String SP_SENTTO = "sent_to";
+    private static final String SP_SENTTO_NAME = "sent_to_name";
     private static final String SP_TIME = "time";
     private static final String SP_TEXT = "text";
 
@@ -25,6 +26,7 @@ public class SmsOrPopupSql {
         values.put(ID, sp.getId());
         values.put(SP_TYPE, sp.getType());
         values.put(SP_SENTTO, sp.getSendto());
+        values.put(SP_SENTTO_NAME, sp.getSendtoName());
         values.put(SP_TIME, sp.getTime());
         values.put(SP_TEXT, sp.getText());
         db.insert(SMSPOPUP_TABLE, SP_SENTTO, values);
@@ -47,15 +49,17 @@ public class SmsOrPopupSql {
             int id = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
             int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -73,15 +77,17 @@ public class SmsOrPopupSql {
             int id = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
             int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -99,15 +105,17 @@ public class SmsOrPopupSql {
             int id = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
             int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -126,14 +134,16 @@ public class SmsOrPopupSql {
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
             int sentIndex = cursor.getColumnIndex(SP_SENTTO);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -151,15 +161,17 @@ public class SmsOrPopupSql {
             int id = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
             int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -175,6 +187,7 @@ public class SmsOrPopupSql {
                 ID + " TEXT," +
                 SP_TYPE + " TEXT," +
                 SP_SENTTO + " TEXT," +
+                SP_SENTTO_NAME + " TEXT," +
                 SP_TIME + " TEXT," +
                 SP_TEXT + " TEXT);");
     }

@@ -34,6 +34,7 @@ public class SoluttionFragment  extends Fragment{
 
     int PICK_CONTACT_REQUEST =1;
     String phoneNumber;
+    String phoneName;
     ListView listSms;
     List<SMSOrPopup> dataSms;
     AdapterSmsList adapterSms;
@@ -118,8 +119,10 @@ public class SoluttionFragment  extends Fragment{
             Uri contactUri = data.getData();
             Cursor cursor = getActivity().getContentResolver().query(contactUri, null, null, null, null);
             cursor.moveToFirst();
-            int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            phoneNumber=cursor.getString(column);
+            int columnNu = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int columnNa = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNumber=cursor.getString(columnNu);
+            phoneName=cursor.getString(columnNa);
         }
     }
 
@@ -150,7 +153,7 @@ public class SoluttionFragment  extends Fragment{
         Button submitButton= (Button) myDialog.findViewById(R.id.submitDoWith);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                phoneChoose.setText(phoneNumber);
+                phoneChoose.setText(phoneNumber+ " "+phoneName);
                 myDialog.dismiss();
             }
         });
@@ -173,6 +176,7 @@ public class SoluttionFragment  extends Fragment{
         myDialog.setTitle("Pick a sms template:");
         myDialog.setCancelable(false);
 
+        Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
         dataSms = Model.instance().getSmsForPerson(phoneNumber);
 
@@ -192,6 +196,12 @@ public class SoluttionFragment  extends Fragment{
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
 
 
         myDialog.show();
@@ -203,6 +213,8 @@ public class SoluttionFragment  extends Fragment{
         myDialog.setContentView(R.layout.popup_dialog);
         myDialog.setTitle("Pick a popup template:");
         myDialog.setCancelable(false);
+
+        Button cancel= (Button) myDialog.findViewById(R.id.popup_dialog_cancel);
 
         listPopup = (ListView) myDialog.findViewById(R.id.popup_dialog_list);
         dataPopup = Model.instance().getPopupsTemplates();
@@ -221,7 +233,11 @@ public class SoluttionFragment  extends Fragment{
             }
         });
 
-
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
 
         myDialog.show();
     }

@@ -37,6 +37,7 @@ public class SmsTemplates extends AppCompatActivity {
     int PICK_CONTACT_REQUEST =1;
     String phoneNumber;
     EditText templateTextt;
+    String phoneName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,9 @@ public class SmsTemplates extends AppCompatActivity {
             Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
             cursor.moveToFirst();
             int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int columnName = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             phoneNumber=cursor.getString(column);
+            phoneName=cursor.getString(columnName);
         }
     }
 
@@ -104,7 +107,7 @@ public class SmsTemplates extends AppCompatActivity {
                 templateTextt = (EditText)myDialog.findViewById(R.id.template_sms_txt);
                 int i = Model.instance().numberOfRow();
                 i++;
-                SMSOrPopup sp = new SMSOrPopup(i,"Sms template",phoneNumber,null,templateTextt.getText().toString());
+                SMSOrPopup sp = new SMSOrPopup(i,"Sms template",phoneNumber,phoneName,null,templateTextt.getText().toString());
                 Model.instance().add(sp);
                 data = Model.instance().getSmsTemplates();
                 adapter.notifyDataSetChanged();
@@ -157,7 +160,7 @@ public class SmsTemplates extends AppCompatActivity {
             SMSOrPopup sp = data.get(position);
 
             text.setText(sp.getText());
-            sendTo.setText(sp.getSendto());
+            sendTo.setText(sp.getSendto()+" "+sp.getSendtoName());
 
             return convertView;
         }

@@ -9,15 +9,26 @@ public class SMSOrPopup {
     int id;
     String type;
     String sendto;
+    String sendtoName;
     String time;
     String text;
 
-    public SMSOrPopup(int id,String type, String sendto, String time, String text) {
+    public String getSendtoName() {
+        return sendtoName;
+    }
+
+    public void setSendtoName(String sendtoName) {
+        this.sendtoName = sendtoName;
+    }
+
+    public SMSOrPopup(int id,String type, String sendto, String sendtoName, String time, String text) {
         this.id = id;
         this.type = type;
         this.sendto = sendto;
         this.time = time;
         this.text = text;
+        this.sendtoName=sendtoName;
+
 
     }
 
