@@ -82,8 +82,8 @@ public class Utility {
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
 			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
 			startDateAndTime.add(cursor.getString(3));
-			Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null);
-			Model.instance().addTask(task);
+			//Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null);
+			//Model.instance().addTask(task);
 			//taskArry.add(task);
 
 			cursor.moveToNext();
