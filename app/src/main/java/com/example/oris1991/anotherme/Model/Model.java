@@ -1,9 +1,10 @@
-package com.example.oris1991.anotherme.sqlLite;
+package com.example.oris1991.anotherme.Model;
 
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.oris1991.anotherme.Model.LogIn;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
 
