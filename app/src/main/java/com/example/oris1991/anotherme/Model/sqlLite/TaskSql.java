@@ -45,17 +45,15 @@ public class TaskSql {
         Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
 
 
-//        if (cursor.moveToFirst()) {
-//            int personId = cursor.getColumnIndex(PERSON_ID);
-//            int password = cursor.getColumnIndex(PASSWORD);
-//
-//            logIn = new LogIn(cursor.getString(personId),cursor.getString(password));
-//            return logIn;
-//        }
-//        return logIn;
         return null;
     }
-
+    public static int numberOfRow(SQLiteDatabase db){
+        String countQuery = "SELECT  * FROM " + TASK_TABLE;
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        //  cursor.close();
+        return cnt;
+    }
 
     public static void create(SQLiteDatabase db) {
         db.execSQL("create table " +

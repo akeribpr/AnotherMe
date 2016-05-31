@@ -15,4 +15,5 @@ public interface ModelInterface {
     public List<SMSOrPopup> getSmsTemplates();
 
 
+
 }
