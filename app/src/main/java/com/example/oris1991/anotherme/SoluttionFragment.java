@@ -49,12 +49,16 @@ public class SoluttionFragment  extends Fragment{
     NumberPicker np;
 
 
+    interface Delegate{
+        public void endFragment(int code);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.solution_fragment, container, false);
-
+        final Delegate delegate = (Delegate) getActivity();
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
         popupTemplateChoose = (TextView) view.findViewById(R.id.popup_text);
@@ -63,6 +67,8 @@ public class SoluttionFragment  extends Fragment{
         Button doWith= (Button) view.findViewById(R.id.doWithB);
         Button sms= (Button) view.findViewById(R.id.smsB);
         Button popup= (Button) view.findViewById(R.id.popupB);
+        Button save= (Button) view.findViewById(R.id.solution_save);
+        Button cancel= (Button) view.findViewById(R.id.solution_cancel);
 
         spinnerActions = (Spinner) view.findViewById(R.id.spinner_actions);
        //spinnerValue=String.valueOf(spinnerActions.getSelectedItem());
@@ -105,11 +111,18 @@ public class SoluttionFragment  extends Fragment{
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                delegate.endFragment(1);
 
-
+            }
+        });
 
         return view;
+
+
     }
 
     @Override

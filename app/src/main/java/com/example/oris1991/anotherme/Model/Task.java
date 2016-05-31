@@ -5,8 +5,6 @@ package com.example.oris1991.anotherme.Model;
  */
 public class Task {
 
-
-
     int id;
     long startTime;
     long endTime;

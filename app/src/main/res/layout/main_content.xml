@@ -10,9 +10,9 @@
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/calendar_frag_container">
+            android:id="@+id/frag_container">
         </FrameLayout>
-        <FrameLayout
+        <!--<FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/new_event_frag_container">
@@ -21,7 +21,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/solution_frag_container">
-        </FrameLayout>
+        </FrameLayout>-->
 
     </RelativeLayout>
 </LinearLayout>
