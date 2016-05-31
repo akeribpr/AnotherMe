@@ -45,6 +45,7 @@ public class Model {
     public LogIn getUser(){
       return  sqlModel.checkLogIn();
     }
+
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
         return sqlModel.getSmsForPerson( person);
