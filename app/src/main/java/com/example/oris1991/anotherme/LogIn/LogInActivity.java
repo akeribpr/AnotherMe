@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 
-import com.example.oris1991.anotherme.LogIn.LogInFragment;
-import com.example.oris1991.anotherme.LogIn.RegisterFragment;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.sqlLite.Model;
 

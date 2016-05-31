@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme.sqlLite;
+package com.example.oris1991.anotherme.Model.sqlLite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

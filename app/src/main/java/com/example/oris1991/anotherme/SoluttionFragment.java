@@ -22,7 +22,7 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.SMSOrPopup;
 
 import java.util.List;
