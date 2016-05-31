@@ -34,7 +34,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     Delegate delegate;
-   // private Model model;
+   // private ModelMain model;
 
     interface Delegate{
         public void startRegister();
@@ -57,7 +57,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         saveLoginCheckBox = (CheckBox)view.findViewById(R.id.saveLoginCheckBox);
         loginPreferences = getActivity().getSharedPreferences("loginPrefs",  Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-       // model = Model.instance().
+       // model = ModelMain.instance().
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
 //        if (saveLogin == true) {
 //            editTextUsername.setText(loginPreferences.getString("username", ""));
@@ -66,7 +66,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
 //        }
       //  LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
 
-//        if(Model.instance().checkUser(logIn)){
+//        if(ModelMain.instance().checkUser(logIn)){
 ////        if(model.checkUser(logIn)){
 //            startActivity();
 //        }
