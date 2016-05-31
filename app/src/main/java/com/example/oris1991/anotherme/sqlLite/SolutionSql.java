@@ -4,8 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.oris1991.anotherme.Model.Solution;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 
 /**
  * Created by Itzik on 30/05/2016.

@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.oris1991.anotherme.R;
-//import com.example.oris1991.anotherme.sqlLite.Model;
 
 /**
  * Created by oris1991 on 07/05/2016.

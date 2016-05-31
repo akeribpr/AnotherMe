@@ -1,6 +1,4 @@
-package com.example.oris1991.anotherme.Model;
-
-import javax.xml.transform.Source;
+package com.example.oris1991.anotherme.Model.Entities;
 
 /**
  * Created by Itzik on 29/05/2016.

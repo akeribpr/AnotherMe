@@ -32,6 +32,7 @@ public class ModelMain {
     public static ModelMain getInstance(){
         return instance;
     }
+
     public void saveImage(final Bitmap imageBitmap, final String imageName) {
         //   saveImageToFile(imageBitmap,imageName); // synchronously save image locally
         Thread d = new Thread(new Runnable() {  // asynchronously save image to parse

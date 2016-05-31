@@ -26,7 +26,7 @@ import android.os.AsyncTask;
 /**
  * Created by eldar on 31/05/2016.
  */
-public class PersonServerConnector {
+public class PersonModelServer {
 
     private String url = "http://192.168.2.111:8080/Another-Me/Person.jsp";
 
@@ -34,8 +34,9 @@ public class PersonServerConnector {
     protected void onCreate() {
         SendHttpRequestTask t = new SendHttpRequestTask();
 
-       // String[] params = new String[]{url, name};
-        //t.execute(params);
+//         String[] params = new String[]{url, name};
+//
+//        t.execute(params);
 
     }
     private class SendHttpRequestTask extends AsyncTask<String, Void, String> {
@@ -63,7 +64,7 @@ public class PersonServerConnector {
             con.setDoInput(true);
             con.setDoOutput(true);
             con.connect();
-            con.getOutputStream().write( ("name=" + name).getBytes());
+            con.getOutputStream().write( ("personId=" + name).getBytes());
 
             InputStream is = con.getInputStream();
             byte[] b = new byte[1024];

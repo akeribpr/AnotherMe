@@ -1,7 +1,7 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
 import com.example.oris1991.anotherme.Model.ModelInterface;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
 import java.util.List;
 

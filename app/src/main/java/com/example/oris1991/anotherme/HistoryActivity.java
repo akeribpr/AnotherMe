@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
 import java.util.List;
 

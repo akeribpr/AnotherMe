@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.R;
-//import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.Model.Model;
 
 /**
  * Created by oris1991 on 08/05/2016.

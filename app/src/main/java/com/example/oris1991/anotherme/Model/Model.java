@@ -1,9 +1,7 @@
 package com.example.oris1991.anotherme.Model;
 
-import android.database.sqlite.SQLiteDatabase;
-
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
@@ -25,16 +23,15 @@ public class Model {
         return instance;
     }
 
-    public Boolean checkUser(LogIn logIn){
-
-        return sqlModel.checkUser(logIn);
+    public Boolean checkIfUserExist(LogIn logIn){
+        return sqlModel.checkIfUserExist(logIn);
     }
 
-    public void add(SMSOrPopup sp) {
-        sqlModel.add(sp);
+    public void addSmsOrPop(SMSOrPopup sp) {
+        sqlModel.addSmsOrPop(sp);
     }
 
-    public void add(LogIn logIn) {
+    public void loginUser(LogIn logIn) {
         sqlModel.register(logIn);
     }
 
@@ -43,7 +40,7 @@ public class Model {
     }
 
     public LogIn getUser(){
-      return  sqlModel.checkLogIn();
+      return  sqlModel.getUser();
     }
 
     public List<SMSOrPopup> getSmsForPerson(String person) {

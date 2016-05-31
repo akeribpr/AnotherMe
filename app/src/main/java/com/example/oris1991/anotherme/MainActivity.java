@@ -26,9 +26,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,10 +37,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.oris1991.anotherme.LogIn.LogInActivity;
-import com.example.oris1991.anotherme.Model.Gps;
 import com.example.oris1991.anotherme.Model.ModelMain;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 

@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.oris1991.anotherme.Model.Gps;
+import com.example.oris1991.anotherme.Model.Entities.Gps;
 
 /**
  * Created by oris1991 on 29/05/2016.

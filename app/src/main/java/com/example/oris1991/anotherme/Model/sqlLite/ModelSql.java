@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.MyApplication;
 
 import java.util.List;
@@ -20,7 +20,6 @@ public class ModelSql {
 
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
-
     }
 
     public void register(LogIn logIn){
@@ -28,24 +27,21 @@ public class ModelSql {
         LogInSql.register(db, logIn);
     }
 
-    public LogIn checkLogIn(){
+    public LogIn getUser(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
        return LogInSql.getUser(db);
     }
-    public boolean checkUser(LogIn logIn){
+    public boolean checkIfUserExist(LogIn logIn){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         return LogInSql.checkUser(db,logIn);
-
-
     }
 
-    public  int numberOfRow(){
+    public int numberOfRow(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return SmsOrPopupSql.numberOfRow(db);
     }
 
-    public void add(SMSOrPopup sp) {
+    public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         SmsOrPopupSql.add(db, sp);
     }

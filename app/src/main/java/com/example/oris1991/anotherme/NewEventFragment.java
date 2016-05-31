@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 
 import java.util.Calendar;
 

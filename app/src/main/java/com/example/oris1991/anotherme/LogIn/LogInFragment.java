@@ -15,10 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.R;
-//import com.example.oris1991.anotherme.sqlLite.Model;
+import com.example.oris1991.anotherme.Model.Model;
 
 
 /**
@@ -61,7 +60,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             editTextPassword.setText(Model.instance().getUser().getPassword());
             saveLoginCheckBox.setChecked(true);
             LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
-            if(Model.instance().checkUser(logIn)){
+            if(Model.instance().checkIfUserExist(logIn)){
                 startActivity();
             }
         }
@@ -84,7 +83,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             username = editTextUsername.getText().toString();
             password = editTextPassword.getText().toString();
             LogIn logIn = new LogIn(username,password);
-            if(Model.instance().checkUser(logIn)){
+            if(Model.instance().checkIfUserExist(logIn)){
             if (saveLoginCheckBox.isChecked()) {
                 loginPrefsEditor.putBoolean("saveLogin", true);
                 loginPrefsEditor.commit();

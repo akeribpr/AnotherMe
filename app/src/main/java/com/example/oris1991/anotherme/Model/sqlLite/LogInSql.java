@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.LogIn;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 
 /**
  * Created by Itzik on 29/05/2016.

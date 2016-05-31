@@ -1,4 +1,4 @@
-package com.example.oris1991.anotherme.Model;
+package com.example.oris1991.anotherme.Model.Entities;
 
 /**
  * Created by Itzik on 29/05/2016.

@@ -3,11 +3,8 @@ package com.example.oris1991.anotherme.sqlLite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.Solution;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 
 /**
  * Created by Itzik on 30/05/2016.
