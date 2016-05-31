@@ -59,17 +59,21 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         loginPrefsEditor = loginPreferences.edit();
        // model = ModelMain.instance().
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
-//        if (saveLogin == true) {
+        if (saveLogin == true) {
 //            editTextUsername.setText(loginPreferences.getString("username", ""));
 //            editTextPassword.setText(loginPreferences.getString("password", ""));
-//            saveLoginCheckBox.setChecked(true);
-//        }
-      //  LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
+            editTextUsername.setText(Model.instance().getUser().getPersonId());
+            editTextPassword.setText(Model.instance().getUser().getPassword());
+            saveLoginCheckBox.setChecked(true);
+            LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
+            if(Model.instance().checkUser(logIn)){
+//        if(model.checkUser(logIn)){
+                startActivity();
+            }
+        }
 
-//        if(ModelMain.instance().checkUser(logIn)){
-////        if(model.checkUser(logIn)){
-//            startActivity();
-//        }
+
+
 //        if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
 //        {
 //
@@ -95,19 +99,19 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
 
             username = editTextUsername.getText().toString();
             password = editTextPassword.getText().toString();
-
+            LogIn logIn = new LogIn(username,password);
+            if(Model.instance().checkUser(logIn)){
             if (saveLoginCheckBox.isChecked()) {
                 loginPrefsEditor.putBoolean("saveLogin", true);
-                loginPrefsEditor.putString("username", username);
-                loginPrefsEditor.putString("password", password);
+               // loginPrefsEditor.putString("username", username);
+                //loginPrefsEditor.putString("password", password);
                 loginPrefsEditor.commit();
             } else {
                 loginPrefsEditor.clear();
                 loginPrefsEditor.commit();
             }
-            LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
-            if(Model.instance().checkUser(logIn)){
-                startActivity();
+//            if(Model.instance().checkUser(logIn)){
+              startActivity();
             }
             else
             {
