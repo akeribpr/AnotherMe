@@ -10,16 +10,15 @@ public class Task {
     long endTime;
     String Title;
     String location;
-    int whatToDo;
     Solution solution;
 
-    public Task(int id,String title, long startTime, long endTime, String location,int whatToDo) {
+    public Task(int id,String title, long startTime, long endTime, String location) {
         this.id=id;
         this.Title = title;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.whatToDo=whatToDo;
+
     }
 
     public String getTitle() {
@@ -61,13 +60,8 @@ public class Task {
         this.solution = solution;
     }
 
-    public int getWhatToDo() {
-        return whatToDo;
-    }
 
-    public void setWhatToDo(int whatToDo) {
-        this.whatToDo = whatToDo;
-    }
+
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }

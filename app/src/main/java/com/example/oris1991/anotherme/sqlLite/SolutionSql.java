@@ -26,7 +26,6 @@ public class SolutionSql {
         values.put(ID, sp.getIdSolution());
         values.put(TASK, sp.getTask().getId());
         values.put(SMS_ID, sp.getSms().getId());
-        values.put(TIME, sp.getStartTime());
         values.put(POPUP_ID, sp.getPopUp().getId());
         values.put(WHAT_TO_DO, sp.getWhatToDo());
         db.insert(SOLUTION_TABLE,ID,values);

@@ -1,11 +1,15 @@
 package com.example.oris1991.anotherme.Model.sqlLite;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.MyApplication;
 
 import java.util.List;
@@ -13,10 +17,12 @@ import java.util.List;
 /**
  * Created by eliav.menachi on 16/03/2016.
  */
-public class ModelSql {
+public class ModelSql implements ModelInterface {
     private static final int VERSION = 2;
 
     MyDBHelper dbHelper;
+    private static final String TASK_TABLE = "Task_Table";
+    private static final String SMSPOPUP_TABLE = "sms_popup";
 
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
@@ -40,7 +46,23 @@ public class ModelSql {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return SmsOrPopupSql.numberOfRow(db);
     }
+    public int numberOfRowe(String table){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String countQuery = "SELECT  * FROM " + table;
+        try {
+            Cursor cursor = db.rawQuery(countQuery, null);
+        }catch (Exception e){
+            return 1;
+        }
+        Cursor cursor = db.rawQuery(countQuery, null);
+//        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+//            return 1;
+//        }
+        int cnt = cursor.getCount();
+        //  cursor.close();
+        return cnt+1;
 
+    }
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         SmsOrPopupSql.add(db, sp);
@@ -69,6 +91,14 @@ public class ModelSql {
     public List<SMSOrPopup> getSmsTemplates() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsTemplates(db);
+    }
+
+    @Override
+    public void addTask(Task task) {
+
+        task.setId( numberOfRowe(TASK_TABLE));
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        TaskSql.addTask(db,task);
     }
 /*    public void delete(Student st) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

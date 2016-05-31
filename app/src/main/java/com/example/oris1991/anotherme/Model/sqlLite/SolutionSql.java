@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.oris1991.anotherme.Model.Solution;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+
 
 /**
  * Created by Itzik on 30/05/2016.
@@ -17,7 +17,6 @@ public class SolutionSql {
     private static final String ID = "id";
     private static final String TASK = "task";
     private static final String SMS_ID = "sms";
-    private static final String TIME = "startTime";
     private static final String POPUP_ID = "popUp";
     private static final String WHAT_TO_DO = "whatToDo";
 
@@ -27,7 +26,6 @@ public class SolutionSql {
         values.put(ID, sp.getIdSolution());
         values.put(TASK, sp.getTask().getId());
         values.put(SMS_ID, sp.getSms().getId());
-        values.put(TIME, sp.getStartTime());
         values.put(POPUP_ID, sp.getPopUp().getId());
         values.put(WHAT_TO_DO, sp.getWhatToDo());
         db.insert(SOLUTION_TABLE,ID,values);
@@ -59,7 +57,6 @@ public class SolutionSql {
                 ID + " INTEGER," +
                 TASK + " INTEGER," +
                 SMS_ID + " INTEGER," +
-                TIME + " TEXT," +
                 POPUP_ID + " INTEGER," +
                 WHAT_TO_DO + " INTEGER);");
     }

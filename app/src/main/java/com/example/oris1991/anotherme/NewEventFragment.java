@@ -63,7 +63,7 @@ public class NewEventFragment extends Fragment {
                 endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
-                final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString(),1);
+                final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
                 Utility.insertCalendarEvent(getActivity().getApplicationContext(), newTask);
                 delegate.endFragmentTask();
@@ -83,8 +83,8 @@ public class NewEventFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Task task =null;
-                delegate.taskWithSolution(task);
+               //Tas task =null;
+               // delegate.taskWithSolution();
                // delegate.endFragment(2);
 
             }

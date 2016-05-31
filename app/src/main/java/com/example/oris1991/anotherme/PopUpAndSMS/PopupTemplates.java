@@ -70,7 +70,7 @@ public class PopupTemplates  extends AppCompatActivity{
                 int i = Model.instance().numberOfRow();
                 i++;
                 SMSOrPopup sp = new SMSOrPopup(i,"Popup template",null,null, null, templateText.getText().toString());
-                Model.instance().add(sp);
+                Model.instance().addSmsOrPop(sp);
                 data = Model.instance().getPopupsTemplates();
                 adapter.notifyDataSetChanged();
                 myDialog.dismiss();

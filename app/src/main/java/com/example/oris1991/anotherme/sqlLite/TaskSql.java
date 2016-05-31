@@ -29,7 +29,6 @@ public class TaskSql {
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
-        values.put(WHAT_TO_DO, sp.getWhatToDo());
         values.put(SOLUTION, sp.getSolution().getIdSolution());
         db.insert(TASK_TABLE,ID,values);
     }

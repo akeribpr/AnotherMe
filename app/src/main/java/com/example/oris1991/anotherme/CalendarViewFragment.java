@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.example.oris1991.anotherme.ExternalCalendar.CalendarAdapter;
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
-import com.example.oris1991.anotherme.Model.Task;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -59,7 +58,7 @@ public class CalendarViewFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.calendar_fragment, container, false);
-        final Delegate delegate = (Delegate) getActivity();
+       // final Delegate delegate = (Delegate) getActivity();
         mContext=container.getContext();
 
 

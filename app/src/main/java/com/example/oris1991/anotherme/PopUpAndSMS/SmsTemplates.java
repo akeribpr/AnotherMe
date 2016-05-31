@@ -108,7 +108,7 @@ public class SmsTemplates extends AppCompatActivity {
                 int i = Model.instance().numberOfRow();
                 i++;
                 SMSOrPopup sp = new SMSOrPopup(i,"Sms template",phoneNumber,phoneName,null,templateTextt.getText().toString());
-                Model.instance().add(sp);
+                Model.instance().addSmsOrPop(sp);
                 data = Model.instance().getSmsTemplates();
                 adapter.notifyDataSetChanged();
                 myDialog.dismiss();

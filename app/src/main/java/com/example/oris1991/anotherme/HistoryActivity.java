@@ -40,11 +40,11 @@ public class HistoryActivity extends AppCompatActivity {
         int i = Model.instance().numberOfRow();
         i++;
         SMSOrPopup sp = new SMSOrPopup(i,"SMS","0547297791","Itzik","10:00","la la la la la la la la la la la la la la la la la");
-        Model.instance().add(sp);
+        Model.instance().addSmsOrPop(sp);
         data = Model.instance().getSmsOrPopups();
         adapter.notifyDataSetChanged();
         SMSOrPopup sp2 = new SMSOrPopup(i+1,"Popup",null,null,"10:00","la la la la la la la la la la la la la la la la la");
-        Model.instance().add(sp2);
+        Model.instance().addSmsOrPop(sp2);
         data = Model.instance().getSmsOrPopups();
         adapter.notifyDataSetChanged();
 

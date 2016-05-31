@@ -8,15 +8,13 @@ public class Solution {
     int idSolution;
     Task task;
     SMSOrPopup sms;
-    Long startTime;
     SMSOrPopup popUp;
     int whatToDo;
 
-    public Solution( int idSolution, Task task,SMSOrPopup sms, Long startTime, SMSOrPopup popUp,int whatToDo){
+    public Solution( int idSolution, Task task,SMSOrPopup sms, SMSOrPopup popUp,int whatToDo){
         this.idSolution=idSolution;
         this.task=task;
         this.sms=sms;
-        this.startTime=startTime;
         this.popUp=popUp;
         this.whatToDo=whatToDo;
 
@@ -45,13 +43,7 @@ public class Solution {
         this.sms = sms;
     }
 
-    public Long getStartTime() {
-        return startTime;
-    }
 
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
-    }
 
     public int getWhatToDo() {
         return whatToDo;

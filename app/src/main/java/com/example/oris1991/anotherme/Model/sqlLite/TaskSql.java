@@ -5,9 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.LogIn;
-import com.example.oris1991.anotherme.Model.Solution;
-import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.Model.Entities.Task;
+
+//import com.example.oris1991.anotherme.Model.LogIn;
+//import com.example.oris1991.anotherme.Model.Solution;
+//import com.example.oris1991.anotherme.Model.Task;
 
 /**
  * Created by Itzik on 30/05/2016.
@@ -25,15 +27,16 @@ public class TaskSql {
     private static final String SOLUTION = "solution_Id";
 
     public static void addTask(SQLiteDatabase db, Task sp) {
-
+        Log.d("task",sp.getTitle());
         ContentValues values = new ContentValues();
         values.put(ID, sp.getId());
         values.put(TITLE, sp.getTitle());
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
-        values.put(WHAT_TO_DO, sp.getWhatToDo());
-        values.put(SOLUTION, sp.getSolution().getIdSolution());
+        if(!(sp.getSolution().equals(null))) {
+            values.put(SOLUTION, sp.getSolution().getIdSolution());
+        }
         db.insert(TASK_TABLE,ID,values);
     }
 
@@ -47,13 +50,7 @@ public class TaskSql {
 
         return null;
     }
-    public static int numberOfRow(SQLiteDatabase db){
-        String countQuery = "SELECT  * FROM " + TASK_TABLE;
-        Cursor cursor = db.rawQuery(countQuery, null);
-        int cnt = cursor.getCount();
-        //  cursor.close();
-        return cnt;
-    }
+
 
     public static void create(SQLiteDatabase db) {
         db.execSQL("create table " +
@@ -63,7 +60,6 @@ public class TaskSql {
                 END + " TEXT," +
                 TITLE + " TEXT," +
                 LOCATION + " TEXT," +
-                WHAT_TO_DO + " INTEGER," +
                 SOLUTION + " INTEGER);");
     }
 

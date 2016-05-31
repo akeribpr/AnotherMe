@@ -22,7 +22,10 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.Task;
+
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,8 +82,10 @@ public class Utility {
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
 			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
 			startDateAndTime.add(cursor.getString(3));
-			Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null,0);
-			taskArry.add(task);
+			Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null);
+			Model.instance().addTask(task);
+			//taskArry.add(task);
+
 			cursor.moveToNext();
 
 		}

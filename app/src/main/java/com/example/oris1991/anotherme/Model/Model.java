@@ -2,6 +2,7 @@ package com.example.oris1991.anotherme.Model;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by eliav.menachi on 16/03/2016.
  */
-public class Model {
+public class Model implements ModelInterface {
     private final static Model instance = new Model();
 
     ModelSql sqlModel;
@@ -62,6 +63,12 @@ public class Model {
 
         return sqlModel.getSmsTemplates();
     }
+
+    @Override
+    public void addTask(Task task) {
+        sqlModel.addTask(task);
+    }
+
     public  int numberOfRow( ){
 
         return sqlModel.numberOfRow();
