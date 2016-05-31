@@ -51,7 +51,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener,SoluttionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     protected LocationManager  mlocManager;
     SharedPreferences sharedPreferencesPut;
     SharedPreferences sharedPreferencesGet;
+    Task task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         manager = getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
                 //getFragmentManager().beginTransaction();
-        transaction.add(R.id.calendar_frag_container, calendarFra);
+        transaction.add(R.id.frag_container, calendarFra);
         //transaction.show(calendarFra);
         transaction.commit();
 
@@ -254,13 +255,13 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_login)
-        {
-            Intent intent = new Intent(getApplicationContext(),
-                    LogInActivity.class);
-            startActivity(intent);
-            return true;
-        }
+//        if (id == R.id.action_login)
+//        {
+//            Intent intent = new Intent(getApplicationContext(),
+//                    LogInActivity.class);
+//            startActivity(intent);
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -419,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.calendar_frag_container, calendarFra);
+            transaction.add(R.id.frag_container, calendarFra);
             transaction.hide(newEventFra);
             transaction.show(calendarFra);
             transaction.commit();
@@ -429,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             solFra=new SoluttionFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.solution_frag_container, solFra);
+            transaction.add(R.id.frag_container, solFra);
             transaction.hide(newEventFra);
             transaction.show(solFra);
             transaction.commit();
@@ -438,14 +439,45 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void taskWithSolution(Task task) {
+    public void SaveSolution() {
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-        //transaction.remove(newEventFra);
+
+        transaction.remove(solFra);
         transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        //transaction.hide(newEventFra);
+        //transaction.show(calendarFra);
+        transaction.commit();
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void CancelSolution() {
+        calendarFra = new CalendarViewFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.remove(solFra);
+        transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        //transaction.hide(newEventFra);
+        //transaction.show(calendarFra);
+        transaction.commit();
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void taskWithSolution(Task task) {
+        this.task=task;
+        solFra = new SoluttionFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(newEventFra);
+        transaction.add(R.id.frag_container, solFra);
         transaction.addToBackStack("task");
         invalidateOptionsMenu();
-        transaction.hide(newEventFra);
+       // transaction.hide(newEventFra);
         //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
