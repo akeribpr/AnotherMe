@@ -2,6 +2,7 @@ package com.example.oris1991.anotherme;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -25,7 +26,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +39,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.LogIn.LogInActivity;
+import com.example.oris1991.anotherme.Model.Gps;
 import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.Model.Task;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
@@ -47,12 +52,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener,SoluttionFragment.Delegate,CalendarViewFragment.Delegate {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener,SoluttionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
     CalendarViewFragment calendarFra;
-   SettingsFragment settingsFra;
     NewEventFragment newEventFra;
     SoluttionFragment solFra;
     FloatingActionButton fab;
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra=new CalendarViewFragment();
         manager = getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-                //getFragmentManager().beginTransaction();
+        //getFragmentManager().beginTransaction();
         transaction.add(R.id.frag_container, calendarFra);
         //transaction.show(calendarFra);
         transaction.commit();
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
                 newEventFra = new NewEventFragment();
                 FragmentTransaction transaction = manager.beginTransaction();
-                        //getFragmentManager().beginTransaction();
+                //getFragmentManager().beginTransaction();
                 transaction.remove(calendarFra);
                 transaction.add(R.id.frag_container, newEventFra);
                 transaction.addToBackStack(null);
@@ -199,19 +203,9 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-       /*     Intent intent = new Intent(getApplicationContext(),
-                    SettingsFragment.class);
-            startActivity(intent);*/
-            settingsFra = new SettingsFragment();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.remove(newEventFra);
-            transaction.add(R.id.frag_container, solFra);
-            transaction.addToBackStack("task");
-            invalidateOptionsMenu();
-            // transaction.hide(newEventFra);
-            //transaction.show(calendarFra);
-            transaction.commit();
-            fab.setVisibility(View.VISIBLE);
+//            Intent intent = new Intent(getApplicationContext(),
+//                    SettingsActivity.class);
+//            startActivity(intent);
             return true;
         }
         if (id == R.id.action_history) {
@@ -450,11 +444,16 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     public void SaveSolution() {
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-
         transaction.remove(solFra);
         transaction.add(R.id.frag_container, calendarFra);
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
+//        manager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                if(getFragmentManager().getBackStackEntryCount() == 0) finish();
+//            }
+//        });
         //transaction.hide(newEventFra);
         //transaction.show(calendarFra);
         transaction.commit();
@@ -485,7 +484,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.add(R.id.frag_container, solFra);
         transaction.addToBackStack("task");
         invalidateOptionsMenu();
-       // transaction.hide(newEventFra);
+        // transaction.hide(newEventFra);
         //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
@@ -506,14 +505,30 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
     }
-
     @Override
-    public void plusButton(int code) {
+    public void onBackPressed() {
+        Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
+        // getFragmentManager().findFragmentById(R.id.frag_container);
+        if (currentFragment instanceof CalendarViewFragment) {
 
-    }
-
-    @Override
-    public void startEdit() {
-
+            super.onBackPressed();
+//            calendarFra = new CalendarViewFragment();
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.add(R.id.frag_container, calendarFra);
+//            transaction.remove(currentFragment);
+//            transaction.show(calendarFra);
+//            transaction.commit();
+//            fab.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.frag_container, calendarFra);
+            transaction.remove(newEventFra);
+            transaction.show(calendarFra);
+            transaction.commit();
+            fab.setVisibility(View.VISIBLE);
+        }
     }
 }
