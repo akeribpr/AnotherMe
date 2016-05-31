@@ -2,7 +2,7 @@ package com.example.oris1991.anotherme;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -29,7 +29,6 @@ import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
@@ -41,7 +40,8 @@ import android.widget.Toast;
 
 import com.example.oris1991.anotherme.LogIn.LogInActivity;
 import com.example.oris1991.anotherme.Model.Gps;
-import com.example.oris1991.anotherme.Model.LogIn;
+import com.example.oris1991.anotherme.Model.ModelMain;
+import com.example.oris1991.anotherme.Model.Task;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
@@ -51,9 +51,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate , LocationListener {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
     SoluttionFragment solFra;
@@ -92,20 +93,37 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000, 0, this);
 
         calendarFra=new CalendarViewFragment();
-        FragmentTransaction transaction=getFragmentManager().beginTransaction();
-        transaction.add(R.id.frag_container, calendarFra);
-        transaction.show(calendarFra);
+        manager = getFragmentManager();
+        FragmentTransaction transaction=manager.beginTransaction();
+                //getFragmentManager().beginTransaction();
+        transaction.add(R.id.calendar_frag_container, calendarFra);
+        //transaction.show(calendarFra);
         transaction.commit();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                addFragment = new AddFragment();
+//                FragmentTransaction transaction = manager.beginTransaction();
+//                transaction.remove(studentListFragment);
+//                transaction.add(R.id.main,addFragment, "TAG");
+//                transaction.addToBackStack(null);
+//                invalidateOptionsMenu();
+//                transaction.commit();
+
+
                 newEventFra = new NewEventFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                FragmentTransaction transaction = manager.beginTransaction();
+                        //getFragmentManager().beginTransaction();
+                transaction.remove(calendarFra);
                 transaction.add(R.id.frag_container, newEventFra);
-                transaction.hide(calendarFra);
-                transaction.show(newEventFra);
+                transaction.addToBackStack(null);
+                invalidateOptionsMenu();
+
+                //transaction.hide(calendarFra);
+                //transaction.show(newEventFra);
                 transaction.commit();
                 fab.setVisibility(view.GONE);
             }
@@ -117,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         SharedPreferences  sharedPreferencesPut = PreferenceManager
                 .getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor =  sharedPreferencesPut.edit();
-        editor.putString("Lat", String.valueOf(location.getLatitude()));
+        editor.putString("Lat", String.valueOf( location.getLatitude()));
         editor.putString("Lon", String.valueOf(location.getLongitude()));
         editor.commit();
 
@@ -236,6 +254,14 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             startActivity(intent);
             return true;
         }
+        if (id == R.id.action_login)
+        {
+            Intent intent = new Intent(getApplicationContext(),
+                    LogInActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -299,19 +325,26 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         if (resultCode == RESULT_OK) {
+            String path = null;
             if (requestCode == REQUEST_CAMERA) {
+
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 File destination = new File(Environment.getExternalStorageDirectory(),
                         System.currentTimeMillis() + ".jpg");
+                saveInCloudinary(destination.getAbsolutePath());
                 FileOutputStream fo;
                 try {
                     destination.createNewFile();
                     fo = new FileOutputStream(destination);
                     fo.write(bytes.toByteArray());
                     fo.close();
+                    saveInCloudinary(destination.getAbsolutePath());
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -327,10 +360,12 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
                 cursor.moveToFirst();
                 String selectedImagePath = cursor.getString(column_index);
+                String filename=selectedImagePath.substring(selectedImagePath.lastIndexOf("/")+1);
                 Bitmap bm;
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
                 BitmapFactory.decodeFile(selectedImagePath, options);
+
                 final int REQUIRED_SIZE = 200;
                 int scale = 1;
                 while (options.outWidth / scale / 2 >= REQUIRED_SIZE
@@ -339,29 +374,42 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 options.inSampleSize = scale;
                 options.inJustDecodeBounds = false;
                 bm = BitmapFactory.decodeFile(selectedImagePath, options);
+                saveInCloudinary(selectedImagePath);
+                // ModelMain.getInstance().saveImage(bm,filename);
                 // ivImage.setImageBitmap(bm);
             }
         }
     }
 
+    public void saveInCloudinary(String destination){
+        String filename=destination.substring(destination.lastIndexOf("/")+1);
+        //  Bitmap bm;
+        BitmapFactory.Options options;
 
-    @Override
-    public void onBackPressed() {
-        Fragment currentFragment = getFragmentManager().findFragmentById(R.id.frag_container);
-        if (currentFragment instanceof CalendarViewFragment) {
-            super.onBackPressed();
+
+        try {
+
+            Bitmap bitmap = BitmapFactory.decodeFile(destination);
+            ModelMain.getInstance().saveImage(bitmap,filename);
+        } catch (OutOfMemoryError e) {
+            try {
+                options = new BitmapFactory.Options();
+                options.inSampleSize = 2;
+                Bitmap bitmap = BitmapFactory.decodeFile(destination, options);
+                ModelMain.getInstance().saveImage(bitmap,filename);
+            } catch(Exception ex) {
+                Log.d("savepic","seve pic 2 faild");
+            }
         }
-        else
-        {
-            calendarFra = new CalendarViewFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.frag_container, calendarFra);
-            transaction.hide(newEventFra);
-            transaction.show(calendarFra);
-            transaction.commit();
-            fab.setVisibility(View.VISIBLE);
-        }
+
+
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        bm = BitmapFactory.decodeFile(destination, options);
+//        ModelMain.getInstance().saveImage(bm,filename);
+
     }
+
 
 
     @Override
@@ -371,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.frag_container, calendarFra);
+            transaction.add(R.id.calendar_frag_container, calendarFra);
             transaction.hide(newEventFra);
             transaction.show(calendarFra);
             transaction.commit();
@@ -381,11 +429,41 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             solFra=new SoluttionFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.frag_container, solFra);
+            transaction.add(R.id.solution_frag_container, solFra);
             transaction.hide(newEventFra);
             transaction.show(solFra);
             transaction.commit();
 
         }
+    }
+
+    @Override
+    public void taskWithSolution(Task task) {
+        calendarFra = new CalendarViewFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        //transaction.remove(newEventFra);
+        transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack("task");
+        invalidateOptionsMenu();
+        transaction.hide(newEventFra);
+        //transaction.show(calendarFra);
+        transaction.commit();
+        fab.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void endFragmentTask() {
+        calendarFra = new CalendarViewFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.remove(newEventFra);
+        transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        //transaction.hide(newEventFra);
+        //transaction.show(calendarFra);
+        transaction.commit();
+        fab.setVisibility(View.VISIBLE);
     }
 }

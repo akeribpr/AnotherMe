@@ -51,6 +51,9 @@ public class SoluttionFragment  extends Fragment{
 
     interface Delegate{
         public void endFragment(int code);
+        public void SaveSolution();
+        public void CancelSolution();
+
     }
 
     @Nullable

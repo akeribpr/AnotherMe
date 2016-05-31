@@ -24,6 +24,11 @@ public class NewEventFragment extends Fragment {
 
     interface Delegate{
         public void endFragment(int code);
+        public void taskWithSolution(Task task);
+        public void endFragmentTask();
+
+
+
     }
 
 
@@ -61,15 +66,16 @@ public class NewEventFragment extends Fragment {
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString(),1);
 
                 Utility.insertCalendarEvent(getActivity().getApplicationContext(), newTask);
-                delegate.endFragment(1);
+                delegate.endFragmentTask();
+                //delegate.endFragment(1);
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                delegate.endFragment(1);
+                delegate.endFragmentTask();
+                //delegate.endFragment(1);
 
             }
         });
@@ -77,8 +83,9 @@ public class NewEventFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                delegate.endFragment(2);
+                Task task =null;
+                delegate.taskWithSolution(task);
+               // delegate.endFragment(2);
 
             }
         });

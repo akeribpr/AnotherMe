@@ -41,7 +41,7 @@ public class RegisterFragment extends Fragment {
         passwordText = (EditText)view.findViewById(R.id.passwordEditText);
         password2Text = (EditText)view.findViewById(R.id.password2EditText);
         mcontext = getActivity().getApplicationContext();
-        //model = Model.instance();
+        //model = ModelMain.instance();
         Button submit= (Button) view.findViewById(R.id.submitB);
         Button exit= (Button) view.findViewById(R.id.exitB);
 
