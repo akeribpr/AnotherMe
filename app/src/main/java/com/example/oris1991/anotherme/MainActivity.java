@@ -48,12 +48,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate , LocationListener,SoluttionFragment.Delegate {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
+    SettingsFragment settingsFra;
     SoluttionFragment solFra;
     FloatingActionButton fab;
     protected LocationManager  mlocManager;
@@ -147,12 +148,12 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.d("Latitude","disable");
+        Log.d("Latitude", "disable");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.d("Latitude","enable");
+        Log.d("Latitude", "enable");
     }
 
     @Override
@@ -199,9 +200,15 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-//            Intent intent = new Intent(getApplicationContext(),
-//                    SettingsActivity.class);
-//            startActivity(intent);
+            Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
+            settingsFra=new SettingsFragment();
+            manager = getFragmentManager();
+            FragmentTransaction transaction=manager.beginTransaction();
+            transaction.remove(currentFragment);
+            transaction.add(R.id.frag_container, settingsFra);
+            fab.setVisibility(View.GONE);
+            //transaction.show(calendarFra);
+            transaction.commit();
             return true;
         }
         if (id == R.id.action_history) {
@@ -465,8 +472,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.add(R.id.frag_container, calendarFra);
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
-        //transaction.hide(newEventFra);
-        //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
     }
@@ -480,8 +485,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.add(R.id.frag_container, solFra);
         transaction.addToBackStack("task");
         invalidateOptionsMenu();
-        // transaction.hide(newEventFra);
-        //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
 
@@ -496,32 +499,21 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.add(R.id.frag_container, calendarFra);
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
-        //transaction.hide(newEventFra);
-        //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
     }
     @Override
     public void onBackPressed() {
         Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
-        // getFragmentManager().findFragmentById(R.id.frag_container);
         if (currentFragment instanceof CalendarViewFragment) {
-
             super.onBackPressed();
-//            calendarFra = new CalendarViewFragment();
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//            transaction.add(R.id.frag_container, calendarFra);
-//            transaction.remove(currentFragment);
-//            transaction.show(calendarFra);
-//            transaction.commit();
-//            fab.setVisibility(View.VISIBLE);
         }
         else
         {
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.add(R.id.frag_container, calendarFra);
-            transaction.remove(newEventFra);
+            transaction.remove(currentFragment);
             transaction.show(calendarFra);
             transaction.commit();
             fab.setVisibility(View.VISIBLE);

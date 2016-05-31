@@ -10,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by oris1991 on 26/04/2016.
- */
 public class SettingsFragment extends PreferenceFragment {
 
     private static final int PREFERENCE_MODE_PRIVATE=0;
