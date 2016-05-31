@@ -4,21 +4,24 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by oris1991 on 26/04/2016.
  */
-public class SettingsActivity extends PreferenceActivity{
+public class SettingsFragment extends PreferenceFragment {
 
     private static final int PREFERENCE_MODE_PRIVATE=0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
         Preference customPref = (Preference) findPreference("pref_register_time");
-        customPref.setSummary("2.3.16");
-
 
     }
 }

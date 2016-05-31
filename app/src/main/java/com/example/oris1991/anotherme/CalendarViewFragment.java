@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.oris1991.anotherme.ExternalCalendar.CalendarAdapter;
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
+import com.example.oris1991.anotherme.Model.Task;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,12 @@ import java.util.Locale;
 public class CalendarViewFragment extends Fragment{
 
 
+    interface Delegate{
+
+        public void plusButton(int code);
+        public void startEdit();
+
+    }
 
     public GregorianCalendar month, itemmonth;// main_content instances.
 
@@ -52,7 +59,7 @@ public class CalendarViewFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.calendar_fragment, container, false);
-
+        final Delegate delegate = (Delegate) getActivity();
         mContext=container.getContext();
 
 
@@ -107,10 +114,12 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                //delegate.startEdit();
                 Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
                 adapter.notifyDataSetChanged();
                 handler.post(calendarUpdater);
                 adapterEvent.notifyDataSetChanged();
+
 
             }
         });

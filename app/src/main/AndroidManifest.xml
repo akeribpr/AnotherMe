@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".SettingsFragment"
             android:label="@string/action_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

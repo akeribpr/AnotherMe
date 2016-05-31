@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference
+    <EditTextPreference
         android:key="pref_name"
         android:summary="אלדר יעקובי"
         android:title="שם"/>
-    <Preference
+    <EditTextPreference
         android:key="pref_telephone"
-        android:summary="052-5434564"
-        android:title="מספר טלפון"/>
+        android:title="מספר טלפון"
+        android:defaultValue="הזן מספר טלפון"
+        />
     <Preference
         android:key="pref_register_time"
         android:summary="1.1.16"
         android:title="זמן רישום"/>
-    <Preference
+    <EditTextPreference
         android:key="pref_mail"
         android:title="מייל"
-        android:defaultValue="false"/>
-    <Preference
+        android:defaultValue="false"
+        />
+    <EditTextPreference
         android:key="pref_age"
         android:title="גיל"
-        android:defaultValue="false"/>
+        android:defaultValue="false"
+       />
     <CheckBoxPreference android:title="SMS"
         android:defaultValue="false"
         android:key="pref_SMS" />
