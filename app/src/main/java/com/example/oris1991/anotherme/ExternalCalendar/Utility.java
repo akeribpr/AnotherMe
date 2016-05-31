@@ -23,7 +23,6 @@ import android.provider.CalendarContract;
 import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Task;
-import com.example.oris1991.anotherme.sqlLite.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

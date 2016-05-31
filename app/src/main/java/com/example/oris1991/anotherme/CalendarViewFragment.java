@@ -75,7 +75,6 @@ public class CalendarViewFragment extends Fragment{
 
         handler = new Handler();
         handler.post(calendarUpdater);
-       // Log.d("sc",date.get(1));
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
 

@@ -14,8 +14,9 @@ import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
 import com.example.oris1991.anotherme.Model.LogIn;
+import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.R;
-import com.example.oris1991.anotherme.sqlLite.Model;
+//import com.example.oris1991.anotherme.sqlLite.Model;
 
 /**
  * Created by oris1991 on 08/05/2016.

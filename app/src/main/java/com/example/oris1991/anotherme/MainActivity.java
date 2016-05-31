@@ -2,6 +2,7 @@ package com.example.oris1991.anotherme;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -443,11 +444,16 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     public void SaveSolution() {
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-
         transaction.remove(solFra);
         transaction.add(R.id.frag_container, calendarFra);
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
+//        manager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                if(getFragmentManager().getBackStackEntryCount() == 0) finish();
+//            }
+//        });
         //transaction.hide(newEventFra);
         //transaction.show(calendarFra);
         transaction.commit();
@@ -498,5 +504,31 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //transaction.show(calendarFra);
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
+    }
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
+               // getFragmentManager().findFragmentById(R.id.frag_container);
+        if (currentFragment instanceof CalendarViewFragment) {
+
+            super.onBackPressed();
+//            calendarFra = new CalendarViewFragment();
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.add(R.id.frag_container, calendarFra);
+//            transaction.remove(currentFragment);
+//            transaction.show(calendarFra);
+//            transaction.commit();
+//            fab.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.frag_container, calendarFra);
+            transaction.remove(newEventFra);
+            transaction.show(calendarFra);
+            transaction.commit();
+            fab.setVisibility(View.VISIBLE);
+        }
     }
 }
