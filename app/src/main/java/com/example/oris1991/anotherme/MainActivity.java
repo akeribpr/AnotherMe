@@ -345,12 +345,13 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                     fo = new FileOutputStream(destination);
                     fo.write(bytes.toByteArray());
                     fo.close();
-                    saveInCloudinary(destination.getAbsolutePath());
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                saveInCloudinary(destination.getAbsolutePath());
                 //  ivImage.setImageBitmap(thumbnail);
             } else if (requestCode == SELECT_FILE) {
                 Uri selectedImageUri = data.getData();

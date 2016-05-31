@@ -23,6 +23,7 @@ import android.provider.CalendarContract;
 import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Task;
+import com.example.oris1991.anotherme.sqlLite.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Utility {
 	public static ArrayList<String> startTime = new ArrayList<String>();
 	public static ArrayList<String> startDateAndTime = new ArrayList<String>();
 	public static ArrayList<Long> eventId = new ArrayList<Long>();
-
+	public static ArrayList<Task> taskArry = new ArrayList<Task>();
 	public static ArrayList<String> readCalendarEvent(Context context) {
 		Cursor cursor = context.getContentResolver()
 				.query(Uri.parse("content://com.android.calendar/events"),
@@ -68,14 +69,19 @@ public class Utility {
 		startDateAndTime.clear();
 		for (int i = 0; i < CNames.length; i++) {
 
-			nameOfEvent.add(cursor.getString(1));
-			startDates.add(getDate(Long.parseLong(cursor.getString(3))));
+		//	int id,String title, long startTime, long endTime, String location,int whatToDo
+
+			nameOfEvent.add(cursor.getString(1));//text
+
+			startDates.add(getDate(Long.parseLong(cursor.getString(3))));//start date
 //			endDates.add(getDate(Long.parseLong(cursor.getString(4))));
 		//	descriptions.add(cursor.getString(2));
 			CNames[i] = cursor.getString(1);
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
 			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
 			startDateAndTime.add(cursor.getString(3));
+			Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null,0);
+			taskArry.add(task);
 			cursor.moveToNext();
 
 		}

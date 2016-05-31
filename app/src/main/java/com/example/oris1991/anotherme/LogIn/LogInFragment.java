@@ -34,13 +34,11 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     Delegate delegate;
-   // private ModelMain model;
 
     interface Delegate{
         public void startRegister();
         public void finishFra();
     }
-
 
 
     @Override
@@ -57,30 +55,16 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         saveLoginCheckBox = (CheckBox)view.findViewById(R.id.saveLoginCheckBox);
         loginPreferences = getActivity().getSharedPreferences("loginPrefs",  Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
-       // model = ModelMain.instance().
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
-//            editTextUsername.setText(loginPreferences.getString("username", ""));
-//            editTextPassword.setText(loginPreferences.getString("password", ""));
             editTextUsername.setText(Model.instance().getUser().getPersonId());
             editTextPassword.setText(Model.instance().getUser().getPassword());
             saveLoginCheckBox.setChecked(true);
             LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
             if(Model.instance().checkUser(logIn)){
-//        if(model.checkUser(logIn)){
                 startActivity();
             }
         }
-
-
-
-//        if(editTextUsername.getText().toString().compareTo("admin")==0&&editTextPassword.getText().toString().compareTo("1234")==0)
-//        {
-//
-//            startActivity();
-//        }
-
-
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,14 +87,11 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             if(Model.instance().checkUser(logIn)){
             if (saveLoginCheckBox.isChecked()) {
                 loginPrefsEditor.putBoolean("saveLogin", true);
-               // loginPrefsEditor.putString("username", username);
-                //loginPrefsEditor.putString("password", password);
                 loginPrefsEditor.commit();
             } else {
                 loginPrefsEditor.clear();
                 loginPrefsEditor.commit();
             }
-//            if(Model.instance().checkUser(logIn)){
               startActivity();
             }
             else
