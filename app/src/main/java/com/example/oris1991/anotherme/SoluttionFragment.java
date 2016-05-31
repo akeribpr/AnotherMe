@@ -114,14 +114,26 @@ public class SoluttionFragment  extends Fragment{
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               // delegate.endFragment(1);
+                delegate.SaveSolution();
+
+            }
+        });
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                delegate.endFragment(1);
+                //delegate.endFragment(1);
+                delegate.CancelSolution();
 
             }
         });
+
 
         return view;
 
