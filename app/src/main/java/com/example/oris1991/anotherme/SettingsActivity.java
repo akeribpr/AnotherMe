@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsActivity extends PreferenceFragment {
 
     private static final int PREFERENCE_MODE_PRIVATE=0;
 

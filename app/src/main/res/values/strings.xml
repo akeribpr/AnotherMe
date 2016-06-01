@@ -6,7 +6,7 @@
     <string name="action_history">History</string>
     <string name="action_camera">Camera</string>
     <string name="action_SMS">SMS</string>
-    <string name="action_notification">Notification</string>
+    <string name="notification">Notification receiver</string>
     <string-array name="action_array">
         <item>פגישה</item>
         <item>סרט</item>

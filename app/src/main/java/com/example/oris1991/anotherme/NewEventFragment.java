@@ -83,8 +83,8 @@ public class NewEventFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-               //Tas task =null;
-               // delegate.taskWithSolution();
+               Task task =null;
+                delegate.taskWithSolution(task);
                // delegate.endFragment(2);
 
             }

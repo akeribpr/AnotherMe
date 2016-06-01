@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
-    SettingsFragment settingsFra;
+    SettingsActivity settingsFra;
     SoluttionFragment solFra;
     FloatingActionButton fab;
     protected LocationManager  mlocManager;
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
-            settingsFra=new SettingsFragment();
+            settingsFra=new SettingsActivity();
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.remove(currentFragment);
@@ -240,11 +240,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             }
             return true;
         }
-        if (id == R.id.action_notification)
-        {
-            showNotification();
-            return true;
-        }
         if (id == R.id.action_popup_templates)
         {
             Intent intent = new Intent(getApplicationContext(),
@@ -270,7 +265,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    public void showNotification(){
+    public void showNotification(String smsNote){
 
         // define sound URI, the sound to be played when there's a notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -284,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         Notification mNotification = new Notification.Builder(this)
 
                 .setContentTitle("New Post!")
-                .setContentText("Here's an awesome update for you!")
+                .setContentText("send sms "+smsNote+" ?")
                 .setSmallIcon(R.drawable.ninja)
                 .setContentIntent(pIntent)
                 .setSound(soundUri)
@@ -475,6 +470,13 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.commit();
         fab.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void showNot(String smsNote) {
+        showNotification(smsNote);
+    }
+
+
 
     @Override
     public void taskWithSolution(Task task) {

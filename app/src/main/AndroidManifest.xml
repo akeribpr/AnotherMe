@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsFragment"
+            android:name=".SettingsActivity"
             android:label="@string/action_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
@@ -47,6 +47,10 @@
         <activity
             android:name=".PopUpAndSMS.SmsTemplates"
             android:label="@string/action_sms_templates"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".NotificationReceiver"
+            android:label="@string/notification"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

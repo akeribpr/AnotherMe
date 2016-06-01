@@ -3,9 +3,13 @@ package com.example.oris1991.anotherme;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -47,12 +51,14 @@ public class SoluttionFragment  extends Fragment{
     TextView timeBeforeMissionStart;
     Spinner spinnerActions ;
     NumberPicker np;
+    String smsNotification;
 
 
     interface Delegate{
         public void endFragment(int code);
         public void SaveSolution();
         public void CancelSolution();
+        public void showNot(String smsNote);
 
     }
 
@@ -119,7 +125,10 @@ public class SoluttionFragment  extends Fragment{
             public void onClick(View v) {
 
                // delegate.endFragment(1);
+
+
                 delegate.SaveSolution();
+                delegate.showNot(smsNotification);
 
             }
         });
@@ -139,6 +148,7 @@ public class SoluttionFragment  extends Fragment{
 
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,6 +230,7 @@ public class SoluttionFragment  extends Fragment{
                                     int position, long id) {
                 //add by id to solution sms
                 smsTemplateChoose.setText(dataSms.get(position).getText().toString());
+                smsNotification=dataSms.get(position).getText().toString();
                 myDialog.dismiss();
             }
         });
