@@ -47,7 +47,7 @@ public class Utility {
 	public static ArrayList<String> endTime = new ArrayList<String>();
 	public static ArrayList<String> startDateAndTime = new ArrayList<String>();
 	public static ArrayList<String> endDateAndTime = new ArrayList<String>();
-	public static ArrayList<Long> eventId = new ArrayList<Long>();
+	public static ArrayList<String> eventId = new ArrayList<String>();
 	public static List<Task> taskArry = new ArrayList<Task>();
 	public static ArrayList<String> readCalendarEvent(Context context) {
 		Cursor cursor = context.getContentResolver()
@@ -85,6 +85,7 @@ public class Utility {
 //			endTime.add(format.format(new Date(Long.parseLong(cursor.getString(4)))));
 			startDateAndTime.add(cursor.getString(3));
 			endDateAndTime.add(cursor.getString(4));
+			eventId.add("0");
 
 			cursor.moveToNext();
 		}
@@ -97,6 +98,7 @@ public class Utility {
 			endTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime())))));
 			startDateAndTime.add(String.valueOf(taskArry.get(i).getStartTime()));
 			endDateAndTime.add(String.valueOf(taskArry.get(i).getEndTime()));
+			eventId.add(String.valueOf(taskArry.get(i).getId()));
 		}
 
 		return nameOfEvent;

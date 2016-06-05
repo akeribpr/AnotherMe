@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     SettingsActivity settingsFra;
     SoluttionFragment solFra;
     EditFragment editFra;
-    FloatingActionButton fab;
     protected LocationManager  mlocManager;
     SharedPreferences sharedPreferencesPut;
     SharedPreferences sharedPreferencesGet;
@@ -101,34 +100,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //transaction.show(calendarFra);
         transaction.commit();
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                addFragment = new AddFragment();
-//                FragmentTransaction transaction = manager.beginTransaction();
-//                transaction.remove(studentListFragment);
-//                transaction.add(R.id.main,addFragment, "TAG");
-//                transaction.addToBackStack(null);
-//                invalidateOptionsMenu();
-//                transaction.commit();
-
-
-                newEventFra = new NewEventFragment();
-                FragmentTransaction transaction = manager.beginTransaction();
-                //getFragmentManager().beginTransaction();
-                transaction.remove(calendarFra);
-                transaction.add(R.id.frag_container, newEventFra);
-                transaction.addToBackStack(null);
-                invalidateOptionsMenu();
-
-                //transaction.hide(calendarFra);
-                //transaction.show(newEventFra);
-                transaction.commit();
-                fab.setVisibility(view.GONE);
-            }
-        });
     }
 
     @Override
@@ -208,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.remove(currentFragment);
             transaction.add(R.id.frag_container, settingsFra);
-            fab.setVisibility(View.GONE);
             //transaction.show(calendarFra);
             transaction.commit();
             return true;
@@ -224,7 +194,22 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             selectImage();
             return true;
         }
-        if ( id ==R.id.action_SMS)
+        if (id == R.id.action_add)
+        {
+            newEventFra = new NewEventFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            //getFragmentManager().beginTransaction();
+            transaction.remove(calendarFra);
+            transaction.add(R.id.frag_container, newEventFra);
+            transaction.addToBackStack(null);
+            invalidateOptionsMenu();
+
+            //transaction.hide(calendarFra);
+            //transaction.show(newEventFra);
+            transaction.commit();
+            return true;
+        }
+        /*if ( id ==R.id.action_SMS)
         {
             String phoneNo = "0547297791";
             String msg = "hi";
@@ -241,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 ex.printStackTrace();
             }
             return true;
-        }
+        }*/
         if (id == R.id.action_popup_templates)
         {
             Intent intent = new Intent(getApplicationContext(),
@@ -426,7 +411,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.hide(newEventFra);
             transaction.show(calendarFra);
             transaction.commit();
-            fab.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -466,7 +450,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -487,7 +470,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack("task");
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
 
     }
 
@@ -502,7 +484,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -515,7 +496,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
     @Override
     public void onBackPressed() {
@@ -531,7 +511,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.remove(currentFragment);
             transaction.show(calendarFra);
             transaction.commit();
-            fab.setVisibility(View.VISIBLE);
         }
     }
 

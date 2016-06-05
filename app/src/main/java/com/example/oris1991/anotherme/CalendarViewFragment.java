@@ -113,7 +113,9 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                delegate.startEdit(time.get(position));
+
+                if (Utility.eventId.get(time.get(position))!="0")
+                    delegate.startEdit(time.get(position));
                 //delegate.startEdit();
                 //Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
                 //Utility.nameOfEvent.indexOf(Utility.nameOfEvent)

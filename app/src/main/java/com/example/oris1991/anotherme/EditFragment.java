@@ -1,9 +1,13 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -35,6 +39,7 @@ public class EditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.new_event_fragment, container, false);
+        setHasOptionsMenu(true);
         final Delegate delegate = (Delegate) getActivity();
         final TextView eventTitle = (TextView) view.findViewById(R.id.EventTitleEditText);
         final DateEditText eventStartDate = (DateEditText) view.findViewById(R.id.startDateEditText);
@@ -71,7 +76,8 @@ public class EditFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-           /*     long startMillis = 0;
+                Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+                long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
                 beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
@@ -81,8 +87,8 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                newTask.setSolution(sol);
-                Model.instance().addTaskWithSolution(newTask);*/
+               // newTask.setSolution(sol);
+                Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentEdit();
             }
@@ -111,5 +117,31 @@ public class EditFragment extends Fragment {
     public void setPosition (int pos)
     {
         this.pos=pos;
+    }
+
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_edit, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+
+
+            Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+            final Delegate delegate = (Delegate) getActivity();
+            delegate.endFragmentEdit();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -94,6 +94,12 @@ public class ModelSql implements ModelInterface {
         return SmsOrPopupSql.getSmsTemplates(db);
     }
 
+    @Override
+    public void deleteTask(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        TaskSql.deleteTask(db,id);
+    }
+
     public void addSolution(Solution sol) {
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -111,8 +117,9 @@ public class ModelSql implements ModelInterface {
     @Override
     public void addTaskWithSolution(Task task) {
         Task newTask = task;
-        newTask.getSolution().setIdSolution(numberOfRowe(TASK_TABLE));
-        addSolution(newTask.getSolution());
+        if (task.getSolution()!=null){
+            newTask.getSolution().setIdSolution(numberOfRowe(TASK_TABLE));
+            addSolution(newTask.getSolution());}
         addTask(newTask);
 
     }

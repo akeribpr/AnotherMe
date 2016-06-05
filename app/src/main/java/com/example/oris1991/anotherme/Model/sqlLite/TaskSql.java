@@ -33,8 +33,16 @@ public class TaskSql {
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
-        values.put(SOLUTION, sp.getSolution().getIdSolution());
+        if(sp.getSolution()!=null)
+            values.put(SOLUTION, sp.getSolution().getIdSolution());
         db.insert(TASK_TABLE,ID,values);
+    }
+
+    public static void deleteTask(SQLiteDatabase db, int id) {
+
+       /* String[] args={String.valueOf(id)};
+        db.delete(TASK_TABLE, ID + " = ?" ,args);*/
+        db.delete(TASK_TABLE, ID + " = '" +id+"'", null);
     }
 
     public static List<Task> getTasks(SQLiteDatabase db)
@@ -99,6 +107,7 @@ public class TaskSql {
     public static void drop(SQLiteDatabase db) {
         db.execSQL("drop table " + TASK_TABLE);
     }
+
 
 
 }

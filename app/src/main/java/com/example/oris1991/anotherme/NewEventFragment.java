@@ -3,6 +3,8 @@ package com.example.oris1991.anotherme;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,6 +40,7 @@ public class NewEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.new_event_fragment, container, false);
+        setHasOptionsMenu(true);
         final Delegate delegate = (Delegate) getActivity();
         final TextView eventTitle = (TextView) view.findViewById(R.id.EventTitleEditText);
         final DateEditText eventStartDate = (DateEditText) view.findViewById(R.id.startDateEditText);
@@ -60,7 +63,7 @@ public class NewEventFragment extends Fragment {
             eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
             eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
             eventStartDate.set(cls.get(Calendar.YEAR), Integer.valueOf(cls.get(Calendar.MONTH)) , cls.get(Calendar.DAY_OF_MONTH));
-            eventEndDate.set(cle.get(Calendar.YEAR),Integer.valueOf(cle.get(Calendar.MONTH))  ,cle.get(Calendar.DAY_OF_MONTH));
+            eventEndDate.set(cle.get(Calendar.YEAR), Integer.valueOf(cle.get(Calendar.MONTH))  ,cle.get(Calendar.DAY_OF_MONTH));
             eventStartTime.set(cls.get(Calendar.HOUR_OF_DAY),cls.get(Calendar.MINUTE));
             eventEndTime.set(cle.get(Calendar.HOUR_OF_DAY),cle.get(Calendar.MINUTE));
         }
@@ -83,7 +86,8 @@ public class NewEventFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                newTask.setSolution(sol);
+                if (sol !=null)
+                    newTask.setSolution(sol);
                 Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentTask();
@@ -127,6 +131,12 @@ public class NewEventFragment extends Fragment {
     public void setSolution(Solution sol)
     {
         this.sol=sol;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_defualt, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
 

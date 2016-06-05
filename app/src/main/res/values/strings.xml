@@ -5,7 +5,8 @@
     <string name="action_sms_templates">Sms templates</string>
     <string name="action_history">History</string>
     <string name="action_camera">Camera</string>
-    <string name="action_SMS">SMS</string>
+    <string name="action_add">Add</string>
+    <string name="action_delete">Delete</string>
     <string name="notification">Notification receiver</string>
     <string-array name="action_array">
         <item>פגישה</item>

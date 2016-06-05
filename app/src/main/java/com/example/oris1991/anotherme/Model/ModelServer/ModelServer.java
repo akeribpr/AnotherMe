@@ -43,6 +43,11 @@ public class ModelServer implements ModelInterface {
     }
 
     @Override
+    public void deleteTask(int id) {
+
+    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
 
     }

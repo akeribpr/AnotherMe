@@ -16,6 +16,8 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -73,6 +75,7 @@ public class SoluttionFragment  extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.solution_fragment, container, false);
+        setHasOptionsMenu(true);
         final Delegate delegate = (Delegate) getActivity();
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
@@ -367,6 +370,12 @@ public class SoluttionFragment  extends Fragment{
 
     public void setTask(Task task) {
         this.task=task;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_defualt, menu);
+        super.onCreateOptionsMenu(menu,inflater);
     }
 
 

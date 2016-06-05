@@ -81,6 +81,11 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public void deleteTask(int id) {
+        sqlModel.deleteTask(id);
+    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
     }
