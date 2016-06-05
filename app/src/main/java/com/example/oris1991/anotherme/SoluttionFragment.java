@@ -25,7 +25,10 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
@@ -51,12 +54,15 @@ public class SoluttionFragment  extends Fragment{
     TextView timeBeforeMissionStart;
     Spinner spinnerActions ;
     NumberPicker np;
-    String smsNotification;
+    String smsNotification,popupData;
+    int timeBefore;
+    Task task;
+
 
 
     interface Delegate{
         public void endFragment(int code);
-        public void SaveSolution();
+        public void SaveSolution(Solution sol,Task task);
         public void CancelSolution();
         public void showNot(String smsNote);
 
@@ -80,7 +86,6 @@ public class SoluttionFragment  extends Fragment{
         Button cancel= (Button) view.findViewById(R.id.solution_cancel);
 
         spinnerActions = (Spinner) view.findViewById(R.id.spinner_actions);
-       //spinnerValue=String.valueOf(spinnerActions.getSelectedItem());
 
         doWith.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +120,8 @@ public class SoluttionFragment  extends Fragment{
 
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // TODO Auto-generated method stub
+
+               timeBefore=newVal;
 
             }
         });
@@ -124,12 +130,11 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-               // delegate.endFragment(1);
-
-
-                delegate.SaveSolution();
+                SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                Solution sol = new Solution(1,sms,popup,2);
+                delegate.SaveSolution(sol,task);
                 delegate.showNot(smsNotification);
-
             }
         });
 
@@ -268,6 +273,7 @@ public class SoluttionFragment  extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 popupTemplateChoose.setText(dataPopup.get(position).getText().toString());
+                popupData=dataPopup.get(position).getText().toString();
                 myDialog.dismiss();
             }
         });
@@ -358,6 +364,11 @@ public class SoluttionFragment  extends Fragment{
             return convertView;
         }
     }
+
+    public void setTask(Task task) {
+        this.task=task;
+    }
+
 
 
 }

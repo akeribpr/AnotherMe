@@ -32,8 +32,8 @@ public class CalendarViewFragment extends Fragment{
 
     interface Delegate{
 
-        public void plusButton(int code);
-        public void startEdit();
+      //  public void plusButton(int code);
+        public void startEdit(int pos);
 
     }
 
@@ -58,7 +58,7 @@ public class CalendarViewFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.calendar_fragment, container, false);
-       // final Delegate delegate = (Delegate) getActivity();
+        final Delegate delegate = (Delegate) getActivity();
         mContext=container.getContext();
 
 
@@ -113,8 +113,10 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                delegate.startEdit(time.get(position));
                 //delegate.startEdit();
-                Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
+                //Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
+                //Utility.nameOfEvent.indexOf(Utility.nameOfEvent)
                 adapter.notifyDataSetChanged();
                 handler.post(calendarUpdater);
                 adapterEvent.notifyDataSetChanged();

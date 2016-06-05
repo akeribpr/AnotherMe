@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -39,13 +40,15 @@ import java.util.TimeZone;
  */
 public class Utility {
 	public static ArrayList<String> nameOfEvent = new ArrayList<String>();
+	public static ArrayList<String> locations = new ArrayList<String>();
 	public static ArrayList<String> startDates = new ArrayList<String>();
 	public static ArrayList<String> endDates = new ArrayList<String>();
-	public static ArrayList<String> descriptions = new ArrayList<String>();
 	public static ArrayList<String> startTime = new ArrayList<String>();
+	public static ArrayList<String> endTime = new ArrayList<String>();
 	public static ArrayList<String> startDateAndTime = new ArrayList<String>();
+	public static ArrayList<String> endDateAndTime = new ArrayList<String>();
 	public static ArrayList<Long> eventId = new ArrayList<Long>();
-	public static ArrayList<Task> taskArry = new ArrayList<Task>();
+	public static List<Task> taskArry = new ArrayList<Task>();
 	public static ArrayList<String> readCalendarEvent(Context context) {
 		Cursor cursor = context.getContentResolver()
 				.query(Uri.parse("content://com.android.calendar/events"),
@@ -54,7 +57,7 @@ public class Utility {
 						null, null);
 		cursor.moveToFirst();
 
-
+		taskArry=Model.instance().getTasks();
 
 		// fetching calendars name
 		String CNames[] = new String[cursor.getCount()];
@@ -64,31 +67,38 @@ public class Utility {
 		// fetching calendars id
 		nameOfEvent.clear();
 		startDates.clear();
-		//endDates.clear();
-		//descriptions.clear();
+		endDates.clear();
+		endTime.clear();
+		locations.clear();
 		startTime.clear();
 		eventId.clear();
 		startDateAndTime.clear();
+		endDateAndTime.clear();
 		for (int i = 0; i < CNames.length; i++) {
 
-		//	int id,String title, long startTime, long endTime, String location,int whatToDo
-
 			nameOfEvent.add(cursor.getString(1));//text
-
+			locations.add(cursor.getString(5));
 			startDates.add(getDate(Long.parseLong(cursor.getString(3))));//start date
-//			endDates.add(getDate(Long.parseLong(cursor.getString(4))));
-		//	descriptions.add(cursor.getString(2));
+			//endDates.add(getDate(Long.parseLong(cursor.getString(4))));
 			CNames[i] = cursor.getString(1);
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
-			/*long eventID = Long.parseLong(uri.getLastPathSegment());*/
+//			endTime.add(format.format(new Date(Long.parseLong(cursor.getString(4)))));
 			startDateAndTime.add(cursor.getString(3));
-			//Task task = new Task(1,cursor.getString(1),Long.parseLong(cursor.getString(3)),Long.parseLong(cursor.getString(3)),null);
-			//Model.instance().addTask(task);
-			//taskArry.add(task);
+			endDateAndTime.add(cursor.getString(4));
 
 			cursor.moveToNext();
-
 		}
+		for (int i = 0; i <taskArry.size(); i++) {
+			nameOfEvent.add(taskArry.get(i).getTitle());
+			locations.add(taskArry.get(i).getLocation());
+			startDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime()))));
+			startTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime())))));
+			endDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime()))));
+			endTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime())))));
+			startDateAndTime.add(String.valueOf(taskArry.get(i).getStartTime()));
+			endDateAndTime.add(String.valueOf(taskArry.get(i).getEndTime()));
+		}
+
 		return nameOfEvent;
 	}
 

@@ -2,6 +2,7 @@ package com.example.oris1991.anotherme.Model;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
@@ -46,7 +47,7 @@ public class Model implements ModelInterface {
 
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
-        return sqlModel.getSmsForPerson( person);
+        return sqlModel.getSmsForPerson(person);
     }
 
     public List<SMSOrPopup> getSmsOrPopups() {
@@ -64,9 +65,24 @@ public class Model implements ModelInterface {
         return sqlModel.getSmsTemplates();
     }
 
+    public void addSolution(Solution sol) {
+
+         sqlModel.addSolution(sol);
+    }
+
+    public List<Task> getTasks() {
+
+        return sqlModel.getTasks();
+    }
+
     @Override
     public void addTask(Task task) {
         sqlModel.addTask(task);
+    }
+
+    @Override
+    public void addTaskWithSolution(Task task) {
+        sqlModel.addTaskWithSolution(task);
     }
 
     public  int numberOfRow( ){

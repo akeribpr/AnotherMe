@@ -41,4 +41,14 @@ public class ModelServer implements ModelInterface {
     public void addTask(Task task) {
 
     }
+
+    @Override
+    public void addTaskWithSolution(Task task) {
+
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        return null;
+    }
 }

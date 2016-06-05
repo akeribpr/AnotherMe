@@ -3,13 +3,12 @@ package com.example.oris1991.anotherme.Model.sqlLite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 
-//import com.example.oris1991.anotherme.Model.LogIn;
-//import com.example.oris1991.anotherme.Model.Solution;
-//import com.example.oris1991.anotherme.Model.Task;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Itzik on 30/05/2016.
@@ -27,20 +26,45 @@ public class TaskSql {
     private static final String SOLUTION = "solution_Id";
 
     public static void addTask(SQLiteDatabase db, Task sp) {
-        Log.d("task",sp.getTitle());
+
         ContentValues values = new ContentValues();
         values.put(ID, sp.getId());
         values.put(TITLE, sp.getTitle());
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
-        if(!(sp.getSolution().equals(null))) {
-            values.put(SOLUTION, sp.getSolution().getIdSolution());
-        }
+        values.put(SOLUTION, sp.getSolution().getIdSolution());
         db.insert(TASK_TABLE,ID,values);
     }
 
+    public static List<Task> getTasks(SQLiteDatabase db)
+    {
 
+        Cursor cursor = db.query(TASK_TABLE,null,null,null, null, null, null);
+
+        List<Task> list = new LinkedList<Task>();
+        if (cursor.moveToFirst()) {
+            int id = cursor.getColumnIndex(ID);
+            int titleIndex = cursor.getColumnIndex(TITLE);
+            int startIndex = cursor.getColumnIndex(START);
+            int endIndex = cursor.getColumnIndex(END);
+            int locationIndex = cursor.getColumnIndex(LOCATION);
+            int solution = cursor.getColumnIndex(SOLUTION);
+            do {
+                int idd =  Integer.parseInt(cursor.getString(id));
+                String title = cursor.getString(titleIndex);
+                String start = cursor.getString(startIndex);
+                String end = cursor.getString(endIndex);
+                String location = cursor.getString(locationIndex);
+                //String solution = cursor.getString(textIndex);
+                Task t = new Task(idd,title,Long.valueOf(start),Long.valueOf(end),location);
+                list.add(t);
+            } while (cursor.moveToNext());
+
+        }
+        return list;
+
+    }
     public static Task getTask(SQLiteDatabase db) {
 
         Task task = null;
@@ -48,6 +72,14 @@ public class TaskSql {
         Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
 
 
+//        if (cursor.moveToFirst()) {
+//            int personId = cursor.getColumnIndex(PERSON_ID);
+//            int password = cursor.getColumnIndex(PASSWORD);
+//
+//            logIn = new LogIn(cursor.getString(personId),cursor.getString(password));
+//            return logIn;
+//        }
+//        return logIn;
         return null;
     }
 
@@ -60,6 +92,7 @@ public class TaskSql {
                 END + " TEXT," +
                 TITLE + " TEXT," +
                 LOCATION + " TEXT," +
+                WHAT_TO_DO + " INTEGER," +
                 SOLUTION + " INTEGER);");
     }
 

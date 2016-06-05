@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.MyApplication;
@@ -93,12 +94,33 @@ public class ModelSql implements ModelInterface {
         return SmsOrPopupSql.getSmsTemplates(db);
     }
 
+    public void addSolution(Solution sol) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SolutionSql.addSolution(db, sol);
+    }
+
     @Override
     public void addTask(Task task) {
 
         task.setId( numberOfRowe(TASK_TABLE));
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         TaskSql.addTask(db,task);
+    }
+
+    @Override
+    public void addTaskWithSolution(Task task) {
+        Task newTask = task;
+        newTask.getSolution().setIdSolution(numberOfRowe(TASK_TABLE));
+        addSolution(newTask.getSolution());
+        addTask(newTask);
+
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return TaskSql.getTasks(db);
     }
 /*    public void delete(Student st) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -122,6 +144,7 @@ public class ModelSql implements ModelInterface {
             //create the DB schema
             SmsOrPopupSql.create(db);
             LogInSql.create(db);
+            TaskSql.create(db);
         }
 
         @Override

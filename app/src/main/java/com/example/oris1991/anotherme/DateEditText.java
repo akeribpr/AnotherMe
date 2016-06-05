@@ -59,6 +59,12 @@ public class DateEditText extends EditText {
         init();
     }
 
+    public void set(int year,int month,int day) {
+        this.year = year;
+        this.month=month;
+        this.day=day;
+    }
+
     public DateEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();

@@ -15,6 +15,6 @@ public interface ModelInterface {
     public List<SMSOrPopup> getPopupsTemplates();
     public List<SMSOrPopup> getSmsTemplates();
     public void addTask(Task task);
-
-
+    public void addTaskWithSolution(Task task);
+    public List<Task> getTasks();
 }
