@@ -2,7 +2,9 @@ package com.example.oris1991.anotherme.Model;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
@@ -69,10 +71,37 @@ public class Model implements ModelInterface {
         sqlModel.addTask(task);
     }
 
+    @Override
+    public void addPic(SharePictureOrText sp) {
+        sqlModel.addPic(sp);
+    }
+
+    @Override
+    public void addUser(Users sp) {
+        sqlModel.addUser(sp);
+    }
+
+    @Override
+    public List<SharePictureOrText> getPicture() {
+        return sqlModel.getPicture();
+    }
+
+    @Override
+    public List<Users> getUsers() {
+        return sqlModel.getUsers();
+    }
+
+    @Override
+    public Boolean deleteUser(Users sp) {
+        return sqlModel.deleteUser(sp);
+    }
+
     public  int numberOfRow( ){
 
         return sqlModel.numberOfRow();
     }
+
+
    /* public void delete(Student st) {
         sqlModel.delete(st);
     }*/

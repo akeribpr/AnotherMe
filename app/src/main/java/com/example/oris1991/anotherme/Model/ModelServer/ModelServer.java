@@ -1,6 +1,8 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
@@ -40,5 +42,30 @@ public class ModelServer implements ModelInterface {
     @Override
     public void addTask(Task task) {
 
+    }
+
+    @Override
+    public void addPic(SharePictureOrText sp) {
+
+    }
+
+    @Override
+    public void addUser(Users sp) {
+
+    }
+
+    @Override
+    public List<SharePictureOrText> getPicture() {
+        return null;
+    }
+
+    @Override
+    public List<Users> getUsers() {
+        return null;
+    }
+
+    @Override
+    public Boolean deleteUser(Users sp) {
+        return null;
     }
 }

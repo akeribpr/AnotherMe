@@ -40,5 +40,11 @@
         android:title="@string/action_notification"
         app:showAsAction="ifRoom"
         android:icon="@drawable/notification_icon"/>
+    <item
+        android:id="@+id/fragment_user"
+        android:orderInCategory="100"
+        android:title="@string/fragment_user"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/notification_icon"/>
 
 </menu>
