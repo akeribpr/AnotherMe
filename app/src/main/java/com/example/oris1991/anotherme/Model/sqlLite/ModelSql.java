@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
@@ -96,6 +97,18 @@ public class ModelSql implements ModelInterface {
     }
 
     @Override
+    public void deleteTask(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        TaskSql.deleteTask(db,id);
+    }
+
+    public void addSolution(Solution sol) {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SolutionSql.addSolution(db, sol);
+    }
+
+    @Override
     public void addTask(Task task) {
 
         task.setId( numberOfRowe(TASK_TABLE));
@@ -133,6 +146,22 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return UsersSql.deleteUser(db,sp);
     }
+
+    @Override
+    public void addTaskWithSolution(Task task) {
+        Task newTask = task;
+        if (task.getSolution()!=null){
+            newTask.getSolution().setIdSolution(numberOfRowe(TASK_TABLE));
+            addSolution(newTask.getSolution());}
+        addTask(newTask);
+
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return TaskSql.getTasks(db);
+    }
 /*    public void delete(Student st) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         StudentSql.delete(db, st);
@@ -155,6 +184,7 @@ public class ModelSql implements ModelInterface {
             //create the DB schema
             SmsOrPopupSql.create(db);
             LogInSql.create(db);
+            TaskSql.create(db);
             SharePictureOrTextSql.create(db);
             UsersSql.create(db);
         }

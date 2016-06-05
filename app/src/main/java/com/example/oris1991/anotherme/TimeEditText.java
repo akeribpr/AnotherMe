@@ -68,6 +68,11 @@ public class TimeEditText extends EditText {
         init();
     }
 
+    public void set(int hour,int minutes) {
+        this.hour = hour;
+        this.minutes=minutes;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN){

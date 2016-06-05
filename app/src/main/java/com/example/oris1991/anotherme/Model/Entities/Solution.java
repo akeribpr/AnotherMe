@@ -6,14 +6,12 @@ package com.example.oris1991.anotherme.Model.Entities;
 public class Solution {
 
     int idSolution;
-    Task task;
     SMSOrPopup sms;
     SMSOrPopup popUp;
     int whatToDo;
 
-    public Solution( int idSolution, Task task,SMSOrPopup sms, SMSOrPopup popUp,int whatToDo){
+    public Solution( int idSolution, SMSOrPopup sms, SMSOrPopup popUp,int whatToDo){
         this.idSolution=idSolution;
-        this.task=task;
         this.sms=sms;
         this.popUp=popUp;
         this.whatToDo=whatToDo;
@@ -25,14 +23,6 @@ public class Solution {
 
     public void setIdSolution(int idSolution) {
         this.idSolution = idSolution;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
     }
 
     public SMSOrPopup getSms() {

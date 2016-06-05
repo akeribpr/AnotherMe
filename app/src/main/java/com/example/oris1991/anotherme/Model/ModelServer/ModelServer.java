@@ -68,4 +68,19 @@ public class ModelServer implements ModelInterface {
     public Boolean deleteUser(Users sp) {
         return null;
     }
+
+    @Override
+    public void deleteTask(int id) {
+
+    }
+
+    @Override
+    public void addTaskWithSolution(Task task) {
+
+    }
+
+    @Override
+    public List<Task> getTasks() {
+        return null;
+    }
 }

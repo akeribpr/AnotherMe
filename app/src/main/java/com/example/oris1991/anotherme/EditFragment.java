@@ -1,41 +1,40 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Spinner;
 import android.widget.TextView;
-import com.example.oris1991.anotherme.Model.Entities.Solution;
+
+import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 
 import java.util.Calendar;
 
 /**
- * Created by oris1991 on 07/05/2016.
+ * Created by oris1991 on 02/06/2016.
  */
-public class NewEventFragment extends Fragment {
+public class EditFragment extends Fragment {
 
-    Spinner spinner;
-    Solution sol;
-    Task task;
-
-
+    int pos;
 
     interface Delegate{
         public void endFragment(int code);
         public void taskWithSolution(Task task);
-        public void endFragmentTask();
+        public void endFragmentEdit();
 
     }
 
-
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -50,32 +49,34 @@ public class NewEventFragment extends Fragment {
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
         final CheckBox checkBox = (CheckBox) view.findViewById(R.id.autoGenerateCheckBox);
 
-        if (task!=null)
-        {
-            eventTitle.setText(task.getTitle());
-            eventLocation.setText(task.getLocation());
-            Calendar cls = Calendar.getInstance();
-            cls.setTimeInMillis(task.getStartTime());
-            Calendar cle = Calendar.getInstance();
-            cle.setTimeInMillis(task.getEndTime());
-            eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
-            eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
-            eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
-            eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
-            eventStartDate.set(cls.get(Calendar.YEAR), Integer.valueOf(cls.get(Calendar.MONTH)) , cls.get(Calendar.DAY_OF_MONTH));
-            eventEndDate.set(cle.get(Calendar.YEAR), Integer.valueOf(cle.get(Calendar.MONTH))  ,cle.get(Calendar.DAY_OF_MONTH));
-            eventStartTime.set(cls.get(Calendar.HOUR_OF_DAY),cls.get(Calendar.MINUTE));
-            eventEndTime.set(cle.get(Calendar.HOUR_OF_DAY),cle.get(Calendar.MINUTE));
-        }
+        eventTitle.setText(Utility.nameOfEvent.get(pos));
+        eventLocation.setText(Utility.locations.get(pos));
+        Calendar cls = Calendar.getInstance();
+        Calendar cle = Calendar.getInstance();
+        cls.setTimeInMillis(Long.valueOf(Utility.startDateAndTime.get(pos)));
+        cle.setTimeInMillis(Long.valueOf(Utility.endDateAndTime.get(pos)));
+        eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
+        eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
+        eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
+        eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
+
 
         Button toDo= (Button) view.findViewById(R.id.toDoButton);
         Button save= (Button) view.findViewById(R.id.saveB);
         Button cancel= (Button) view.findViewById(R.id.cancelB);
 
+        cancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                delegate.endFragmentEdit();
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
@@ -86,20 +87,13 @@ public class NewEventFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                if (sol !=null)
-                    newTask.setSolution(sol);
+               // newTask.setSolution(sol);
                 Model.instance().addTaskWithSolution(newTask);
 
-                delegate.endFragmentTask();
+                delegate.endFragmentEdit();
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                delegate.endFragmentTask();
-            }
-        });
 
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -117,27 +111,37 @@ public class NewEventFragment extends Fragment {
 
             }
         });
-
-
-
         return view;
     }
 
-    public void setTask(Task task) {
-
-        this.task=task;
-    }
-
-    public void setSolution(Solution sol)
+    public void setPosition (int pos)
     {
-        this.sol=sol;
+        this.pos=pos;
     }
+
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.menu_defualt, menu);
+        inflater.inflate(R.menu.menu_edit, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_delete) {
+
+
+            Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+            final Delegate delegate = (Delegate) getActivity();
+            delegate.endFragmentEdit();
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }

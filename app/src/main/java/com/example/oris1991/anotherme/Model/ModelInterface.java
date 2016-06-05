@@ -18,6 +18,7 @@ public interface ModelInterface {
     public List<SMSOrPopup> getPopupsTemplates();
     public List<SMSOrPopup> getSmsTemplates();
     public void addTask(Task task);
+    public void deleteTask(int id);
     public void addPic(SharePictureOrText sp);
     public void addUser(Users sp);
     public List<SharePictureOrText> getPicture();
@@ -26,4 +27,6 @@ public interface ModelInterface {
 
 
 
+    public void addTaskWithSolution(Task task);
+    public List<Task> getTasks();
 }

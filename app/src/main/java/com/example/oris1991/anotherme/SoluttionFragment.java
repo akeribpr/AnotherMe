@@ -3,15 +3,21 @@ package com.example.oris1991.anotherme;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,7 +27,10 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
@@ -47,12 +56,17 @@ public class SoluttionFragment  extends Fragment{
     TextView timeBeforeMissionStart;
     Spinner spinnerActions ;
     NumberPicker np;
+    String smsNotification,popupData;
+    int timeBefore;
+    Task task;
+
 
 
     interface Delegate{
         public void endFragment(int code);
-        public void SaveSolution();
+        public void SaveSolution(Solution sol,Task task);
         public void CancelSolution();
+        public void showNot(String smsNote);
 
     }
 
@@ -61,6 +75,7 @@ public class SoluttionFragment  extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.solution_fragment, container, false);
+        setHasOptionsMenu(true);
         final Delegate delegate = (Delegate) getActivity();
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
@@ -74,7 +89,6 @@ public class SoluttionFragment  extends Fragment{
         Button cancel= (Button) view.findViewById(R.id.solution_cancel);
 
         spinnerActions = (Spinner) view.findViewById(R.id.spinner_actions);
-       //spinnerValue=String.valueOf(spinnerActions.getSelectedItem());
 
         doWith.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +123,8 @@ public class SoluttionFragment  extends Fragment{
 
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                // TODO Auto-generated method stub
+
+               timeBefore=newVal;
 
             }
         });
@@ -118,9 +133,11 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-               // delegate.endFragment(1);
-                delegate.SaveSolution();
-
+                SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                Solution sol = new Solution(1,sms,popup,2);
+                delegate.SaveSolution(sol,task);
+                delegate.showNot(smsNotification);
             }
         });
 
@@ -139,6 +156,7 @@ public class SoluttionFragment  extends Fragment{
 
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -220,6 +238,7 @@ public class SoluttionFragment  extends Fragment{
                                     int position, long id) {
                 //add by id to solution sms
                 smsTemplateChoose.setText(dataSms.get(position).getText().toString());
+                smsNotification=dataSms.get(position).getText().toString();
                 myDialog.dismiss();
             }
         });
@@ -257,6 +276,7 @@ public class SoluttionFragment  extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 popupTemplateChoose.setText(dataPopup.get(position).getText().toString());
+                popupData=dataPopup.get(position).getText().toString();
                 myDialog.dismiss();
             }
         });
@@ -347,6 +367,17 @@ public class SoluttionFragment  extends Fragment{
             return convertView;
         }
     }
+
+    public void setTask(Task task) {
+        this.task=task;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_defualt, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
 
 
 }

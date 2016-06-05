@@ -39,6 +39,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
@@ -55,15 +56,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate,UsersFragment.UsersFragmentInterface {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
-    SettingsFragment settingsFra;
+    SettingsActivity settingsFra;
     SoluttionFragment solFra;
-    FloatingActionButton fab;
+    EditFragment editFra;
     protected LocationManager  mlocManager;
     SharedPreferences sharedPreferencesPut;
     SharedPreferences sharedPreferencesGet;
@@ -108,34 +109,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //transaction.show(calendarFra);
         transaction.commit();
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                addFragment = new AddFragment();
-//                FragmentTransaction transaction = manager.beginTransaction();
-//                transaction.remove(studentListFragment);
-//                transaction.add(R.id.main,addFragment, "TAG");
-//                transaction.addToBackStack(null);
-//                invalidateOptionsMenu();
-//                transaction.commit();
-
-
-                newEventFra = new NewEventFragment();
-                FragmentTransaction transaction = manager.beginTransaction();
-                //getFragmentManager().beginTransaction();
-                transaction.remove(calendarFra);
-                transaction.add(R.id.frag_container, newEventFra);
-                transaction.addToBackStack(null);
-                invalidateOptionsMenu();
-
-                //transaction.hide(calendarFra);
-                //transaction.show(newEventFra);
-                transaction.commit();
-                fab.setVisibility(view.GONE);
-            }
-        });
     }
 
     @Override
@@ -210,12 +183,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
-            settingsFra=new SettingsFragment();
+            settingsFra=new SettingsActivity();
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.remove(currentFragment);
             transaction.add(R.id.frag_container, settingsFra);
-            fab.setVisibility(View.GONE);
             //transaction.show(calendarFra);
             transaction.commit();
             return true;
@@ -231,7 +203,22 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             selectImage();
             return true;
         }
-        if ( id ==R.id.action_SMS)
+        if (id == R.id.action_add)
+        {
+            newEventFra = new NewEventFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            //getFragmentManager().beginTransaction();
+            transaction.remove(calendarFra);
+            transaction.add(R.id.frag_container, newEventFra);
+            transaction.addToBackStack(null);
+            invalidateOptionsMenu();
+
+            //transaction.hide(calendarFra);
+            //transaction.show(newEventFra);
+            transaction.commit();
+            return true;
+        }
+        /*if ( id ==R.id.action_SMS)
         {
             String phoneNo = "0540000000";
             String msg = "hi";
@@ -248,12 +235,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 ex.printStackTrace();
             }
             return true;
-        }
-        if (id == R.id.action_notification)
-        {
-            showNotification();
-            return true;
-        }
+        }*/
         if (id == R.id.action_popup_templates)
         {
             Intent intent = new Intent(getApplicationContext(),
@@ -282,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    public void showNotification(){
+    public void showNotification(String smsNote){
 
         // define sound URI, the sound to be played when there's a notification
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -296,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         Notification mNotification = new Notification.Builder(this)
 
                 .setContentTitle("New Post!")
-                .setContentText("Here's an awesome update for you!")
+                .setContentText("send sms "+smsNote+" ?")
                 .setSmallIcon(R.drawable.ninja)
                 .setContentIntent(pIntent)
                 .setSound(soundUri)
@@ -371,6 +353,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
 
+
     @Override
     public void endFragment(int code) {
 
@@ -382,7 +365,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.hide(newEventFra);
             transaction.show(calendarFra);
             transaction.commit();
-            fab.setVisibility(View.VISIBLE);
         }
         else
         {
@@ -396,24 +378,20 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         }
     }
 
+
     @Override
-    public void SaveSolution() {
-        calendarFra = new CalendarViewFragment();
+    public void SaveSolution(Solution sol,Task task) {
+
+        newEventFra = new NewEventFragment();
+
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(solFra);
-        transaction.add(R.id.frag_container, calendarFra);
+        transaction.add(R.id.frag_container, newEventFra);
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
-//        manager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-//            @Override
-//            public void onBackStackChanged() {
-//                if(getFragmentManager().getBackStackEntryCount() == 0) finish();
-//            }
-//        });
-        //transaction.hide(newEventFra);
-        //transaction.show(calendarFra);
+        newEventFra.setSolution(sol);
+        newEventFra.setTask(task);
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -426,21 +404,40 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
 
     @Override
+    public void showNot(String smsNote) {
+        showNotification(smsNote);
+    }
+
+
+
+    @Override
     public void taskWithSolution(Task task) {
-        this.task=task;
+        //this.task=task;
         solFra = new SoluttionFragment();
+        solFra.setTask(task);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(newEventFra);
         transaction.add(R.id.frag_container, solFra);
         transaction.addToBackStack("task");
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
 
+    }
+
+    @Override
+    public void endFragmentEdit() {
+
+        calendarFra = new CalendarViewFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.remove(editFra);
+        transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        transaction.commit();
     }
 
     @Override
@@ -453,7 +450,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.VISIBLE);
     }
     @Override
     public void onBackPressed() {
@@ -469,9 +465,22 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.remove(currentFragment);
             transaction.show(calendarFra);
             transaction.commit();
-            fab.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void startEdit(int pos) {
+
+        editFra = new EditFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(calendarFra);
+        transaction.add(R.id.frag_container,editFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        editFra.setPosition(pos);
+        transaction.commit();
+      }
+
 
     @Override
     public void upgateUsersFragment() {
@@ -480,6 +489,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.replace(R.id.frag_container,userFrag);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.GONE);
+
     }
 }
