@@ -3,7 +3,9 @@ package com.example.oris1991.anotherme.Model;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
@@ -47,7 +49,7 @@ public class Model implements ModelInterface {
 
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
-        return sqlModel.getSmsForPerson(person);
+        return sqlModel.getSmsForPerson( person);
     }
 
     public List<SMSOrPopup> getSmsOrPopups() {
@@ -81,6 +83,31 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public void addPic(SharePictureOrText sp) {
+        sqlModel.addPic(sp);
+    }
+
+    @Override
+    public void addUser(Users sp) {
+        sqlModel.addUser(sp);
+    }
+
+    @Override
+    public List<SharePictureOrText> getPicture() {
+        return sqlModel.getPicture();
+    }
+
+    @Override
+    public List<Users> getUsers() {
+        return sqlModel.getUsers();
+    }
+
+    @Override
+    public Boolean deleteUser(Users sp) {
+        return sqlModel.deleteUser(sp);
+    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
     }
@@ -89,6 +116,8 @@ public class Model implements ModelInterface {
 
         return sqlModel.numberOfRow();
     }
+
+
    /* public void delete(Student st) {
         sqlModel.delete(st);
     }*/

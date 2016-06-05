@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.oris1991.anotherme.ShareHistoryFragment"
+    android:paddingTop="?android:attr/actionBarSize">
+
+    <ProgressBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBarList"
+        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:indeterminate="true"   />
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/shareHistoryListview"
+    />
+
+</RelativeLayout>

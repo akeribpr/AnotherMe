@@ -9,7 +9,9 @@ import android.util.Log;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.MyApplication;
 
@@ -24,7 +26,7 @@ public class ModelSql implements ModelInterface {
     MyDBHelper dbHelper;
     private static final String TASK_TABLE = "Task_Table";
     private static final String SMSPOPUP_TABLE = "sms_popup";
-
+    private static final String  PICTURE_TABLE = "Picture_table";
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
     }
@@ -56,9 +58,9 @@ public class ModelSql implements ModelInterface {
             return 1;
         }
         Cursor cursor = db.rawQuery(countQuery, null);
-//        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
-//            return 1;
-//        }
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            return 1;
+        }
         int cnt = cursor.getCount();
         //  cursor.close();
         return cnt+1;
@@ -109,6 +111,37 @@ public class ModelSql implements ModelInterface {
     }
 
     @Override
+    public void addPic(SharePictureOrText sp) {
+        sp.setId(numberOfRowe(PICTURE_TABLE));
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SharePictureOrTextSql.addPic(db,sp);
+    }
+
+    @Override
+    public void addUser(Users sp) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        UsersSql.addUser(db,sp);
+    }
+
+    @Override
+    public List<SharePictureOrText> getPicture() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return SharePictureOrTextSql.getPictureOrText(db);
+    }
+
+    @Override
+    public List<Users> getUsers() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return UsersSql.getUsers(db);
+    }
+
+    @Override
+    public Boolean deleteUser(Users sp) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return UsersSql.deleteUser(db,sp);
+    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
         Task newTask = task;
         newTask.getSolution().setIdSolution(numberOfRowe(TASK_TABLE));
@@ -145,11 +178,16 @@ public class ModelSql implements ModelInterface {
             SmsOrPopupSql.create(db);
             LogInSql.create(db);
             TaskSql.create(db);
+            SharePictureOrTextSql.create(db);
+            UsersSql.create(db);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
            SmsOrPopupSql.drop(db);
+            LogInSql.drop(db);
+            SharePictureOrTextSql.drop(db);
+            UsersSql.drop(db);
             onCreate(db);
         }
     }
