@@ -489,6 +489,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         transaction.replace(R.id.frag_container,userFrag);
         invalidateOptionsMenu();
         transaction.commit();
-        fab.setVisibility(View.GONE);
+
     }
 }
