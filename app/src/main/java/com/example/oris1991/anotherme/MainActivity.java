@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.replace(R.id.frag_container,userFrag);
             invalidateOptionsMenu();
             transaction.commit();
-            fab.setVisibility(View.GONE);
+
             return true;
         }
 
@@ -343,7 +343,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                     transaction.replace(R.id.frag_container,shareHistoryFragment);
                     invalidateOptionsMenu();
                     transaction.commit();
-                    fab.setVisibility(View.GONE);
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
