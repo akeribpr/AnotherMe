@@ -20,6 +20,7 @@ import java.util.Map;
 public class UploadImage {
 
     Cloudinary cloudinary;
+    DownloadImage dd;
     private final static Cloudinary instance = new Cloudinary();
 
     public UploadImage(){
@@ -41,14 +42,16 @@ public class UploadImage {
                     byte[] bitmapdata = bos.toByteArray();
                     ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
                     String name = imageName.substring(0,imageName.lastIndexOf("."));
-                    Map res = cloudinary.uploader().upload(bs , ObjectUtils.asMap("public_id2", name));
-                    Log.d("TAG","save image to url" + res.get("url"));
+                    Log.d("name","----------------------------------------"+name);
+                   Map res = cloudinary.uploader().upload(bs , ObjectUtils.asMap("public_id", name));
+                 //   Log.d("TAG","save image to url" + res.get("url").toString());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
         t.start();
+
     }
 
     public Bitmap loadImage(String imageName) {

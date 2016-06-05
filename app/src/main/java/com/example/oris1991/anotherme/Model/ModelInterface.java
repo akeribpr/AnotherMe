@@ -1,7 +1,10 @@
 package com.example.oris1991.anotherme.Model;
 
+
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 
 import java.util.List;
 
@@ -16,6 +19,14 @@ public interface ModelInterface {
     public List<SMSOrPopup> getSmsTemplates();
     public void addTask(Task task);
     public void deleteTask(int id);
+    public void addPic(SharePictureOrText sp);
+    public void addUser(Users sp);
+    public List<SharePictureOrText> getPicture();
+    public List<Users> getUsers();
+    public Boolean deleteUser(Users sp);
+
+
+
     public void addTaskWithSolution(Task task);
     public List<Task> getTasks();
 }

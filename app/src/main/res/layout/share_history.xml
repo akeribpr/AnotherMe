@@ -1,0 +1,59 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="?android:attr/actionBarSize">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rowImageFrame">
+
+        <ImageView
+            android:layout_width="74dp"
+            android:layout_height="56dp"
+            android:id="@+id/pic"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/a_m_icon" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rowImageProgressBar"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:focusable="false"
+            android:id="@+id/ifGet"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="251dp"
+                android:layout_height="37dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="first"
+                android:id="@+id/from" />
+            <TextView
+                android:layout_width="261dp"
+                android:layout_height="37dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="last"
+                android:id="@+id/massegeTextHistory" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

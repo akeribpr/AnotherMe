@@ -8,6 +8,8 @@
     <string name="action_add">Add</string>
     <string name="action_delete">Delete</string>
     <string name="notification">Notification receiver</string>
+    <string name="fragment_user">User Manager</string>
+    <string name="action_notification">Notification</string>
     <string-array name="action_array">
         <item>פגישה</item>
         <item>סרט</item>
@@ -17,6 +19,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_share">Share</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>
 
 
