@@ -15,69 +15,124 @@ package com.example.oris1991.anotherme.Model.ModelServer;
  * limitations under the License.
  */
 
-import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.util.Date;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Created by eldar on 31/05/2016.
  */
 public class PersonModelServer {
 
-    private String url = "http://192.168.2.111:8080/Another-Me/Person.jsp";
+    private String url = "http://192.168.1.5:8080/Another-Me/Person.jsp";
+    String result;
 
 
-    protected void onCreate() {
-        SendHttpRequestTask t = new SendHttpRequestTask();
+    public void addNewUser(String personId, String password,
+                           Date DateTimeRegister, String mail, String phoneNumber){
 
-//         String[] params = new String[]{url, name};
+        String[] params = new String[]{url,  personId,  password,
+                 DateTimeRegister.toString(),  mail,  phoneNumber};
+        new AsyncTask<String, Void, String>(){
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) ( new URL(url)).openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+                    con.getOutputStream().write( ("personId=" + params[0]).getBytes());
+                    con.getOutputStream().write( ("&password=" + params[1]).getBytes());
+                    con.getOutputStream().write( ("&DateTimeRegister=" + params[2]).getBytes());
+                    con.getOutputStream().write( ("&mail=" + params[3]).getBytes());
+                    con.getOutputStream().write( ("&phoneNumber=" + params[4]).getBytes());
+
+//                  InputStream is = con.getInputStream();
+//                  byte[] b = new byte[1024];
 //
-//        t.execute(params);
+//                 while (is.read(b) != -1)
+//                buffer.append(new String(b));
+
+                    con.disconnect();
+                }
+                catch(Throwable t) {
+                    t.printStackTrace();
+                }
+
+                return null;
+            }
+
+
+        }.execute(params);
+
 
     }
-    private class SendHttpRequestTask extends AsyncTask<String, Void, String> {
+
+    public Person getUser(String personId) throws IOException {
+        String[] params = new String[]{url,personId};
+        new AsyncTask<String, Void, String>(){
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) ( new URL(url)).openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+                    con.getOutputStream().write( ("&personId=" + params[1]).getBytes());
+
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if(br != null){
+                        result = br.readLine();
+                    }
+                    else
+                        result = "Did not work!(get person)";
+                    con.disconnect();
+
+                }
+                catch(Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
+
+                return result;
+            }
+
+            // onPostExecute displays the results of the AsyncTask.
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("s",result);
+                PersonModelServer.this.result=result;
+            }
+        }.execute(params);
 
 
-        @Override
-        protected String doInBackground(String... params) {
-            String url = params[0];
-            String name = params[1];
-
-            String data = sendHttpRequest(url, name);
-            System.out.println("Data ["+data+"]");
-            return data;
-        }
+        // 2. initiate jackson mapper
+        ObjectMapper mapper = new ObjectMapper();
+        // 3. Convert received JSON to Article
+        return mapper.readValue(result, Person.class);
 
     }
 
-    private String sendHttpRequest(String url, String name) {
-        StringBuffer buffer = new StringBuffer();
-        try {
-            System.out.println("URL ["+url+"] - Name ["+name+"]");
-
-            HttpURLConnection con = (HttpURLConnection) ( new URL(url)).openConnection();
-            con.setRequestMethod("POST");
-            con.setDoInput(true);
-            con.setDoOutput(true);
-            con.connect();
-            con.getOutputStream().write( ("personId=" + name).getBytes());
-
-            InputStream is = con.getInputStream();
-            byte[] b = new byte[1024];
-
-            while ( is.read(b) != -1)
-                buffer.append(new String(b));
-
-            con.disconnect();
-        }
-        catch(Throwable t) {
-            t.printStackTrace();
-        }
-
-        return buffer.toString();
-    }
 }
+
