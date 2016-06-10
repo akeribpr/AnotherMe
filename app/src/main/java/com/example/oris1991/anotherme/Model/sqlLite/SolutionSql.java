@@ -3,6 +3,7 @@ package com.example.oris1991.anotherme.Model.sqlLite;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
@@ -25,8 +26,13 @@ public class SolutionSql {
 
         ContentValues values = new ContentValues();
         values.put(ID, sol.getIdSolution());
-        values.put(SMS_ID, sol.getSms().getId());
-        values.put(POPUP_ID, sol.getPopUp().getId());
+        if(sol.getSms()!=null){
+            values.put(SMS_ID, sol.getSms().getId());
+
+        }
+        if(sol.getPopUp()!=null){
+            values.put(POPUP_ID, sol.getPopUp().getId());
+        }
         values.put(WHAT_TO_DO, sol.getWhatToDo());
         db.insert(SOLUTION_TABLE,ID,values);
     }
@@ -50,12 +56,14 @@ public class SolutionSql {
             String popup = cursor.getString(popupIndex);
             String what = cursor.getString(whatIndex);
 
-            SMSOrPopup smsNew = Model.instance().getSmsOrPopupById(Integer.valueOf(sms), "SMS");
-            SMSOrPopup popupNew = Model.instance().getSmsOrPopupById(Integer.valueOf(popup),"Popup");
+            SMSOrPopup smsNew = Model.instance().getSmsOrPopupById(Integer.valueOf(sms));
+            SMSOrPopup popupNew = Model.instance().getSmsOrPopupById(Integer.valueOf(popup));
 
             Solution sol = new Solution(Integer.valueOf(id),smsNew,popupNew,Integer.valueOf(what));
 
+            //Log.d("dd","dd");
             return sol;
+
 
         }
         return null;

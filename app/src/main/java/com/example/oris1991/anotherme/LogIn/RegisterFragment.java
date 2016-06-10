@@ -57,7 +57,7 @@ public class RegisterFragment extends Fragment {
                 }
                 else
                 {
-                    if (pass1.length()<6)
+                    if (pass1.length()<1)
                     {
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
                     }

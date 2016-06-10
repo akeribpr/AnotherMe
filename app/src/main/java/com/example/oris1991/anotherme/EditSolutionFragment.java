@@ -55,7 +55,7 @@ public class EditSolutionFragment extends Fragment{
     String smsNotification,popupData;
     int timeBefore;
     Task task;
-    Solution sol;
+    Solution sol,s;
     int pos;
 
 
@@ -68,8 +68,9 @@ public class EditSolutionFragment extends Fragment{
 
     }
 
-    public void setSol(Solution sol) {
+    public void setSol(Solution sol,Solution s) {
         this.sol = sol;
+        this.s=s;
     }
 
     @Nullable
@@ -104,10 +105,10 @@ public class EditSolutionFragment extends Fragment{
         }
         else
         {
-            phoneNumber=Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getSendto();
-            phoneName=Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getSendtoName();
+            phoneNumber=s.getSms().getSendto();
+            phoneName=s.getSms().getSendtoName();
             phoneChoose.setText(phoneNumber + " " + phoneName);
-            timeBefore=Integer.valueOf(Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getTime());
+            timeBefore=Integer.valueOf(s.getSms().getTime());
            /* Utility.taskArry.get(pos).getSolution()
             Utility.taskArry.get(pos).getSolution()
             Utility.taskArry.get(pos).getSolution()

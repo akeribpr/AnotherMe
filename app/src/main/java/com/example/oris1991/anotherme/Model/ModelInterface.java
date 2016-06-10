@@ -18,7 +18,7 @@ public interface ModelInterface {
     public List<SMSOrPopup> getSmsOrPopups();
     public List<SMSOrPopup> getPopupsTemplates();
     public List<SMSOrPopup> getSmsTemplates();
-    public SMSOrPopup getSmsOrPopupById(int id, String smsORPopup);
+    public SMSOrPopup getSmsOrPopupById(int id);
     public void addTask(Task task);
     public void deleteTask(int id);
     public void addPic(SharePictureOrText sp);

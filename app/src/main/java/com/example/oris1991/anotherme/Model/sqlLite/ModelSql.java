@@ -68,6 +68,7 @@ public class ModelSql implements ModelInterface {
     }
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        sp.setId(numberOfRowe(SMSPOPUP_TABLE));
         SmsOrPopupSql.add(db, sp);
     }
 
@@ -95,10 +96,10 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsTemplates(db);
     }
-    public SMSOrPopup getSmsOrPopupById(int id, String smsOrPopup)
+    public SMSOrPopup getSmsOrPopupById(int id)
     {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        return SmsOrPopupSql.getSmsOrPopupById(db, id, smsOrPopup);
+        return SmsOrPopupSql.getSmsOrPopupById(db, id);
     }
 
     @Override

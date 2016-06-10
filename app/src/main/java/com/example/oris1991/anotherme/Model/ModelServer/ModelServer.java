@@ -41,7 +41,7 @@ public class ModelServer implements ModelInterface {
     }
 
     @Override
-    public SMSOrPopup getSmsOrPopupById(int id, String smsORPopup) {
+    public SMSOrPopup getSmsOrPopupById(int id) {
         return null;
     }
 

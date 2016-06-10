@@ -68,8 +68,8 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public SMSOrPopup getSmsOrPopupById(int id, String smsORPopup) {
-        return sqlModel.getSmsOrPopupById(id,smsORPopup);
+    public SMSOrPopup getSmsOrPopupById(int id) {
+        return sqlModel.getSmsOrPopupById(id);
     }
 
     public void addSolution(Solution sol) {

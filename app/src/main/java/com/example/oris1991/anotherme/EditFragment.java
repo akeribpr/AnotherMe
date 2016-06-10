@@ -32,7 +32,7 @@ public class EditFragment extends Fragment {
 
 
     interface Delegate{
-        public void taskEditWithSolution(Task task,Solution sol,int pos);
+        public void taskEditWithSolution(Task task,Solution sol,Solution s);
         public void endFragmentEdit();
 
     }
@@ -127,7 +127,7 @@ public class EditFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Solution tt = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                Solution s = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
@@ -138,7 +138,7 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
                 Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
-                delegate.taskEditWithSolution(newTask,sol,pos);
+                delegate.taskEditWithSolution(newTask,sol,s);
 
             }
         });

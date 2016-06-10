@@ -181,10 +181,10 @@ public class SmsOrPopupSql {
         return list;
     }
 
-    public static SMSOrPopup getSmsOrPopupById(SQLiteDatabase db, int id, String smsORPopup) {
+    public static SMSOrPopup getSmsOrPopupById(SQLiteDatabase db, int id) {
 
-        String [] selectionArgs ={smsORPopup,String.valueOf(id)};
-        Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"and " +ID + " = ?",selectionArgs, null, null, null);
+        String [] selectionArgs ={String.valueOf(id)};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null,ID + " = ?",selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
