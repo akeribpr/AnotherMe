@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Model;
 
 
 /**
@@ -30,22 +32,35 @@ public class SolutionSql {
     }
 
 
-    public static Solution getSolution(SQLiteDatabase db) {
+    public static Solution getSolution(SQLiteDatabase db, int solid ) {
 
-        Solution solution = null;
+        String[] params = new String[1];
+        params[0] = String.valueOf(solid);
 
-        Cursor cursor = db.query(SOLUTION_TABLE, null, null, null, null, null, null);
+        Cursor cursor = db.query(SOLUTION_TABLE, null, ID+ "=?", params, null, null, null);
 
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(ID);
+            int smsIndex = cursor.getColumnIndex(SMS_ID);
+            int popupIndex = cursor.getColumnIndex(POPUP_ID);
+            int whatIndex = cursor.getColumnIndex(WHAT_TO_DO);
 
-//        if (cursor.moveToFirst()) {
-//            int personId = cursor.getColumnIndex(PERSON_ID);
-//            int password = cursor.getColumnIndex(PASSWORD);
-//
-//            logIn = new LogIn(cursor.getString(personId),cursor.getString(password));
-//            return logIn;
-//        }
-//        return logIn;
+            String id = cursor.getString(idIndex);
+            String sms = cursor.getString(smsIndex);
+            String popup = cursor.getString(popupIndex);
+            String what = cursor.getString(whatIndex);
+
+            SMSOrPopup smsNew = Model.instance().getSmsOrPopupById(Integer.valueOf(sms), "SMS");
+            SMSOrPopup popupNew = Model.instance().getSmsOrPopupById(Integer.valueOf(popup),"Popup");
+
+            Solution sol = new Solution(Integer.valueOf(id),smsNew,popupNew,Integer.valueOf(what));
+
+            return sol;
+
+        }
         return null;
+
+
     }
 
 

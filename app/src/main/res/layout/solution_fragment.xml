@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingTop="?android:attr/actionBarSize">
+    android:paddingTop="?android:attr/actionBarSize"
+    android:background="@color/summer">
 
 
 
@@ -18,6 +19,8 @@
             android:layout_height="wrap_content"
             android:text="Do with"
             android:id="@+id/doWithB"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/text"
              />
 
         >
@@ -43,7 +46,9 @@
             android:layout_height="wrap_content"
             android:text="SMS"
             android:id="@+id/smsB"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/text"/>
 
         >
         <TextView
@@ -69,7 +74,9 @@
             android:layout_height="wrap_content"
             android:text="popup"
             android:id="@+id/popupB"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/text"/>
 
         >
         <TextView
@@ -100,8 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="select an action"
-
+            android:text="בחר משימה"
+            android:layout_marginTop="25dp"
             />
 
 
@@ -109,12 +116,13 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="select time before"
-
-            />
+            android:text="בחר זמן לפני תחילת המשימה"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+    />
 
         <NumberPicker
             android:id="@+id/time_before_picker"
@@ -124,8 +132,8 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         >
 
         <Button
@@ -135,6 +143,8 @@
             android:id="@+id/solution_save"
             android:layout_gravity="bottom"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/text"
             />
         <Button
             android:layout_width="wrap_content"
@@ -143,6 +153,8 @@
             android:id="@+id/solution_cancel"
             android:layout_gravity="bottom"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/text"
             />
 
         </LinearLayout>

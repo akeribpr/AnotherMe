@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -59,13 +60,17 @@ public class TaskSql {
             int locationIndex = cursor.getColumnIndex(LOCATION);
             int solution = cursor.getColumnIndex(SOLUTION);
             do {
-                int idd =  Integer.parseInt(cursor.getString(id));
+                int idd = Integer.parseInt(cursor.getString(id));
                 String title = cursor.getString(titleIndex);
                 String start = cursor.getString(startIndex);
                 String end = cursor.getString(endIndex);
                 String location = cursor.getString(locationIndex);
-                //String solution = cursor.getString(textIndex);
-                Task t = new Task(idd,title,Long.valueOf(start),Long.valueOf(end),location);
+                Task t = new Task(idd, title, Long.valueOf(start), Long.valueOf(end), location);
+                if (cursor.getString(solution) != null)
+                {
+                    int solutionn = Integer.valueOf(cursor.getString(solution));
+                    t.setSolution(Model.instance().getSolution(solutionn));
+                 }
                 list.add(t);
             } while (cursor.moveToNext());
 

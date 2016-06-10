@@ -1,9 +1,15 @@
 package com.example.oris1991.anotherme;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +18,8 @@ import android.widget.TextView;
 
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
+import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
 import java.util.List;
 
@@ -29,6 +37,8 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.history_activity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         list = (ListView) findViewById(R.id.PS_listview);
 
@@ -37,17 +47,38 @@ public class HistoryActivity extends AppCompatActivity {
         adapter = new MyAddapter();
         list.setAdapter(adapter);
 
-        int i = Model.instance().numberOfRow();
-        i++;
-        SMSOrPopup sp = new SMSOrPopup(i,"SMS","0547297791","Itzik","10:00","la la la la la la la la la la la la la la la la la");
-        Model.instance().addSmsOrPop(sp);
-        data = Model.instance().getSmsOrPopups();
-        adapter.notifyDataSetChanged();
-        SMSOrPopup sp2 = new SMSOrPopup(i+1,"Popup",null,null,"10:00","la la la la la la la la la la la la la la la la la");
-        Model.instance().addSmsOrPop(sp2);
-        data = Model.instance().getSmsOrPopups();
-        adapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_history, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_popup_templates)
+        {
+            Intent intent = new Intent(getApplicationContext(),
+                    PopupTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_sms_templates)
+        {
+            Intent intent = new Intent(getApplicationContext(),
+                    SmsTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 

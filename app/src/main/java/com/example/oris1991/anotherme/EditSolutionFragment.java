@@ -1,16 +1,11 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -21,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -29,19 +23,19 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.oris1991.anotherme.ExternalCalendar.Utility;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
 import java.util.List;
 
 /**
- * Created by oris1991 on 19/05/2016.
+ * Created by oris1991 on 06/06/2016.
  */
-public class SoluttionFragment  extends Fragment{
+public class EditSolutionFragment extends Fragment{
 
     int PICK_CONTACT_REQUEST =1;
     String phoneNumber;
@@ -62,13 +56,14 @@ public class SoluttionFragment  extends Fragment{
     int timeBefore;
     Task task;
     Solution sol;
+    int pos;
 
 
 
     interface Delegate{
 
-        public void SaveSolution(Solution sol,Task task);
-        public void CancelSolution();
+        public void SaveSolutionEdit(Solution sol,Task task);
+        public void CancelSolutionEdit();
         public void showNot(String smsNote);
 
     }
@@ -80,9 +75,8 @@ public class SoluttionFragment  extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.solution_fragment, container, false);
         setHasOptionsMenu(true);
+        View view = inflater.inflate(R.layout.solution_fragment, container, false);
         final Delegate delegate = (Delegate) getActivity();
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
@@ -108,13 +102,24 @@ public class SoluttionFragment  extends Fragment{
             spinnerActions.setSelection(sol.getWhatToDo());
             np.setValue(timeBefore);
         }
+        else
+        {
+            phoneNumber=Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getSendto();
+            phoneName=Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getSendtoName();
+            phoneChoose.setText(phoneNumber + " " + phoneName);
+            timeBefore=Integer.valueOf(Utility.taskArry.get(Utility.taskArry.size()-Utility.startTime.size()-1+pos).getSolution().getSms().getTime());
+           /* Utility.taskArry.get(pos).getSolution()
+            Utility.taskArry.get(pos).getSolution()
+            Utility.taskArry.get(pos).getSolution()
+            Utility.taskArry.get(pos).getSolution()
+            Utility.taskArry.get(pos).getSolution()*/
+        }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
         Button sms= (Button) view.findViewById(R.id.smsB);
         Button popup= (Button) view.findViewById(R.id.popupB);
         Button save= (Button) view.findViewById(R.id.solution_save);
-        Button cancel= (Button) view.findViewById(R.id.solution_cancel);
-
+        Button cancel = (Button) view.findViewById(R.id.solution_cancel);
 
 
         doWith.setOnClickListener(new View.OnClickListener() {
@@ -143,12 +148,13 @@ public class SoluttionFragment  extends Fragment{
         });
 
 
+
         np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
 
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-               timeBefore=newVal;
+                timeBefore=newVal;
 
             }
         });
@@ -160,7 +166,7 @@ public class SoluttionFragment  extends Fragment{
                 SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
-                delegate.SaveSolution(sol,task);
+                delegate.SaveSolutionEdit(sol, task);
                 delegate.showNot(smsNotification);
             }
         });
@@ -169,17 +175,14 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                delegate.CancelSolution();
+                delegate.CancelSolutionEdit();
 
             }
         });
 
-
         return view;
 
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -200,8 +203,6 @@ public class SoluttionFragment  extends Fragment{
         final Dialog myDialog = new Dialog(activity);
         myDialog.setContentView(R.layout.do_with_dialog);
         myDialog.setCancelable(false);
-        Window view = ((Dialog)myDialog).getWindow();
-        view.setBackgroundDrawableResource(R.color.summer);
 
 
         Button pickOldContact= (Button) myDialog.findViewById(R.id.old_contact);
@@ -396,13 +397,16 @@ public class SoluttionFragment  extends Fragment{
     public void setTask(Task task) {
         this.task=task;
     }
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.menu_defualt, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
-
 
 
 }

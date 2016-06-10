@@ -95,6 +95,11 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsTemplates(db);
     }
+    public SMSOrPopup getSmsOrPopupById(int id, String smsOrPopup)
+    {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return SmsOrPopupSql.getSmsOrPopupById(db, id, smsOrPopup);
+    }
 
     @Override
     public void deleteTask(int id) {
@@ -148,6 +153,13 @@ public class ModelSql implements ModelInterface {
     }
 
     @Override
+    public Solution getSolution(int solid) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        return SolutionSql.getSolution(db,solid);
+    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
         Task newTask = task;
         if (task.getSolution()!=null){
@@ -187,6 +199,8 @@ public class ModelSql implements ModelInterface {
             TaskSql.create(db);
             SharePictureOrTextSql.create(db);
             UsersSql.create(db);
+            SolutionSql.create(db);
+
         }
 
         @Override
@@ -195,6 +209,7 @@ public class ModelSql implements ModelInterface {
             LogInSql.drop(db);
             SharePictureOrTextSql.drop(db);
             UsersSql.drop(db);
+            SolutionSql.drop(db);
             onCreate(db);
         }
     }

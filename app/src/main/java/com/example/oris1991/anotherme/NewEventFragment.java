@@ -29,8 +29,8 @@ public class NewEventFragment extends Fragment {
 
 
     interface Delegate{
-        public void endFragment(int code);
-        public void taskWithSolution(Task task);
+
+        public void taskWithSolution(Task task,Solution sol);
         public void endFragmentTask();
 
     }
@@ -113,7 +113,7 @@ public class NewEventFragment extends Fragment {
                 endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
                 Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                delegate.taskWithSolution(newTask);
+                delegate.taskWithSolution(newTask,sol);
 
             }
         });

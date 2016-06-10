@@ -1,12 +1,18 @@
 package com.example.oris1991.anotherme.PopUpAndSMS;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,9 +21,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.oris1991.anotherme.HistoryActivity;
+import com.example.oris1991.anotherme.NewEventFragment;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.SettingsActivity;
+import com.example.oris1991.anotherme.UsersFragment;
 
 import java.util.List;
 
@@ -36,6 +46,8 @@ public class PopupTemplates  extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.popup_templates);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         list = (ListView) findViewById(R.id.pop_up_list);
 
@@ -69,7 +81,7 @@ public class PopupTemplates  extends AppCompatActivity{
                 templateText = (EditText) myDialog.findViewById(R.id.template_popup_txt);
                 int i = Model.instance().numberOfRow();
                 i++;
-                SMSOrPopup sp = new SMSOrPopup(i,"Popup template",null,null, null, templateText.getText().toString());
+                SMSOrPopup sp = new SMSOrPopup(i, "Popup template", null, null, null, templateText.getText().toString());
                 Model.instance().addSmsOrPop(sp);
                 data = Model.instance().getPopupsTemplates();
                 adapter.notifyDataSetChanged();
@@ -87,6 +99,38 @@ public class PopupTemplates  extends AppCompatActivity{
 
         myDialog.show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_popup, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_history) {
+            Intent intent = new Intent(getApplicationContext(),
+                    HistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_sms_templates)
+        {
+            Intent intent = new Intent(getApplicationContext(),
+                    SmsTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     class MyAddapter extends BaseAdapter {

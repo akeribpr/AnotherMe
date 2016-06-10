@@ -6,6 +6,7 @@
     <color name="colorPrimary">#00768B</color>
     <color name="colorPrimaryDark">#00768B</color>
     <color name="colorAccent">#00768B</color>
-    <color name="summer">#44eebd82</color>
+    <color name="summer">#FFDA8A</color>
+    <color name="text">#fff</color>
     <!--<color name="colorAM">#00768B</color>-->
 </resources>

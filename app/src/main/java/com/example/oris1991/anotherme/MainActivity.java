@@ -56,7 +56,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,EditSolutionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     SettingsActivity settingsFra;
     SoluttionFragment solFra;
     EditFragment editFra;
+    EditSolutionFragment editSolFra;
     protected LocationManager  mlocManager;
     SharedPreferences sharedPreferencesPut;
     SharedPreferences sharedPreferencesGet;
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+  /*      getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+      /*  getSupportActionBar().setTitle("anotherme");*/
+       // getSupportActionBar().setIcon(R.drawable.a_m_icon);
 
         //Gps gp =new Gps("10:00","232.543","43.4543");
 
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000, 0, this);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
 
         calendarFra=new CalendarViewFragment();
         manager = getFragmentManager();
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             userFrag = new UsersFragment();
             FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(R.id.frag_container,userFrag);
+            transaction.replace(R.id.frag_container, userFrag);
             invalidateOptionsMenu();
             transaction.commit();
 
@@ -340,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
                     shareHistoryFragment = new ShareHistoryFragment();
                     FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.frag_container,shareHistoryFragment);
+                    transaction.replace(R.id.frag_container, shareHistoryFragment);
                     invalidateOptionsMenu();
                     transaction.commit();
                 } else if (items[item].equals("Cancel")) {
@@ -352,8 +356,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
 
-
-    @Override
     public void endFragment(int code) {
 
         if (code==1)
@@ -394,6 +396,35 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
+    public void SaveSolutionEdit(Solution sol, Task task) {
+
+        editFra = new EditFragment();
+
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(editSolFra);
+        transaction.add(R.id.frag_container, editFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        editFra.setSolution(sol);
+        editFra.setTask(task);
+        transaction.commit();
+
+    }
+
+    @Override
+    public void CancelSolutionEdit() {
+
+        calendarFra = new CalendarViewFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.remove(editSolFra);
+        transaction.add(R.id.frag_container, calendarFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        transaction.commit();
+    }
+
+    @Override
     public void CancelSolution() {
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -413,10 +444,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
 
     @Override
-    public void taskWithSolution(Task task) {
+    public void taskWithSolution(Task task, Solution sol) {
         //this.task=task;
         solFra = new SoluttionFragment();
         solFra.setTask(task);
+        solFra.setSol(sol);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(newEventFra);
         transaction.add(R.id.frag_container, solFra);
@@ -424,6 +456,20 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         invalidateOptionsMenu();
         transaction.commit();
 
+    }
+
+    @Override
+    public void taskEditWithSolution(Task task, Solution sol, int pos) {
+        editSolFra = new EditSolutionFragment();
+        editSolFra.setTask(task);
+        editSolFra.setSol(sol);
+        editSolFra.setPos(pos);
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(editFra);
+        transaction.add(R.id.frag_container,editSolFra);
+        transaction.addToBackStack(null);
+        invalidateOptionsMenu();
+        transaction.commit();
     }
 
     @Override
@@ -485,7 +531,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     public void upgateUsersFragment() {
         userFrag = new UsersFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,userFrag);
+        transaction.replace(R.id.frag_container, userFrag);
         invalidateOptionsMenu();
         transaction.commit();
 

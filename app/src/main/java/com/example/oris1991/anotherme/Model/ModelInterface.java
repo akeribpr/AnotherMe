@@ -3,6 +3,7 @@ package com.example.oris1991.anotherme.Model;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 
@@ -17,6 +18,7 @@ public interface ModelInterface {
     public List<SMSOrPopup> getSmsOrPopups();
     public List<SMSOrPopup> getPopupsTemplates();
     public List<SMSOrPopup> getSmsTemplates();
+    public SMSOrPopup getSmsOrPopupById(int id, String smsORPopup);
     public void addTask(Task task);
     public void deleteTask(int id);
     public void addPic(SharePictureOrText sp);
@@ -24,6 +26,7 @@ public interface ModelInterface {
     public List<SharePictureOrText> getPicture();
     public List<Users> getUsers();
     public Boolean deleteUser(Users sp);
+    public Solution getSolution(int solid);
 
 
 

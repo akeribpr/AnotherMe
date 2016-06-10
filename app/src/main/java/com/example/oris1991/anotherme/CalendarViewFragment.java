@@ -116,9 +116,6 @@ public class CalendarViewFragment extends Fragment{
 
                 if (Utility.eventId.get(time.get(position))!="0")
                     delegate.startEdit(time.get(position));
-                //delegate.startEdit();
-                //Utility.deleteCalendarEvent(getActivity().getApplicationContext(),time.get(position));
-                //Utility.nameOfEvent.indexOf(Utility.nameOfEvent)
                 adapter.notifyDataSetChanged();
                 handler.post(calendarUpdater);
                 adapterEvent.notifyDataSetChanged();
@@ -130,13 +127,6 @@ public class CalendarViewFragment extends Fragment{
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                // removing the previous view if added
-         /*      if (((ListView) rLayout).getChildCount() > 0) {
-                    //((ListView) rLayout).removeAllViews();
-                   LinearLayout father= (LinearLayout)rLayout.getParent();
-
-                   father.removeView(rLayout);
-                }*/
 
 
                 desc = new ArrayList<String>();
@@ -183,26 +173,6 @@ public class CalendarViewFragment extends Fragment{
 
 
                 adapterEvent.notifyDataSetChanged();
-
-
-        /*        if (desc.size() > 0) {
-                    for (int i = 0; i < desc.size(); i++) {
-                        TextView rowTextView = new TextView(MainActivity.this);
-
-                        // set some properties of rowTextView or something
-                        rowTextView.setText("Task:" + desc.get(i));
-                        rowTextView.setTextColor(Color.BLACK);
-
-
-                        // add the textview to the linearlayout
-                        //rLayout.addView(rowTextView);
-                        rLayout.setAdapter(adapter);
-
-                    }
-
-                }*/
-
-                // desc = null;
 
             }
 
@@ -297,7 +267,14 @@ public class CalendarViewFragment extends Fragment{
                 convertView = inflater.inflate(R.layout.event_row, null);
             }
             TextView eventName = (TextView) convertView.findViewById(R.id.event_text);
+            ImageView image = (ImageView) convertView.findViewById(R.id.event_row_image);
+
             eventName.setText(desc.get(position));
+            if (Utility.eventId.get(time.get(position))=="0") {
+                image.setImageResource(R.drawable.google_icon);
+            }
+            else
+                image.setImageResource(android.R.color.transparent);
             return convertView;
         }
     }

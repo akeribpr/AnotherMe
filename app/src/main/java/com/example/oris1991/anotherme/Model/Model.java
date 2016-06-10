@@ -49,7 +49,7 @@ public class Model implements ModelInterface {
 
     public List<SMSOrPopup> getSmsForPerson(String person) {
 
-        return sqlModel.getSmsForPerson( person);
+        return sqlModel.getSmsForPerson(person);
     }
 
     public List<SMSOrPopup> getSmsOrPopups() {
@@ -65,6 +65,11 @@ public class Model implements ModelInterface {
     public List<SMSOrPopup> getSmsTemplates() {
 
         return sqlModel.getSmsTemplates();
+    }
+
+    @Override
+    public SMSOrPopup getSmsOrPopupById(int id, String smsORPopup) {
+        return sqlModel.getSmsOrPopupById(id,smsORPopup);
     }
 
     public void addSolution(Solution sol) {
@@ -110,6 +115,11 @@ public class Model implements ModelInterface {
     @Override
     public Boolean deleteUser(Users sp) {
         return sqlModel.deleteUser(sp);
+    }
+
+    @Override
+    public Solution getSolution(int solid) {
+        return sqlModel.getSolution(solid);
     }
 
     @Override

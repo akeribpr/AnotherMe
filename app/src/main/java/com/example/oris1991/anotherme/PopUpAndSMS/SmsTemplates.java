@@ -1,6 +1,8 @@
 package com.example.oris1991.anotherme.PopUpAndSMS;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,8 +11,11 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,9 +24,13 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.oris1991.anotherme.HistoryActivity;
+import com.example.oris1991.anotherme.NewEventFragment;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.SettingsActivity;
+import com.example.oris1991.anotherme.UsersFragment;
 
 import java.util.List;
 
@@ -44,9 +53,11 @@ public class SmsTemplates extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.sms_templates);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         list = (ListView) findViewById(R.id.sms_list);
+
 
         data = Model.instance().getSmsTemplates();
 
@@ -65,6 +76,37 @@ public class SmsTemplates extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_sms, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_history) {
+            Intent intent = new Intent(getApplicationContext(),
+                    HistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_popup_templates)
+        {
+            Intent intent = new Intent(getApplicationContext(),
+                    PopupTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

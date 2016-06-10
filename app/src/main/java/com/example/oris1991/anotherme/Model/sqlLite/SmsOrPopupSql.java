@@ -42,7 +42,7 @@ public class SmsOrPopupSql {
 
     public static List<SMSOrPopup> getSmsForPerson(SQLiteDatabase db,String person) {
         String [] selectionArgs ={"Sms template",person};
-        Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"and " + SP_SENTTO + " = ?",selectionArgs, null, null, null);
+        Cursor cursor = db.query(SMSPOPUP_TABLE, null, SP_TYPE + " = ?" + "and " + SP_SENTTO + " = ?", selectionArgs, null, null, null);
 
         List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
         if (cursor.moveToFirst()) {
@@ -177,8 +177,33 @@ public class SmsOrPopupSql {
 
         }
 
+
         return list;
     }
+
+    public static SMSOrPopup getSmsOrPopupById(SQLiteDatabase db, int id, String smsORPopup) {
+
+        String [] selectionArgs ={smsORPopup,String.valueOf(id)};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"and " +ID + " = ?",selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(ID);
+            int typeIndex = cursor.getColumnIndex(SP_TYPE);
+            int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
+            int timeIndex = cursor.getColumnIndex(SP_TIME);
+            int textIndex = cursor.getColumnIndex(SP_TEXT);
+                int idd =  Integer.parseInt(cursor.getString(idIndex));
+                String type = cursor.getString(typeIndex);
+                String sent = cursor.getString(sentIndex);
+                String sentName = cursor.getString(sentNameIndex);
+                String time = cursor.getString(timeIndex);
+                String text = cursor.getString(textIndex);
+                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
+                return sp;
+        }
+        return null;
+    }
+
 
 
     public static void create(SQLiteDatabase db) {
