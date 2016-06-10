@@ -4,6 +4,7 @@ import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
+import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
@@ -16,14 +17,19 @@ import java.util.List;
 public class ModelServer implements ModelInterface {
 
     PersonModelServer personModelServer;
+    TaskModelServer taskModelServer;
 
+    public  ModelServer(){
+        taskModelServer = new TaskModelServer();
+        personModelServer = new PersonModelServer();
+    }
+
+//    String personId = Model.instance().getUser().getPersonId();
     public void addNewUser(String personId, String password,
                            Date DateTimeRegister, String mail, String phoneNumber){
     personModelServer.addNewUser(personId,password,DateTimeRegister,mail,phoneNumber);
 
-
     }
-
 
     @Override
     public void addSmsOrPop(SMSOrPopup sp) {
@@ -60,8 +66,13 @@ public class ModelServer implements ModelInterface {
         return null;
     }
 
+
     @Override
     public void addTask(Task task) {
+        Date start=new Date(task.getStartTime());
+        Date end=new Date(task.getEndTime());
+
+        taskModelServer.addNewTask("itzik",task.getTitle(),start,end,"ראשון לציון ",7,"nivi",1.0,1.0,2);
 
     }
 

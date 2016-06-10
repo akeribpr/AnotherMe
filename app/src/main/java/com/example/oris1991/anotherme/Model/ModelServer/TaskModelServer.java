@@ -20,7 +20,7 @@ import java.util.Date;
  * Created by eldar on 06/06/2016.
  */
 public class TaskModelServer {
-    private String url = "http://192.168.2.111:8080/Another-Me/Task.jsp";
+    private String url = "http://192.168.1.5:8080/Another-Me/Task";
     String result;
 
 
@@ -64,7 +64,7 @@ public class TaskModelServer {
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
-
+                Log.d("Log","success");
                 return null;
             }
 

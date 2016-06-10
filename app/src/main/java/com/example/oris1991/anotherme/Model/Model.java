@@ -6,6 +6,7 @@ import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
+import com.example.oris1991.anotherme.Model.ModelServer.ModelServer;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
 import java.util.List;
@@ -17,9 +18,11 @@ public class Model implements ModelInterface {
     private final static Model instance = new Model();
 
     ModelSql sqlModel;
+    ModelServer modelServe;
 
     private Model() {
         sqlModel = new ModelSql();
+        modelServe = new ModelServer();
     }
 
 
@@ -90,6 +93,8 @@ public class Model implements ModelInterface {
     @Override
     public void addTask(Task task) {
         sqlModel.addTask(task);
+
+
     }
 
     @Override
@@ -135,6 +140,7 @@ public class Model implements ModelInterface {
     @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
+        modelServe.addTask(task);
     }
 
     public  int numberOfRow( ){
