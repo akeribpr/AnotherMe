@@ -68,6 +68,11 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public List<SMSOrPopup> getSmsTemplatesWithoutPerson() {
+        return sqlModel.getSmsTemplatesWithoutPerson();
+    }
+
+    @Override
     public SMSOrPopup getSmsOrPopupById(int id) {
         return sqlModel.getSmsOrPopupById(id);
     }
@@ -120,6 +125,11 @@ public class Model implements ModelInterface {
     @Override
     public Solution getSolution(int solid) {
         return sqlModel.getSolution(solid);
+    }
+
+    @Override
+    public void deleteSolution(int id) {
+        sqlModel.deleteSolution(id);
     }
 
     @Override

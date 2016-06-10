@@ -103,7 +103,19 @@ public class EditFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+                if(task==null){
+                    Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+                    Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                }
+                else{
+                    Model.instance().deleteTask(task.getId());
+                    if(task.getSolution()!=null){
+                        Model.instance().deleteSolution(task.getSolution().getIdSolution());
+                    }
+
+                }
+
+               // int i= Integer.valueOf(Utility.eventId.get(pos));
 
                 long startMillis = 0;
                 long endMillis = 0;
@@ -115,8 +127,10 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                if (sol !=null)
+                if (sol !=null){
                     newTask.setSolution(sol);
+                }
+
                 Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentEdit();
@@ -127,7 +141,7 @@ public class EditFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Solution s = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                Solution old = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
@@ -138,7 +152,7 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
                 Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
-                delegate.taskEditWithSolution(newTask,sol,s);
+                delegate.taskEditWithSolution(newTask,sol,old);
 
             }
         });

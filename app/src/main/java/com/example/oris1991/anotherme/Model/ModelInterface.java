@@ -1,6 +1,8 @@
 package com.example.oris1991.anotherme.Model;
 
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
@@ -18,6 +20,7 @@ public interface ModelInterface {
     public List<SMSOrPopup> getSmsOrPopups();
     public List<SMSOrPopup> getPopupsTemplates();
     public List<SMSOrPopup> getSmsTemplates();
+    public List<SMSOrPopup> getSmsTemplatesWithoutPerson();
     public SMSOrPopup getSmsOrPopupById(int id);
     public void addTask(Task task);
     public void deleteTask(int id);
@@ -27,7 +30,7 @@ public interface ModelInterface {
     public List<Users> getUsers();
     public Boolean deleteUser(Users sp);
     public Solution getSolution(int solid);
-
+    public  void deleteSolution(int id);
 
 
     public void addTaskWithSolution(Task task);

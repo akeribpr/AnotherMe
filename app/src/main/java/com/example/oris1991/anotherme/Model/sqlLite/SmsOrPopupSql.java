@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 
 import java.util.LinkedList;
@@ -45,6 +46,10 @@ public class SmsOrPopupSql {
         Cursor cursor = db.query(SMSPOPUP_TABLE, null, SP_TYPE + " = ?" + "and " + SP_SENTTO + " = ?", selectionArgs, null, null, null);
 
         List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            return list;
+        }
+
         if (cursor.moveToFirst()) {
             int id = cursor.getColumnIndex(ID);
             int typeIndex = cursor.getColumnIndex(SP_TYPE);
@@ -165,6 +170,7 @@ public class SmsOrPopupSql {
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
+
                 int idd =  Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
@@ -173,6 +179,38 @@ public class SmsOrPopupSql {
                 String text = cursor.getString(textIndex);
                 SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                 list.add(sp);
+
+            } while (cursor.moveToNext());
+
+        }
+
+
+        return list;
+    }
+    public static List<SMSOrPopup> getSmsTemplatesWithoutPerson(SQLiteDatabase db) {
+        String [] selectionArgs ={"Sms template"};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_TYPE + " = ?",selectionArgs, null, null, null);
+
+        List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
+        if (cursor.moveToFirst()) {
+            int id = cursor.getColumnIndex(ID);
+            int typeIndex = cursor.getColumnIndex(SP_TYPE);
+            int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
+            int timeIndex = cursor.getColumnIndex(SP_TIME);
+            int textIndex = cursor.getColumnIndex(SP_TEXT);
+            do {
+                if(cursor.getString(sentIndex)==null){
+                    int idd =  Integer.parseInt(cursor.getString(id));
+                    String type = cursor.getString(typeIndex);
+                    String sent = cursor.getString(sentIndex);
+                    String sentName = cursor.getString(sentNameIndex);
+                    String time = cursor.getString(timeIndex);
+                    String text = cursor.getString(textIndex);
+                    SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
+                    list.add(sp);
+                }
+
             } while (cursor.moveToNext());
 
         }

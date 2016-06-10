@@ -41,6 +41,11 @@ public class ModelServer implements ModelInterface {
     }
 
     @Override
+    public List<SMSOrPopup> getSmsTemplatesWithoutPerson() {
+        return null;
+    }
+
+    @Override
     public SMSOrPopup getSmsOrPopupById(int id) {
         return null;
     }
@@ -78,6 +83,11 @@ public class ModelServer implements ModelInterface {
     @Override
     public Solution getSolution(int solid) {
         return null;
+    }
+
+    @Override
+    public void deleteSolution(int id) {
+
     }
 
     @Override

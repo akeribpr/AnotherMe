@@ -96,6 +96,14 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return SmsOrPopupSql.getSmsTemplates(db);
     }
+
+    @Override
+    public List<SMSOrPopup> getSmsTemplatesWithoutPerson() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return SmsOrPopupSql.getSmsTemplatesWithoutPerson(db);
+
+    }
+
     public SMSOrPopup getSmsOrPopupById(int id)
     {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -158,6 +166,12 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         return SolutionSql.getSolution(db,solid);
+    }
+
+    @Override
+    public void deleteSolution(int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SolutionSql.deleteSolution(db,id);
     }
 
     @Override

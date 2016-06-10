@@ -55,10 +55,14 @@ public class SolutionSql {
             String sms = cursor.getString(smsIndex);
             String popup = cursor.getString(popupIndex);
             String what = cursor.getString(whatIndex);
-
-            SMSOrPopup smsNew = Model.instance().getSmsOrPopupById(Integer.valueOf(sms));
-            SMSOrPopup popupNew = Model.instance().getSmsOrPopupById(Integer.valueOf(popup));
-
+            SMSOrPopup smsNew = null;
+            SMSOrPopup popupNew = null;
+            if(sms!=null){
+                 smsNew = Model.instance().getSmsOrPopupById(Integer.valueOf(sms));
+            }
+            if(popup!=null){
+                 popupNew = Model.instance().getSmsOrPopupById(Integer.valueOf(popup));
+            }
             Solution sol = new Solution(Integer.valueOf(id),smsNew,popupNew,Integer.valueOf(what));
 
             //Log.d("dd","dd");
@@ -71,6 +75,11 @@ public class SolutionSql {
 
     }
 
+    public static void deleteSolution(SQLiteDatabase db, int id) {
+
+
+        db.delete(SOLUTION_TABLE, ID + " = '" +id+"'", null);
+    }
 
     public static void create(SQLiteDatabase db) {
         db.execSQL("create table " +

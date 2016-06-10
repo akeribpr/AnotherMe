@@ -120,6 +120,7 @@ public class SoluttionFragment  extends Fragment{
 
 
 
+    //    int i = spinnerActions.getSelectedItemPosition();
         doWith.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,7 +133,7 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                if (phoneNumber != null)
+               // if (phoneNumber != null)
                     smsDialog(getActivity());
             }
         });
@@ -164,7 +165,7 @@ public class SoluttionFragment  extends Fragment{
                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);
-                delegate.showNot(smsNotification);
+              //  delegate.showNot(smsNotification);
             }
         });
 
@@ -202,7 +203,7 @@ public class SoluttionFragment  extends Fragment{
 
         final Dialog myDialog = new Dialog(activity);
         myDialog.setContentView(R.layout.do_with_dialog);
-        myDialog.setCancelable(false);
+        myDialog.setCancelable(true);
         Window view = ((Dialog)myDialog).getWindow();
         view.setBackgroundDrawableResource(R.color.summer);
 
@@ -248,14 +249,21 @@ public class SoluttionFragment  extends Fragment{
         final Dialog myDialog = new Dialog(activity);
         myDialog.setContentView(R.layout.sms_dialog);
         myDialog.setTitle("Pick a sms template:");
-        myDialog.setCancelable(false);
+        myDialog.setCancelable(true);
 
         Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
-        dataSms = Model.instance().getSmsForPerson(phoneNumber);
+        if((phoneNumber!=null)){
+            if(Model.instance().getSmsForPerson(phoneNumber).size()!=0){
+                dataSms = (Model.instance().getSmsForPerson(phoneNumber));
+                dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
+            }
 
-        //SMSOrPopup ns = new SMSOrPopup("Sms template",null,null,"nothing");
-        //dataSms.add(ns);
+        }
+        else{
+            dataSms = (Model.instance().getSmsTemplatesWithoutPerson());
+        }
+
         adapterSms = new AdapterSmsList();
 
         listSms.setAdapter(adapterSms);
@@ -278,21 +286,19 @@ public class SoluttionFragment  extends Fragment{
             }
         });
 
-
-
         myDialog.show();
     }
 
     public void popupDialog( final Context activity) {
 
-        final Dialog myDialog = new Dialog(activity);
-        myDialog.setContentView(R.layout.popup_dialog);
-        myDialog.setTitle("Pick a popup template:");
-        myDialog.setCancelable(false);
+        final Dialog myDialogg = new Dialog(activity);
+        myDialogg.setContentView(R.layout.popup_dialog);
+        myDialogg.setTitle("Pick a popup template:");
+        myDialogg.setCancelable(true);
 
-        Button cancel= (Button) myDialog.findViewById(R.id.popup_dialog_cancel);
+        Button cancel= (Button) myDialogg.findViewById(R.id.popup_dialog_cancel);
 
-        listPopup = (ListView) myDialog.findViewById(R.id.popup_dialog_list);
+        listPopup = (ListView) myDialogg.findViewById(R.id.popup_dialog_list);
         dataPopup = Model.instance().getPopupsTemplates();
 //        SMSOrPopup np = new SMSOrPopup("Popup template",null,null,"nothing");
 //        dataPopup.add(np);
@@ -308,17 +314,17 @@ public class SoluttionFragment  extends Fragment{
                 popupData=dataPopup.get(position).getText().toString();
                 popupid= dataPopup.get(position).getId();
                // SMSOrPopup s = Model.instance().getSmsOrPopupById(popupid);
-                myDialog.dismiss();
+                myDialogg.dismiss();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                myDialog.dismiss();
+                myDialogg.dismiss();
             }
         });
 
-        myDialog.show();
+        myDialogg.show();
     }
 
     class AdapterSmsList extends BaseAdapter {

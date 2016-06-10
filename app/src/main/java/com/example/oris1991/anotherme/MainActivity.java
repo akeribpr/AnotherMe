@@ -459,10 +459,10 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void taskEditWithSolution(Task task, Solution sol, Solution s) {
+    public void taskEditWithSolution(Task task, Solution sol, Solution old) {
         editSolFra = new EditSolutionFragment();
         editSolFra.setTask(task);
-        editSolFra.setSol(sol,s);
+        editSolFra.setSol(sol,old);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(editFra);
         transaction.add(R.id.frag_container,editSolFra);
