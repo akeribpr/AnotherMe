@@ -1,12 +1,12 @@
 package com.example.oris1991.anotherme.Model.ModelServer.GPS;
 
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.io.Serializable;
 import java.util.Date;
 
 
-public class Gps implements Serializable {
+public class ServerGps implements Serializable {
 	/**
 	 * 
 	 */
@@ -15,19 +15,19 @@ public class Gps implements Serializable {
 	Date gpsDate;
 	Double x;
 	Double y;
-	Person personId;
+	ServerPerson serverPersonId;
 
-	public Gps(Double idGps, Double x, Double y, Date gpsDate, Person personId) {
+	public ServerGps(Double idGps, Double x, Double y, Date gpsDate, ServerPerson serverPersonId) {
 		this.idGps = idGps;
 		this.x = x;
 		this.y = y;
-		this.personId = personId;
+		this.serverPersonId = serverPersonId;
 		this.gpsDate = gpsDate;
 	}
 
-	public void setPerson(Person person) {
-		this.personId = person;
-		person.addGps(this);
+	public void setPerson(ServerPerson serverPerson) {
+		this.serverPersonId = serverPerson;
+		serverPerson.addGps(this);
 	}
 
 	public Double getIdGps() {
@@ -62,8 +62,8 @@ public class Gps implements Serializable {
 		this.y = y;
 	}
 
-	public Person getPerson() {
-		return personId;
+	public ServerPerson getPerson() {
+		return serverPersonId;
 	}
 
 }

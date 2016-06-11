@@ -40,7 +40,7 @@
             android:textStyle="bold"
             android:textColor="#fff"
             android:background="@color/colorPrimary"
-            android:text="sms templates"
+            android:text="serverSms templates"
             android:paddingRight="140dip"
             />
             <TextView

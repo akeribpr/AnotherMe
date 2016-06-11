@@ -1,6 +1,6 @@
 package com.example.oris1991.anotherme.Model.ModelServer.Task;
 
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class PopUp implements Serializable {
+public class ServerPopUp implements Serializable {
 
 	/**
 	 * 
@@ -18,21 +18,21 @@ public class PopUp implements Serializable {
 	String text;
 	boolean popUpTamplates;
 	Date DateTimeShow; // if it show if not ->null
-	Person senderId;// send popUp to other user
-	Person personId;
+	ServerPerson senderId;// send popUp to other user
+	ServerPerson serverPersonId;
 
-	public PopUp(Double idPopUp, String text, boolean popUpTamplates,Person senderId,
-			Person personId) {
+	public ServerPopUp(Double idPopUp, String text, boolean popUpTamplates, ServerPerson senderId,
+					   ServerPerson serverPersonId) {
 		this.idPopUp = idPopUp;
 		this.text = text;
 		this.popUpTamplates = popUpTamplates;
-		this.personId = personId;
+		this.serverPersonId = serverPersonId;
 		this.senderId=senderId;
 	}
 
-	public void setPerson(Person person) {
-		this.personId = person;
-		person.addpopUp(this);
+	public void setPerson(ServerPerson serverPerson) {
+		this.serverPersonId = serverPerson;
+		serverPerson.addpopUp(this);
 	}
 
 	public Double getIdPopUp() {
@@ -67,20 +67,20 @@ public class PopUp implements Serializable {
 		DateTimeShow = dateTimeShow;
 	}
 
-	public Person getSenderId() {
+	public ServerPerson getSenderId() {
 		return senderId;
 	}
 
-	public void setSenderId(Person senderId) {
+	public void setSenderId(ServerPerson senderId) {
 		this.senderId = senderId;
 	}
 
-	public Person getPersonId() {
-		return personId;
+	public ServerPerson getServerPersonId() {
+		return serverPersonId;
 	}
 
-	public void setPersonId(Person personId) {
-		this.personId = personId;
+	public void setServerPersonId(ServerPerson serverPersonId) {
+		this.serverPersonId = serverPersonId;
 	}
 
 }

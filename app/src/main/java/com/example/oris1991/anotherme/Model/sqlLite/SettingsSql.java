@@ -22,7 +22,7 @@ public class SettingsSql {
     private static final String MAIL = "mail";
     private static final String POPUP = "PopUps";
     private static final String SMS = "Sms";
-    private static final String SOLUTION = "Solution";
+    private static final String SOLUTION = "ServerSolution";
     private static final String GPS = "gps";
 
 

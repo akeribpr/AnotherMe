@@ -1,6 +1,6 @@
 package com.example.oris1991.anotherme.Model.ModelServer.sms;
 
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class SMS implements Serializable {
+public class ServerSMS implements Serializable {
 	/**
 	 * 
 	 */
@@ -16,23 +16,23 @@ public class SMS implements Serializable {
 	Double idSMS;
 	boolean SmsTamplates;
 	String msg;
-	Person senderId;// personId
+	ServerPerson senderId;// serverPersonId
 	Date DateTimeSend;// if it send if not ->null
-	Person personId;
+	ServerPerson serverPersonId;
 
-	public SMS(Double idSMS, boolean SmsTamplates, String msg, Person senderId,
-			Date DateTimeSend, Person personId) {
+	public ServerSMS(Double idSMS, boolean SmsTamplates, String msg, ServerPerson senderId,
+					 Date DateTimeSend, ServerPerson serverPersonId) {
 		this.idSMS = idSMS;
 		this.SmsTamplates = SmsTamplates;
 		this.msg = msg;
 		this.senderId = senderId;
 		this.DateTimeSend = DateTimeSend;
-		this.personId = personId;
+		this.serverPersonId = serverPersonId;
 	}
 
-	public void setPerson(Person personId) {
-		this.personId = personId;
-		personId.addSms(this);
+	public void setPerson(ServerPerson serverPersonId) {
+		this.serverPersonId = serverPersonId;
+		serverPersonId.addSms(this);
 	}
 
 	public Double getIdSMS() {
@@ -59,11 +59,11 @@ public class SMS implements Serializable {
 		this.msg = msg;
 	}
 
-	public Person getSenderId() {
+	public ServerPerson getSenderId() {
 		return senderId;
 	}
 
-	public void setSenderId(Person senderId) {
+	public void setSenderId(ServerPerson senderId) {
 		this.senderId = senderId;
 	}
 
@@ -75,8 +75,8 @@ public class SMS implements Serializable {
 		DateTimeSend = dateTimeSend;
 	}
 
-	public Person getPerson() {
-		return personId;
+	public ServerPerson getPerson() {
+		return serverPersonId;
 	}
 
 }

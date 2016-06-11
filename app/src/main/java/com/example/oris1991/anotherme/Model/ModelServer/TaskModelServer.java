@@ -3,13 +3,14 @@ package com.example.oris1991.anotherme.Model.ModelServer;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.ModelServer.Task.Task;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
+import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
+import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -20,17 +21,19 @@ import java.util.Date;
  * Created by eldar on 06/06/2016.
  */
 public class TaskModelServer {
-    private String url = "http://192.168.1.5:8080/Another-Me/Task";
+    private String urlTask = "/Task";
+    private String urlSharePictures = "/GetShareToDo";
+    private String urlTasksToDo = "/GetTasksToDo";
     String result;
 
 
     public void addNewTask(String personId, String taskText,
-                           Date start, Date end, String address, int platform, String withPerson, Double popUp, Double sms, int action) {
+          Date start, Date end, String address, int platform, String withPerson, Double popUp, Double sms, int action) {
 
-        String[] params = new String[]{url, personId, taskText,
+        String[] params = new String[]{ModelServer.url+urlTask, personId, taskText,
                 start.toString(), end.toString(), address, String.valueOf(platform), withPerson, String.valueOf(popUp), String.valueOf(sms)
                 , String.valueOf(action)};
-        new AsyncTask<String, Void, String>() {
+        AsyncTask t=new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -38,8 +41,9 @@ public class TaskModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
+
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
@@ -54,11 +58,13 @@ public class TaskModelServer {
                     con.getOutputStream().write(("&sms=" + params[9]).getBytes());
                     con.getOutputStream().write(("&action=" + params[10]).getBytes());
 
-//                  InputStream is = con.getInputStream();
-//                  byte[] b = new byte[1024];
-//
-//                 while (is.read(b) != -1)
-//                buffer.append(new String(b));
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if(br != null){
+                        result = br.readLine();
+                    }
+                    else
+                        result = "Did not work!(add task)";
 
                     con.disconnect();
                 } catch (Throwable t) {
@@ -68,14 +74,20 @@ public class TaskModelServer {
                 return null;
             }
 
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Log.d("Log","dasd");
 
-        }.execute(params);
+            }
+        };
+        t.execute(params);
 
 
     }
 
-    public Task getTask(Date date, String personId) throws IOException {
-        String[] params = new String[]{url, date.toString(), personId};
+    public ServerTask getTask(Date date, String personId) throws IOException {
+        String[] params = new String[]{ModelServer.url+urlTask, date.toString(), personId};
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -84,7 +96,7 @@ public class TaskModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
@@ -120,11 +132,11 @@ public class TaskModelServer {
         // 2. initiate jackson mapper
         ObjectMapper mapper = new ObjectMapper();
         // 3. Convert received JSON to Article
-        return mapper.readValue(result, Task.class);
+        return mapper.readValue(result, ServerTask.class);
     }
 
-    public ArrayList<Task> getAllTaskFromView(String personId) throws IOException {
-        String[] params = new String[]{url, personId};
+    public ArrayList<ServerTask> getAllTaskFromView(String personId) throws IOException {
+        String[] params = new String[]{ModelServer.url+urlTask, personId};
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -133,7 +145,7 @@ public class TaskModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
@@ -169,13 +181,13 @@ public class TaskModelServer {
         ObjectMapper mapper = new ObjectMapper();
 
         // 3. Convert received JSON to Article
-        return mapper.readValue(result, new ArrayList<Task>().getClass());
-//        return mapper.readValue(result, new TypeReference<ArrayList<Task>>(){});
+        return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+//        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
     }
 
 
     public void addPopUpToDefault(String text, boolean popUpTamplates, String senderId,String personId){
-        String[] params = new String[]{url, text, String.valueOf(popUpTamplates),
+        String[] params = new String[]{ModelServer.url+urlTask, text, String.valueOf(popUpTamplates),
                 senderId, personId};
         new AsyncTask<String, Void, String>() {
 
@@ -185,7 +197,7 @@ public class TaskModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) (new URL(url)).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
@@ -210,7 +222,173 @@ public class TaskModelServer {
     }
 
 
-   // GetTasksToDo
+
+
+
+    ArrayList<ServerPopUp> getPopUps(String personId, String sendId, Boolean Default) throws IOException {
+        String[] params = new String[]{ModelServer.url+urlTask, personId};
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+                    con.getOutputStream().write(("name=" + params[1]).getBytes());
+
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if (br != null) {
+                        result = br.readLine();
+                    } else
+                        result = "Did not work!";
+                    con.disconnect();
+
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
+
+                return result;
+            }
+
+            // onPostExecute displays the results of the AsyncTask.
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("getPopUps", result);
+                TaskModelServer.this.result = result;
+            }
+        }.execute(params);
+
+
+        // 2. initiate jackson mapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        // 3. Convert received JSON to Article
+        return mapper.readValue(result, new ArrayList<ServerPopUp>().getClass());
+//        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
+    }
+
+
+
+    ////////////
+
+    public ArrayList<ServerSharePictures> getSharedPictures(String personId)  {
+        String[] params = new String[]{ModelServer.url+urlSharePictures, personId};
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+                    con.getOutputStream().write(("name=" + params[1]).getBytes());
+
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if (br != null) {
+                        result = br.readLine();
+                    } else
+                        result = "Did not work!";
+                    con.disconnect();
+
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
+
+                return result;
+            }
+
+            // onPostExecute displays the results of the AsyncTask.
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("SharePictureOrText", result);
+                TaskModelServer.this.result = result;
+            }
+        }.execute(params);
+
+
+        // 2. initiate jackson mapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        // 3. Convert received JSON to Article
+        try {
+            return mapper.readValue(result, new ArrayList<ServerSharePictures>().getClass());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+//        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
+    }
+
+
+    public ArrayList<ServerTask> getTasksToDO(String personId)  {
+        String[] params = new String[]{ModelServer.url+urlTasksToDo, personId};
+        new AsyncTask<String, Void, String>() {
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+                    con.getOutputStream().write(("name=" + params[1]).getBytes());
+
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if (br != null) {
+                        result = br.readLine();
+                    } else
+                        result = "Did not work!";
+                    con.disconnect();
+
+                } catch (Throwable t) {
+                    t.printStackTrace();
+                    return null;
+                }
+
+                return result;
+            }
+
+            // onPostExecute displays the results of the AsyncTask.
+            @Override
+            protected void onPostExecute(String result) {
+                Log.d("SharePictureOrText", result);
+                TaskModelServer.this.result = result;
+            }
+        }.execute(params);
+
+
+        // 2. initiate jackson mapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        // 3. Convert received JSON to Article
+        try {
+            return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+//        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
+    }
 
 //    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
 //        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));

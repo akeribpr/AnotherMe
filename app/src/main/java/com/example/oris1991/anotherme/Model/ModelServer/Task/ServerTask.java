@@ -1,14 +1,14 @@
 package com.example.oris1991.anotherme.Model.ModelServer.Task;
 
-import com.example.oris1991.anotherme.Model.ModelServer.Solution.Solution;
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.Solution.ServerSolution;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.io.Serializable;
 import java.util.Date;
 
 
 
-public class Task implements Serializable {
+public class ServerTask implements Serializable {
 	/**
 	 * 
 	 */
@@ -29,7 +29,7 @@ public class Task implements Serializable {
 	// /////////////////////////////
 
 	Double idTask;
-	Person person;
+	ServerPerson serverPerson;
 	String taskText;
 	Date start;
 	Date end;
@@ -37,13 +37,13 @@ public class Task implements Serializable {
 	int whatToDo;
 	int platform;// which platform the task coming from
 
-	Person withPerson;
-	Solution solution;
+	ServerPerson withServerPerson;
+	ServerSolution serverSolution;
 
-	public Task(Double idTask, Person person, String taskText, Date start,
-			Date end, String address, int whatToDo, int platform) {
+	public ServerTask(Double idTask, ServerPerson serverPerson, String taskText, Date start,
+					  Date end, String address, int whatToDo, int platform) {
 		this.idTask = idTask;
-		this.person = person;
+		this.serverPerson = serverPerson;
 		this.taskText = taskText;
 		this.start = start;
 		this.end = end;
@@ -60,13 +60,13 @@ public class Task implements Serializable {
 		this.idTask = idTask;
 	}
 
-	public Person getPerson() {
-		return person;
+	public ServerPerson getServerPerson() {
+		return serverPerson;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
-		person.addtask(this);
+	public void setServerPerson(ServerPerson serverPerson) {
+		this.serverPerson = serverPerson;
+		serverPerson.addtask(this);
 	}
 
 	public String getTaskText() {
@@ -117,20 +117,20 @@ public class Task implements Serializable {
 		this.platform = platform;
 	}
 
-	public Person getWithPerson() {
-		return withPerson;
+	public ServerPerson getWithServerPerson() {
+		return withServerPerson;
 	}
 
-	public void setWithPerson(Person withPerson) {
-		this.withPerson = withPerson;
+	public void setWithServerPerson(ServerPerson withServerPerson) {
+		this.withServerPerson = withServerPerson;
 	}
 
-	public Solution getSolution() {
-		return solution;
+	public ServerSolution getServerSolution() {
+		return serverSolution;
 	}
 
-	public void setSolution(Solution solution) {
-		this.solution = solution;
+	public void setServerSolution(ServerSolution serverSolution) {
+		this.serverSolution = serverSolution;
 	}
 
 }

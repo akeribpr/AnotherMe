@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
       /*  getSupportActionBar().setTitle("anotherme");*/
        // getSupportActionBar().setIcon(R.drawable.a_m_icon);
 
-        //Gps gp =new Gps("10:00","232.543","43.4543");
+        //ServerGps gp =new ServerGps("10:00","232.543","43.4543");
 
         // Make sure that GPS is enabled on the device
         mlocManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);

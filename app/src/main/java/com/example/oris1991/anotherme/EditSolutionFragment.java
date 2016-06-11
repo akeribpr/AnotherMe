@@ -115,15 +115,15 @@ public class EditSolutionFragment extends Fragment{
         }
 //        else
 //        {
-//            phoneNumber=s.getSms().getSendto();
-//            phoneName=s.getSms().getSendtoName();
+//            phoneNumber=s.getServerSms().getSendto();
+//            phoneName=s.getServerSms().getSendtoName();
 //            phoneChoose.setText(phoneNumber + " " + phoneName);
-//            timeBefore=Integer.valueOf(s.getSms().getTime());
-//           /* Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()*/
+//            timeBefore=Integer.valueOf(s.getServerSms().getTime());
+//           /* Utility.taskArry.get(pos).getServerSolution()
+//            Utility.taskArry.get(pos).getServerSolution()
+//            Utility.taskArry.get(pos).getServerSolution()
+//            Utility.taskArry.get(pos).getServerSolution()
+//            Utility.taskArry.get(pos).getServerSolution()*/
 //        }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
@@ -177,9 +177,9 @@ public class EditSolutionFragment extends Fragment{
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
              //   delegate.SaveSolutionEdit(sol,task);
 
-               // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+               // SMSOrPopup sms = new SMSOrPopup(0,"ServerSMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
-                //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
+                //sol = new ServerSolution(1,sms,popup,spinnerActions.getSelectedItemPosition());
 
                 delegate.SaveSolutionEdit(sol, task);
                // delegate.showNot(smsNotification);

@@ -44,6 +44,8 @@ public class Model implements ModelInterface {
 
     public  void register(LogIn login){
         sqlModel.register(login);
+        modelServe.register(login);
+
     }
 
     public LogIn getUser(){

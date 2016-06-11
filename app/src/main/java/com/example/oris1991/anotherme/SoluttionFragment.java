@@ -161,7 +161,7 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                //SMSOrPopup sms = new SMSOrPopup(0,"ServerSMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);

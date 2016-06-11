@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
+import com.example.oris1991.anotherme.Model.Entities.Gps;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
@@ -7,7 +9,9 @@ import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -15,20 +19,24 @@ import java.util.List;
  * Created by eldar on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-
+    public static final String url= "http://192.168.1.10:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
-
+     GpsModelServer gpsModelServer;
     public  ModelServer(){
         taskModelServer = new TaskModelServer();
         personModelServer = new PersonModelServer();
+        gpsModelServer=new GpsModelServer();
     }
 
-//    String personId = Model.instance().getUser().getPersonId();
-    public void addNewUser(String personId, String password,
-                           Date DateTimeRegister, String mail, String phoneNumber){
-    personModelServer.addNewUser(personId,password,DateTimeRegister,mail,phoneNumber);
-
+//    String personId = Model.instance().getUser().getServerPersonId();
+    public Boolean register(LogIn login){
+        try {
+           return personModelServer.register(login.getPersonId(),login.getPassword(),null,"05555555555","default@gmail.com");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  false;
     }
 
     @Override
@@ -69,16 +77,27 @@ public class ModelServer implements ModelInterface {
 
     @Override
     public void addTask(Task task) {
-        Date start=new Date(task.getStartTime());
-        Date end=new Date(task.getEndTime());
 
-        taskModelServer.addNewTask("itzik",task.getTitle(),start,end,"ראשון לציון ",7,"nivi",1.0,1.0,2);
 
+        if(task.getSolution()==null)
+        taskModelServer.addNewTask
+                (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);
+else taskModelServer.addNewTask
+                (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),1);
+
+
+        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
+        taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
     }
 
     @Override
     public void deleteTask(int id) {
 
+    }
+
+    @Override
+    public void addNewGpsLocation(ServerGps gps){
+        gpsModelServer.addNewGpsLocation(gps);
     }
 
     @Override

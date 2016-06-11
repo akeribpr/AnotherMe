@@ -1,21 +1,21 @@
 package com.example.oris1991.anotherme.Model.ModelServer.pictures;
 
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.util.Date;
 
 
-public class Pictures {
+public class ServerPictures {
 
 	private Double idpicture;// id for pictures
 	private String pictureName;
-	private Person person;
+	private ServerPerson serverPerson;
 	private Date datePic;
 	
 	
-	public Pictures(Double idpicture,String pictureName,Person person,Date datePic){
+	public ServerPictures(Double idpicture, String pictureName, ServerPerson serverPerson, Date datePic){
 		this.pictureName=pictureName;
-		this.person=person;
+		this.serverPerson = serverPerson;
 		this.datePic=datePic;
 		this.idpicture=idpicture;
 				
@@ -30,13 +30,13 @@ public class Pictures {
 	}
 
 
-	public Person getPerson() {
-		return person;
+	public ServerPerson getServerPerson() {
+		return serverPerson;
 	}
 
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setServerPerson(ServerPerson serverPerson) {
+		this.serverPerson = serverPerson;
 	}
 
 

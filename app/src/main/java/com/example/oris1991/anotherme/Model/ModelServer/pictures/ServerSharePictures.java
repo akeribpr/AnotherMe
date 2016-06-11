@@ -1,27 +1,27 @@
 package com.example.oris1991.anotherme.Model.ModelServer.pictures;
 
-import com.example.oris1991.anotherme.Model.ModelServer.person.Person;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.util.Date;
 
 
-public class SharePictures {
+public class ServerSharePictures {
 
 	
 	private Double idPictures;// id for pictures
 	private String pictureName;
-	private Person person;
+	private ServerPerson serverPerson;
 	private Date datePic;
-	private Person withPerson;
+	private ServerPerson withServerPerson;
 	private String txt;
 	private Boolean sendToPerson;
 	
-	public SharePictures(Double idPictures,String pictureName,Person person,Date datePic,Person withPerson,String txt,Boolean sendToPerson){
+	public ServerSharePictures(Double idPictures, String pictureName, ServerPerson serverPerson, Date datePic, ServerPerson withServerPerson, String txt, Boolean sendToPerson){
 		this.idPictures=idPictures;
 		this.pictureName=pictureName;
-		this.person=person;
+		this.serverPerson = serverPerson;
 		this.datePic=datePic;
-		this.withPerson=withPerson;
+		this.withServerPerson = withServerPerson;
 		this.txt=txt;
 		this.sendToPerson=sendToPerson;
 	}
@@ -37,11 +37,11 @@ public class SharePictures {
 	public void setPictureName(String pictureName) {
 		this.pictureName = pictureName;
 	}
-	public Person getPerson() {
-		return person;
+	public ServerPerson getServerPerson() {
+		return serverPerson;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setServerPerson(ServerPerson serverPerson) {
+		this.serverPerson = serverPerson;
 	}
 	public Date getDatePic() {
 		return datePic;
@@ -49,11 +49,11 @@ public class SharePictures {
 	public void setDatePic(Date datePic) {
 		this.datePic = datePic;
 	}
-	public Person getWithPerson() {
-		return withPerson;
+	public ServerPerson getWithServerPerson() {
+		return withServerPerson;
 	}
-	public void setWithPerson(Person withPerson) {
-		this.withPerson = withPerson;
+	public void setWithServerPerson(ServerPerson withServerPerson) {
+		this.withServerPerson = withServerPerson;
 	}
 	public String getTxt() {
 		return txt;

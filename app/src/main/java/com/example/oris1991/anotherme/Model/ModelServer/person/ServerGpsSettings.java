@@ -3,7 +3,7 @@ package com.example.oris1991.anotherme.Model.ModelServer.person;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Settings implements Serializable {
+public class ServerGpsSettings implements Serializable {
 	/**
 	 * 
 	 */
@@ -16,14 +16,14 @@ public class Settings implements Serializable {
 	Date DateTimeRegister;
 	String mail;
 	 String personId;
-	Person person;
+	ServerPerson serverPerson;
 	Boolean PopUps =true;
 	Boolean Sms=false;
 	Boolean Solution =true;
 	Boolean gps=true;
 
-	public Settings(Double idSettings, String phoneNumber,
-			String password, Date DateTimeRegister, String mail, String personId) {
+	public ServerGpsSettings(Double idSettings, String phoneNumber,
+							 String password, Date DateTimeRegister, String mail, String personId) {
 		this.idSettings = idSettings;
 		this.phoneNumber = phoneNumber;
 		this.password = password;
@@ -92,13 +92,13 @@ public class Settings implements Serializable {
 		this.mail = mail;
 	}
 
-	public Person getPerson() {
-		return person;
+	public ServerPerson getServerPerson() {
+		return serverPerson;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
-		person.setSettings(this);
+	public void setServerPerson(ServerPerson serverPerson) {
+		this.serverPerson = serverPerson;
+		serverPerson.setServerGpsSettings(this);
 	}
 
 	public Boolean getPopUps() {
