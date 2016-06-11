@@ -60,6 +60,10 @@
             android:name=".NotificationReceiver"
             android:label="@string/notification"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service
+            android:name=".Model.Services.CheckUpdateService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

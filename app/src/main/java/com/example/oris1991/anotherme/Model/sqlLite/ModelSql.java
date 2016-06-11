@@ -175,6 +175,12 @@ public class ModelSql implements ModelInterface {
     }
 
     @Override
+    public List<SharePictureOrText> checkUpdateShare() {
+        return null;
+    }
+
+
+    @Override
     public void addTaskWithSolution(Task task) {
         Task newTask = task;
         if (task.getSolution()!=null){
@@ -188,6 +194,11 @@ public class ModelSql implements ModelInterface {
     public List<Task> getTasks() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return TaskSql.getTasks(db);
+    }
+
+    @Override
+    public List<Task> checkUpdateTask() {
+        return null;
     }
 /*    public void delete(Student st) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

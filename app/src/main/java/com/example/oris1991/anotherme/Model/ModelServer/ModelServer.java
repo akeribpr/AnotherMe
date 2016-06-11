@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
+import android.util.Log;
+
 import com.example.oris1991.anotherme.Model.Entities.Gps;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
@@ -11,6 +13,7 @@ import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 
+import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +25,12 @@ public class ModelServer implements ModelInterface {
     public static final String url= "http://192.168.1.10:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
+    DoSolution doSolution;
      GpsModelServer gpsModelServer;
     public  ModelServer(){
         taskModelServer = new TaskModelServer();
         personModelServer = new PersonModelServer();
+        doSolution = new DoSolution();
         gpsModelServer=new GpsModelServer();
     }
 
@@ -136,12 +141,30 @@ else taskModelServer.addNewTask
     }
 
     @Override
+    public List<SharePictureOrText> checkUpdateShare() {
+        return null;
+    }
+
+//    @Override
+//    public void checkUpdate() {
+//       ArrayList<Task> task = new ArrayList<Task>();
+//        ArrayList<SharePictureOrText> share = new ArrayList<SharePictureOrText>();
+//        doSolution.sendSms();
+//        Log.d("Log","check update!!!!!!!!!!!!!!!!!!!!!!!");
+//    }
+
+    @Override
     public void addTaskWithSolution(Task task) {
 
     }
 
     @Override
     public List<Task> getTasks() {
+        return null;
+    }
+
+    @Override
+    public List<Task> checkUpdateTask() {
         return null;
     }
 }

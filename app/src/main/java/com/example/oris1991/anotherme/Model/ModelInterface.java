@@ -38,8 +38,10 @@ public interface ModelInterface {
     public Boolean deleteUser(Users sp);
     public Solution getSolution(int solid);
     public  void deleteSolution(int id);
-
-
+    public  List<SharePictureOrText>  checkUpdateShare();
     public void addTaskWithSolution(Task task);
     public List<Task> getTasks();
+    public  List<Task>  checkUpdateTask();
+
+
 }

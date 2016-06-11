@@ -6,6 +6,7 @@ import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
+import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 import com.example.oris1991.anotherme.Model.ModelServer.ModelServer;
 import com.example.oris1991.anotherme.Model.sqlLite.*;
 
@@ -93,6 +94,11 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public List<Task> checkUpdateTask() {
+        return null;
+    }
+
+    @Override
     public void addTask(Task task) {
         sqlModel.addTask(task);
 
@@ -102,6 +108,11 @@ public class Model implements ModelInterface {
     @Override
     public void deleteTask(int id) {
         sqlModel.deleteTask(id);
+    }
+
+    @Override
+    public void addNewGpsLocation(ServerGps gps) {
+
     }
 
     @Override
@@ -138,6 +149,12 @@ public class Model implements ModelInterface {
     public void deleteSolution(int id) {
         sqlModel.deleteSolution(id);
     }
+
+    @Override
+    public  List<SharePictureOrText>  checkUpdateShare() {
+     return null;
+    }
+
 
     @Override
     public void addTaskWithSolution(Task task) {
