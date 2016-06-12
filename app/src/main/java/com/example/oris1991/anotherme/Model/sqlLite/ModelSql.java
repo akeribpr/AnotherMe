@@ -68,6 +68,14 @@ public class ModelSql implements ModelInterface {
         return cnt+1;
 
     }
+
+    @Override
+    public void deleteSmsOrPopup(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SmsOrPopupSql.deleteSmsOrPopup(db,id);
+
+    }
+
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         sp.setId(numberOfRowe(SMSPOPUP_TABLE));

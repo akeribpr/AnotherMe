@@ -242,6 +242,11 @@ public class SmsOrPopupSql {
         return null;
     }
 
+    public static void deleteSmsOrPopup(SQLiteDatabase db, int id) {
+
+        db.delete(SMSPOPUP_TABLE, ID + " = '" +id+"'", null);
+    }
+
 
 
     public static void create(SQLiteDatabase db) {

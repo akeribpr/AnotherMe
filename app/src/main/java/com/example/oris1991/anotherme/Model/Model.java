@@ -159,6 +159,9 @@ public class Model implements ModelInterface {
     public  List<SharePictureOrText>  checkUpdateShare() {
      return null;
     }
+    public  void deleteSmsOrPopup(int id){
+        sqlModel.deleteSmsOrPopup(id);
+    }
 
 
     @Override

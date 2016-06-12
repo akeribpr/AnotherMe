@@ -172,4 +172,9 @@ else taskModelServer.addNewTask
     public int numberOfRowe(String table) {
         return 0;
     }
+
+    @Override
+    public void deleteSmsOrPopup(int id) {
+
+    }
 }

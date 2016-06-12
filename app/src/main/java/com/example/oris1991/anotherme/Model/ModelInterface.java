@@ -43,6 +43,7 @@ public interface ModelInterface {
     public List<Task> getTasks();
     public  List<Task>  checkUpdateTask();
     public int numberOfRowe(String table);
+    public  void deleteSmsOrPopup(int id);
 
 
 
