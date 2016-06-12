@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsManager;
-import android.util.DebugUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -59,7 +58,7 @@ public class CheckUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-       // Log.d("TAG","service onStartCommand");
+        // Log.d("TAG","service onStartCommand");
         super.onStartCommand(intent, flags, startId);
         ServiceUpdate serviceUpdate = new ServiceUpdate();
         serviceUpdate.start();
@@ -76,7 +75,7 @@ public class CheckUpdateService extends Service {
     class ServiceUpdate extends Thread{
         public void run(){
             NotificationUtils.displayNotification(getApplicationContext());
-           // notification(2);
+            // notification(2);
             while(running){
                 //makeTasks(modelServer.checkUpdateTask());
                 //  addShare(modelServer.checkUpdateShare());
@@ -94,7 +93,6 @@ public class CheckUpdateService extends Service {
         for(int i= 0; i<task.size();i++){
             if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
                 notification(task.get(i).getSolution().getIdSolution());
-                NotificationUtils.displayNotification(getApplicationContext());
             }
 
         }
@@ -108,17 +106,7 @@ public class CheckUpdateService extends Service {
     }
 
     public void notification(int solutionId){
-        String s;
-        Solution solution = Model.instance().getSolution(solutionId);
-        if(solution.getPopUp()!=null){
-            s = solution.getPopUp().getText();
-        }
-        else{
-            s = "need to do!";
-        }
-
-    public void notification(int solutionId){
-        String s="need to do!" ;
+        String s = "itzik";
 //        Solution solution = Model.instance().getSolution(solutionId);
 //        if(solution.getPopUp()!=null){
 //            s = solution.getPopUp().getText();
@@ -127,22 +115,14 @@ public class CheckUpdateService extends Service {
 //            s = "need to do!";
 //        }
 
- /*       PendingIntent contentIntent = PendingIntent.getActivity(
-                getApplicationContext(),
-                0,
-                new Intent(), // add this
-                PendingIntent.FLAG_UPDATE_CURRENT);*/
-
         Intent resultIntent = new Intent(this, ReturnFromNotification.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.a_m_icon)
                 .setContentTitle(s)
                 .setContentText("send sms?")
                 .setAutoCancel(true)
-                .addAction(0, "send to", resultPendingIntent);
-
-
+                .addAction(0, "send to",resultPendingIntent);
 
 
         int mNotificationId = 001;
@@ -166,7 +146,7 @@ public class CheckUpdateService extends Service {
 
 
 
-       // .addAction(0, "send to "+solution.getSms().getSendtoName(),resultPendingIntent);
+        // .addAction(0, "send to "+solution.getSms().getSendtoName(),resultPendingIntent);
 
 //        Intent dialogIntent = new Intent(this, NotificationReceiver.class);
 //        Bundle b = new Bundle();
