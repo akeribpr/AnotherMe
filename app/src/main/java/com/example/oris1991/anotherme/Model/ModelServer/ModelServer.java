@@ -167,4 +167,9 @@ else taskModelServer.addNewTask
     public List<Task> checkUpdateTask() {
         return null;
     }
+
+    @Override
+    public int numberOfRowe(String table) {
+        return 0;
+    }
 }

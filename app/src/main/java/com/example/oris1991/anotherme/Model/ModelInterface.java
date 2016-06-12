@@ -42,6 +42,9 @@ public interface ModelInterface {
     public void addTaskWithSolution(Task task);
     public List<Task> getTasks();
     public  List<Task>  checkUpdateTask();
+    public int numberOfRowe(String table);
+
+
 
 
 }

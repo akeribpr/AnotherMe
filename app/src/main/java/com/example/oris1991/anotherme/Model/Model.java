@@ -99,6 +99,11 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public int numberOfRowe(String table) {
+       return sqlModel.numberOfRowe(table);
+    }
+
+    @Override
     public void addTask(Task task) {
         sqlModel.addTask(task);
 

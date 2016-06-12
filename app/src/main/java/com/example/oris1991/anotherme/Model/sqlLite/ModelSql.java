@@ -50,6 +50,7 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return SmsOrPopupSql.numberOfRow(db);
     }
+    @Override
     public int numberOfRowe(String table){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         String countQuery = "SELECT  * FROM " + table;

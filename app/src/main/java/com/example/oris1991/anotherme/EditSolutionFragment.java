@@ -55,7 +55,7 @@ public class EditSolutionFragment extends Fragment{
     String smsNotification,popupData;
     int timeBefore;
     Task task;
-    Solution sol,old;
+    Solution solutionAfterEditSolution,old;
     int pos;
     int smsId,popupid;
 
@@ -69,8 +69,8 @@ public class EditSolutionFragment extends Fragment{
 
     }
 
-    public void setSol(Solution sol,Solution old) {
-        this.sol = sol;
+    public void setSol(Solution solutionAfterEditSolution,Solution old) {
+        this.solutionAfterEditSolution = solutionAfterEditSolution;
         this.old=old;
     }
 
@@ -99,7 +99,13 @@ public class EditSolutionFragment extends Fragment{
                 phoneName=old.getSms().getSendtoName();
                 if (old.getSms().getSendto()!=null&&old.getSms().getSendtoName()!=null){
                     phoneChoose.setText(phoneNumber+ " "+phoneName);
-                    timeBefore=Integer.valueOf(sol.getSms().getTime());
+                    if(old.getSms().getTime()!=null){
+                        timeBefore=Integer.valueOf(old.getSms().getTime());
+
+                    }
+                    else{
+                        timeBefore=0;
+                    }
                     smsNotification=old.getSms().getText();
                     smsTemplateChoose.setText(old.getSms().getText());
                 }
@@ -174,14 +180,14 @@ public class EditSolutionFragment extends Fragment{
             public void onClick(View v) {
 
 
-                sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
+                solutionAfterEditSolution = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 //   delegate.SaveSolutionEdit(sol,task);
 
                 // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
 
-                delegate.SaveSolutionEdit(sol, task);
+                delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
                 // delegate.showNot(smsNotification);
             }
         });
@@ -255,7 +261,6 @@ public class EditSolutionFragment extends Fragment{
 
         myDialog.show();
     }
-
     public void smsDialog( final Context activity) {
 
         final Dialog myDialog = new Dialog(activity);
@@ -265,16 +270,18 @@ public class EditSolutionFragment extends Fragment{
 
         Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
-        if((phoneNumber!=null)){
-            if(Model.instance().getSmsForPerson(phoneNumber).size()!=0){
-                dataSms = (Model.instance().getSmsForPerson(phoneNumber));
-                dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
-            }
+        if((phoneNumber!=null)&&(Model.instance().getSmsForPerson(phoneNumber).size()!=0)){
+//            if(){
+
+            dataSms = (Model.instance().getSmsForPerson(phoneNumber));
+            dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
+            // }
 
         }
         else{
             dataSms = (Model.instance().getSmsTemplatesWithoutPerson());
         }
+
         adapterSms = new AdapterSmsList();
 
         listSms.setAdapter(adapterSms);
@@ -286,7 +293,17 @@ public class EditSolutionFragment extends Fragment{
                 //add by id to solution sms
                 smsTemplateChoose.setText(dataSms.get(position).getText().toString());
                 smsNotification=dataSms.get(position).getText().toString();
-                smsId=dataSms.get(position).getId();
+                smsId = dataSms.get(position).getId();
+                SMSOrPopup sms = Model.instance().getSmsOrPopupById(smsId);
+                if(sms.getSendtoName()==null||sms.getSendto()==null){
+
+                    sms.setSendto(phoneNumber);
+                    sms.setSendtoName(phoneName);
+                    SMSOrPopup newSms = sms;
+                    Model.instance().addSmsOrPop(newSms);
+                    smsId = Model.instance().numberOfRowe("sms_popup") -1;
+                }
+
                 myDialog.dismiss();
             }
         });
@@ -297,10 +314,53 @@ public class EditSolutionFragment extends Fragment{
             }
         });
 
-
-
         myDialog.show();
     }
+//    public void smsDialog( final Context activity) {
+//
+//        final Dialog myDialog = new Dialog(activity);
+//        myDialog.setContentView(R.layout.sms_dialog);
+//        myDialog.setTitle("Pick a sms template:");
+//        myDialog.setCancelable(true);
+//
+//        Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
+//        listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
+//        if((phoneNumber!=null)){
+//            if(Model.instance().getSmsForPerson(phoneNumber).size()!=0){
+//                dataSms = (Model.instance().getSmsForPerson(phoneNumber));
+//                dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
+//            }
+//
+//        }
+//        else{
+//            dataSms = (Model.instance().getSmsTemplatesWithoutPerson());
+//        }
+//        adapterSms = new AdapterSmsList();
+//
+//        listSms.setAdapter(adapterSms);
+//
+//        listSms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                //add by id to solution sms
+//                smsTemplateChoose.setText(dataSms.get(position).getText().toString());
+//                smsNotification=dataSms.get(position).getText().toString();
+//                smsId=dataSms.get(position).getId();
+//                myDialog.dismiss();
+//            }
+//        });
+//
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                myDialog.dismiss();
+//            }
+//        });
+//
+//
+//
+//        myDialog.show();
+//    }
 
     public void popupDialog( final Context activity) {
 

@@ -78,22 +78,32 @@ public class TaskSql {
         return list;
 
     }
-    public static Task getTask(SQLiteDatabase db) {
+    public static Task getTaskById(SQLiteDatabase db,int idTask) {
 
         Task task = null;
 
-        Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
+        String [] selectionArgs ={String.valueOf(idTask)};
+        Cursor cursor = db.query(TASK_TABLE,null,ID + " = ?",selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            int id = cursor.getColumnIndex(ID);
+            int titleIndex = cursor.getColumnIndex(TITLE);
+            int startIndex = cursor.getColumnIndex(START);
+            int endIndex = cursor.getColumnIndex(END);
+            int locationIndex = cursor.getColumnIndex(LOCATION);
+            int solution = cursor.getColumnIndex(SOLUTION);
 
-
-//        if (cursor.moveToFirst()) {
-//            int personId = cursor.getColumnIndex(PERSON_ID);
-//            int password = cursor.getColumnIndex(PASSWORD);
-//
-//            logIn = new LogIn(cursor.getString(personId),cursor.getString(password));
-//            return logIn;
-//        }
-//        return logIn;
-        return null;
+            int idd = Integer.parseInt(cursor.getString(id));
+            String title = cursor.getString(titleIndex);
+            String start = cursor.getString(startIndex);
+            String end = cursor.getString(endIndex);
+            String location = cursor.getString(locationIndex);
+            Task t = new Task(idd, title, Long.valueOf(start), Long.valueOf(end), location);
+            if (cursor.getString(solution) != null) {
+                int solutionn = Integer.valueOf(cursor.getString(solution));
+                t.setSolution(Model.instance().getSolution(solutionn));
+            }
+        }
+        return task;
     }
 
 

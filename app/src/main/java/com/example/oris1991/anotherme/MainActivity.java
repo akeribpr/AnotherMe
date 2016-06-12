@@ -1,6 +1,5 @@
 package com.example.oris1991.anotherme;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,54 +8,29 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
 import android.text.InputType;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.oris1991.anotherme.Model.Entities.Solution;
-import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Services.CheckUpdateService;
 import com.example.oris1991.anotherme.Model.Services.GpsService;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,EditSolutionFragment.Delegate {
 
@@ -64,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
-    SettingsActivity settingsFra;
+    SettingsFragment settingsFra;
     SoluttionFragment solFra;
     EditFragment editFra;
     EditSolutionFragment editSolFra;
@@ -148,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
-            settingsFra=new SettingsActivity();
+            settingsFra=new SettingsFragment();
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.replace(R.id.frag_container,settingsFra);
@@ -344,7 +318,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void SaveSolutionEdit(Solution sol, Task task) {
+    public void SaveSolutionEdit(Solution solutionAfterEditSolution, Task task) {
 
         editFra = new EditFragment();
 
@@ -355,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //transaction.add(R.id.frag_container, editFra);
         //transaction.addToBackStack(null);
         invalidateOptionsMenu();
-        editFra.setSolution(sol);
+        editFra.setSolution(solutionAfterEditSolution);
         editFra.setTask(task);
         transaction.commit();
 
@@ -414,10 +388,10 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void taskEditWithSolution(Task task, Solution sol, Solution old) {
+    public void taskEditWithSolution(Task task, Solution solutionAfterEditSolution, Solution old) {
         editSolFra = new EditSolutionFragment();
         editSolFra.setTask(task);
-        editSolFra.setSol(sol,old);
+        editSolFra.setSol(solutionAfterEditSolution,old);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editSolFra);
 
@@ -454,6 +428,8 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         invalidateOptionsMenu();
         transaction.commit();
     }
+
+
     @Override
     public void onBackPressed() {
         Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
@@ -462,12 +438,35 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             Intent intentt = new Intent(MainActivity.this,GpsService.class);
             stopService(intentt);
         }
-        else
-        {
+      else  if(currentFragment instanceof NewEventFragment){
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,calendarFra);
+            invalidateOptionsMenu();
+            transaction.commit();
+        }
+        else if(currentFragment instanceof SettingsFragment){
+
+
+        }
+        else if(currentFragment instanceof SoluttionFragment){
+
+        }
+        else if(currentFragment instanceof EditFragment){
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,calendarFra);
+            invalidateOptionsMenu();
+            transaction.commit();
+
+        }
+        else if(currentFragment instanceof EditSolutionFragment){
+
+        }
+        else {
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-
             //transaction.add(R.id.frag_container, calendarFra);
             //transaction.remove(currentFragment);
             //transaction.show(calendarFra);

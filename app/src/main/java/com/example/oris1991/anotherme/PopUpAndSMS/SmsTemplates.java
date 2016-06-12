@@ -1,8 +1,6 @@
 package com.example.oris1991.anotherme.PopUpAndSMS;
 
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,12 +23,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.oris1991.anotherme.HistoryActivity;
-import com.example.oris1991.anotherme.NewEventFragment;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
-import com.example.oris1991.anotherme.SettingsActivity;
-import com.example.oris1991.anotherme.UsersFragment;
 
 import java.util.List;
 

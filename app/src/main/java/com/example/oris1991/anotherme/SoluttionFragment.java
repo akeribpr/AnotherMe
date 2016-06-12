@@ -35,6 +35,7 @@ import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.sqlLite.ModelSql;
 
 import java.util.List;
 
@@ -133,8 +134,11 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                // if (phoneNumber != null)
+                 if (phoneNumber != null)
                 smsDialog(getActivity());
+                else{
+                     Toast.makeText(getActivity().getApplicationContext(), "please enter contact first", Toast.LENGTH_LONG).show();
+                 }
             }
         });
 
@@ -253,11 +257,12 @@ public class SoluttionFragment  extends Fragment{
 
         Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
-        if((phoneNumber!=null)){
-            if(Model.instance().getSmsForPerson(phoneNumber).size()!=0){
+        if((phoneNumber!=null)&&(Model.instance().getSmsForPerson(phoneNumber).size()!=0)){
+//            if(){
+
                 dataSms = (Model.instance().getSmsForPerson(phoneNumber));
                 dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
-            }
+           // }
 
         }
         else{
@@ -276,6 +281,16 @@ public class SoluttionFragment  extends Fragment{
                 smsTemplateChoose.setText(dataSms.get(position).getText().toString());
                 smsNotification=dataSms.get(position).getText().toString();
                 smsId = dataSms.get(position).getId();
+                SMSOrPopup sms = Model.instance().getSmsOrPopupById(smsId);
+                if(sms.getSendtoName()==null||sms.getSendto()==null){
+
+                    sms.setSendto(phoneNumber);
+                    sms.setSendtoName(phoneName);
+                    SMSOrPopup newSms = sms;
+                    Model.instance().addSmsOrPop(newSms);
+                    smsId = Model.instance().numberOfRowe("sms_popup") -1;
+                }
+
                 myDialog.dismiss();
             }
         });

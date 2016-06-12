@@ -25,7 +25,7 @@ import java.util.Calendar;
 public class EditFragment extends Fragment {
 
     int pos;
-    Solution sol;
+    Solution solutionAfterEditSolution;
     Task task;
 
 
@@ -103,17 +103,29 @@ public class EditFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(task==null){
-                    Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
-                    Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
-                }
-                else{
-                    Model.instance().deleteTask(task.getId());
-                    if(task.getSolution()!=null){
-                        Model.instance().deleteSolution(task.getSolution().getIdSolution());
+
+             //   if(task!=null){
+//                    int i = Integer.valueOf(Utility.eventId.get(pos));
+//                    Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+//                    Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
+             //   }
+            //    else{
+
+                   int  c = Integer.valueOf(Utility.eventId.get(pos));
+                    if(Model.instance().getSolution(c)!=null){
+                        Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+                        Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                    }
+                   else{
+                        Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
                     }
 
-                }
+                                    // Model.instance().deleteTask(task.getId());
+//                    if(task.getSolution()!=null){
+//                        Model.instance().deleteSolution(task.getSolution().getIdSolution());
+//                    }
+
+              //  }
 
                // int i= Integer.valueOf(Utility.eventId.get(pos));
 
@@ -127,8 +139,8 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
-                if (sol !=null){
-                    newTask.setSolution(sol);
+                if (solutionAfterEditSolution !=null){
+                    newTask.setSolution(solutionAfterEditSolution);
                 }
 
                 Model.instance().addTaskWithSolution(newTask);
@@ -141,7 +153,11 @@ public class EditFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Solution old = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                //if null to do
+                Solution old = null;
+                if(Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)))!=null){
+                    old = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                }
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
@@ -152,7 +168,7 @@ public class EditFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
                 Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
-                delegate.taskEditWithSolution(newTask,sol,old);
+                delegate.taskEditWithSolution(newTask,solutionAfterEditSolution,old);
 
             }
         });
@@ -179,6 +195,7 @@ public class EditFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete) {
             Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
+            Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
             final Delegate delegate = (Delegate) getActivity();
             delegate.endFragmentEdit();
             return true;
@@ -195,7 +212,7 @@ public class EditFragment extends Fragment {
 
     public void setSolution(Solution sol)
     {
-        this.sol=sol;
+        this.solutionAfterEditSolution=sol;
     }
 
 
