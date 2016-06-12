@@ -13,6 +13,7 @@ import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.ModelInterface;
+import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 import com.example.oris1991.anotherme.MyApplication;
 
 import java.util.List;
@@ -114,6 +115,11 @@ public class ModelSql implements ModelInterface {
     public void deleteTask(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         TaskSql.deleteTask(db,id);
+    }
+
+    @Override
+    public void addNewGpsLocation(ServerGps gps) {
+
     }
 
     public void addSolution(Solution sol) {

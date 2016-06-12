@@ -4,7 +4,10 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Messenger;
@@ -55,7 +58,7 @@ public class CheckUpdateService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("TAG","service onStartCommand");
         super.onStartCommand(intent, flags, startId);
-      ServiceUpdate serviceUpdate = new ServiceUpdate();
+        ServiceUpdate serviceUpdate = new ServiceUpdate();
         serviceUpdate.start();
 
         return START_STICKY;
@@ -71,8 +74,8 @@ public class CheckUpdateService extends Service {
         public void run(){
             notification(2);
             while(running){
-            //makeTasks(modelServer.checkUpdateTask());
-              //  addShare(modelServer.checkUpdateShare());
+                //makeTasks(modelServer.checkUpdateTask());
+                //  addShare(modelServer.checkUpdateShare());
 
                 try {
                     sleep(60000);
@@ -112,19 +115,35 @@ public class CheckUpdateService extends Service {
         Intent resultIntent = new Intent(this, ReturnFromNotification.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.a_m_icon)
-                        .setContentTitle(s)
-                        .setContentText("send sms?")
-                        .setAutoCancel(true)
-                        .addAction(0, "send to "+solution.getSms().getSendtoName(),resultPendingIntent);
+                .setSmallIcon(R.drawable.a_m_icon)
+                .setContentTitle(s)
+                .setContentText("send sms?")
+                .setAutoCancel(true)
+                .addAction(0, "send to",resultPendingIntent);
 
 
         int mNotificationId = 001;
         NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-      //  Log.d("Log","notification");
+        //  Log.d("Log","notification");
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
+
+
+        BroadcastReceiver call_method = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action_name = intent.getAction();
+                if (action_name.equals("send to")) {
+                    Log.d("Log","notification");
+                }
+            };
+        };
+        registerReceiver(call_method, new IntentFilter("call_method"));
+
+
+
+       // .addAction(0, "send to "+solution.getSms().getSendtoName(),resultPendingIntent);
 
 //        Intent dialogIntent = new Intent(this, NotificationReceiver.class);
 //        Bundle b = new Bundle();
