@@ -76,12 +76,12 @@ import android.util.Log;
 
         @Override
         public void onProviderEnabled(String provider) {
-
+// Log.d("Latitude", "enable");
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-
+//  Log.d("Latitude", "disable");
         }
 
         @Nullable
