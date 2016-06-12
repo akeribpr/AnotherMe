@@ -35,13 +35,6 @@
                 android:inputType="textAutoComplete|textPostalAddress"
                 android:editable="true" />
 
-            <CheckBox
-                android:id="@+id/autoGenerateCheckBox"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="Auto generate?"
-                android:textColor="#000" />
 
     </LinearLayout>
 

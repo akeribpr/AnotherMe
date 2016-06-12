@@ -1,7 +1,6 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
@@ -51,7 +49,6 @@ public class EditFragment extends Fragment {
         final TimeEditText eventStartTime = (TimeEditText) view.findViewById(R.id.startTimeEditText);
         final TimeEditText eventEndTime = (TimeEditText) view.findViewById(R.id.endTimeEditText);
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
-        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.autoGenerateCheckBox);
 
 
         if (task!=null)

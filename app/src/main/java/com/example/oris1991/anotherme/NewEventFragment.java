@@ -1,6 +1,7 @@
 package com.example.oris1991.anotherme;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,18 +12,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by oris1991 on 07/05/2016.
  */
 public class NewEventFragment extends Fragment {
 
-    Spinner spinner;
     Solution sol;
     Task task;
 
@@ -48,7 +52,7 @@ public class NewEventFragment extends Fragment {
         final TimeEditText eventStartTime = (TimeEditText) view.findViewById(R.id.startTimeEditText);
         final TimeEditText eventEndTime = (TimeEditText) view.findViewById(R.id.endTimeEditText);
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
-        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.autoGenerateCheckBox);
+
 
         if (task!=null)
         {
@@ -75,6 +79,16 @@ public class NewEventFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Context context = getActivity().getApplicationContext();
+                String pattern = "^[A-Za-z ]+$";
+
+                Pattern u = Pattern.compile(pattern);
+                Matcher s = u.matcher(eventTitle.getText().toString());
+                if (s.find())
+                    Toast.makeText(context, "you entered english text- algorithm won't work ", Toast.LENGTH_LONG).show();
+                // is English
+
 
                 long startMillis = 0;
                 long endMillis = 0;
@@ -121,6 +135,20 @@ public class NewEventFragment extends Fragment {
 
         return view;
     }
+
+    private boolean checkEnglish(String s) {
+
+
+        boolean isEnglish = true;
+        for (char c : s.toCharArray()) {
+            if (Character.UnicodeBlock.of(c) != Character.UnicodeBlock.BASIC_LATIN) {
+                isEnglish = false;
+                break;
+            }
+        }
+        return isEnglish;
+    }
+
 
     public void setTask(Task task) {
 

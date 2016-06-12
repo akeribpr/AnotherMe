@@ -522,11 +522,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         editFra = new EditFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,editFra);
+      //  transaction.replace(R.id.frag_container,editFra);
 
-        //transaction.remove(calendarFra);
-        //transaction.add(R.id.frag_container,editFra);
-        //transaction.addToBackStack(null);
+        transaction.remove(calendarFra);
+        transaction.add(R.id.frag_container,editFra);
+        transaction.addToBackStack(null);
         invalidateOptionsMenu();
         editFra.setPosition(pos);
         transaction.commit();

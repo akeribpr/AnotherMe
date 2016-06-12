@@ -23,7 +23,7 @@ public class Model implements ModelInterface {
 
     private Model() {
         sqlModel = new ModelSql();
-        modelServe = new ModelServer();
+       // modelServe = new ModelServer();
     }
 
 
@@ -45,7 +45,7 @@ public class Model implements ModelInterface {
 
     public  void register(LogIn login){
         sqlModel.register(login);
-        modelServe.register(login);
+     //   modelServe.register(login);
 
     }
 
@@ -159,7 +159,7 @@ public class Model implements ModelInterface {
     @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
-        modelServe.addTask(task);
+       // modelServe.addTask(task);
     }
 
     public  int numberOfRow( ){
