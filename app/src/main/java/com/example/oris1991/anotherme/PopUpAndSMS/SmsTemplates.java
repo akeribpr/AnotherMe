@@ -91,6 +91,7 @@ public class SmsTemplates extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),
                     HistoryActivity.class);
             startActivity(intent);
+            finish();
             return true;
         }
         if (id == R.id.action_popup_templates)
@@ -98,6 +99,7 @@ public class SmsTemplates extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),
                     PopupTemplates.class);
             startActivity(intent);
+            finish();
             return true;
         }
 
@@ -144,7 +146,15 @@ public class SmsTemplates extends AppCompatActivity {
                 templateTextt = (EditText)myDialog.findViewById(R.id.template_sms_txt);
                // int i = Model.instance().numberOfRow();
                // i++;
-                SMSOrPopup sp = new SMSOrPopup(1,"Sms template",phoneNumber,phoneName,null,templateTextt.getText().toString());
+                SMSOrPopup sp;
+                if (phoneName!=null&&phoneNumber!=null) {
+                    sp = new SMSOrPopup(1, "Sms template", phoneNumber, phoneName, null, templateTextt.getText().toString());
+                }
+                else
+                {
+                    sp = new SMSOrPopup(1, "Sms template", "Template", "", null, templateTextt.getText().toString());
+                }
+
                 Model.instance().addSmsOrPop(sp);
                 data = Model.instance().getSmsTemplates();
                 adapter.notifyDataSetChanged();
@@ -197,8 +207,10 @@ public class SmsTemplates extends AppCompatActivity {
             SMSOrPopup sp = data.get(position);
 
             text.setText(sp.getText());
-            sendTo.setText(sp.getSendto()+" "+sp.getSendtoName());
-
+            if (sp.getSendto()!=null&&sp.getSendtoName()!=null)
+                sendTo.setText(sp.getSendto()+" "+sp.getSendtoName());
+            else
+                sendTo.setText("Template");
             return convertView;
         }
     }

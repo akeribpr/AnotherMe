@@ -151,8 +151,9 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             newEventFra.setDate(day,month,year);
             FragmentTransaction transaction = manager.beginTransaction();
             //getFragmentManager().beginTransaction();
-            transaction.remove(calendarFra);
-            transaction.add(R.id.frag_container, newEventFra);
+           /* transaction.remove(calendarFra);
+            transaction.add(R.id.frag_container, newEventFra);*/
+            transaction.replace(R.id.frag_container,newEventFra);
             transaction.addToBackStack(null);
             invalidateOptionsMenu();
             transaction.commit();
@@ -442,12 +443,15 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            invalidateOptionsMenu();
+           // invalidateOptionsMenu();
             transaction.commit();
         }
         else if(currentFragment instanceof SettingsFragment){
-
-
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,calendarFra);
+            invalidateOptionsMenu();
+            transaction.commit();
         }
         else if(currentFragment instanceof SoluttionFragment){
 

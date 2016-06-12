@@ -21,6 +21,7 @@ import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -99,6 +100,8 @@ public class CalendarViewFragment extends Fragment{
         title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
         mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString())-1;
         year = Integer.valueOf(android.text.format.DateFormat.format("yyyy", month).toString());
+        Calendar calendar = Calendar.getInstance();
+        gridvalue = calendar.get(Calendar.DAY_OF_MONTH);
 
 
         ImageView previous = (ImageView) view.findViewById(R.id.previous);
