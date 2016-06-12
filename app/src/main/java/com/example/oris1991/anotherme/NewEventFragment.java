@@ -29,6 +29,9 @@ public class NewEventFragment extends Fragment {
 
     Solution sol;
     Task task;
+    int day;
+    int month;
+    int year;
 
 
 
@@ -52,6 +55,8 @@ public class NewEventFragment extends Fragment {
         final TimeEditText eventStartTime = (TimeEditText) view.findViewById(R.id.startTimeEditText);
         final TimeEditText eventEndTime = (TimeEditText) view.findViewById(R.id.endTimeEditText);
         final TextView eventLocation = (TextView) view.findViewById(R.id.EventLocationEditText);
+       // eventStartDate.setText("15/06/2016");
+       // eventStartDate.set(2016,5,15);
 
 
         if (task!=null)
@@ -70,6 +75,13 @@ public class NewEventFragment extends Fragment {
             eventEndDate.set(cle.get(Calendar.YEAR), Integer.valueOf(cle.get(Calendar.MONTH))  ,cle.get(Calendar.DAY_OF_MONTH));
             eventStartTime.set(cls.get(Calendar.HOUR_OF_DAY),cls.get(Calendar.MINUTE));
             eventEndTime.set(cle.get(Calendar.HOUR_OF_DAY),cle.get(Calendar.MINUTE));
+        }
+        else
+        {
+            eventStartDate.setText(day+"/"+String.valueOf(month+1)+"/"+year);
+            eventStartDate.set(year,month,day);
+            eventEndDate.setText(day+"/"+String.valueOf(month+1)+"/"+year);
+            eventEndDate.set(year,month,day);
         }
 
         Button toDo= (Button) view.findViewById(R.id.toDoButton);
@@ -154,6 +166,13 @@ public class NewEventFragment extends Fragment {
     public void setTask(Task task) {
 
         this.task=task;
+    }
+
+    public void setDate(int day, int month, int year) {
+
+        this.day=day;
+        this.month=month;
+        this.year=year;
     }
 
     public void setSolution(Solution sol)

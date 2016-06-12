@@ -29,6 +29,9 @@ public class EditFragment extends Fragment {
     Task task;
 
 
+
+
+
     interface Delegate{
         public void taskEditWithSolution(Task task,Solution sol,Solution s);
         public void endFragmentEdit();
@@ -194,4 +197,6 @@ public class EditFragment extends Fragment {
     {
         this.sol=sol;
     }
+
+
 }

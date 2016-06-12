@@ -168,7 +168,13 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         }
         if (id == R.id.action_add)
         {
+            int day=calendarFra.gridvalue;
+            if (day==0)
+                day=1;
+            int month= calendarFra.getMmonth();
+            int year = calendarFra.getYear();
             newEventFra = new NewEventFragment();
+            newEventFra.setDate(day,month,year);
             FragmentTransaction transaction = manager.beginTransaction();
             //getFragmentManager().beginTransaction();
             transaction.remove(calendarFra);

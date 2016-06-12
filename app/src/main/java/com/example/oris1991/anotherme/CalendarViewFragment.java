@@ -52,7 +52,21 @@ public class CalendarViewFragment extends Fragment{
     MyAddapter adapterEvent = new MyAddapter();
     View view;
     Context mContext;
+    int gridvalue;
+    int mmonth;
+    int year;
 
+    public int getYear() {
+        return year;
+    }
+
+    public int getMmonth() {
+        return mmonth;
+    }
+
+    public int getGridvalue() {
+        return gridvalue;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,6 +97,9 @@ public class CalendarViewFragment extends Fragment{
         handler.post(calendarUpdater);
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
+        mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString())-1;
+        year = Integer.valueOf(android.text.format.DateFormat.format("yyyy", month).toString());
+
 
         ImageView previous = (ImageView) view.findViewById(R.id.previous);
 
@@ -113,7 +130,6 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-
                 if (Utility.eventId.get(time.get(position))!="0")
                     delegate.startEdit(time.get(position));
                 adapter.notifyDataSetChanged();
@@ -138,7 +154,7 @@ public class CalendarViewFragment extends Fragment{
                 String[] separatedTime = selectedGridDate.split("-");
                 String gridvalueString = separatedTime[2].replaceFirst("^0*",
                         "");// taking last part of date. ie; 2 from 2012-12-02.
-                int gridvalue = Integer.parseInt(gridvalueString);
+                 gridvalue = Integer.parseInt(gridvalueString);
                 // navigate to next or previous month on clicking offdays.
                 if ((gridvalue > 10) && (position < 8)) {
                     setPreviousMonth();
@@ -181,6 +197,8 @@ public class CalendarViewFragment extends Fragment{
     }
 
     protected void setNextMonth() {
+        mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString());
+        year = Integer.valueOf(android.text.format.DateFormat.format("yyyy", month).toString());
         if (month.get(GregorianCalendar.MONTH) == month
                 .getActualMaximum(GregorianCalendar.MONTH)) {
             month.set((month.get(GregorianCalendar.YEAR) + 1),
@@ -193,6 +211,8 @@ public class CalendarViewFragment extends Fragment{
     }
 
     protected void setPreviousMonth() {
+        mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString());
+        year = Integer.valueOf(android.text.format.DateFormat.format("yyyy", month).toString());
         if (month.get(GregorianCalendar.MONTH) == month
                 .getActualMinimum(GregorianCalendar.MONTH)) {
             month.set((month.get(GregorianCalendar.YEAR) - 1),
