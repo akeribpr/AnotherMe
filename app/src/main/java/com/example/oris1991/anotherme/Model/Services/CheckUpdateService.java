@@ -134,5 +134,15 @@ public class CheckUpdateService extends Service {
 //        startActivity(dialogIntent);
 
     }
-
+//    String phoneNo = "0525541676";
+//    String msg = "massage";
+//    try {
+//
+//        SmsManager smsManager = SmsManager.getDefault();
+//        smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+//
+//    } catch (Exception ex) {
+//
+//        ex.printStackTrace();
+//    }
 }
