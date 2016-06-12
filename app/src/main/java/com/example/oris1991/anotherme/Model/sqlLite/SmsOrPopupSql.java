@@ -37,7 +37,7 @@ public class SmsOrPopupSql {
         String countQuery = "SELECT  * FROM " + SMSPOPUP_TABLE;
         Cursor cursor = db.rawQuery(countQuery, null);
         int cnt = cursor.getCount();
-      //  cursor.close();
+        //  cursor.close();
         return cnt;
     }
 
@@ -69,12 +69,12 @@ public class SmsOrPopupSql {
             } while (cursor.moveToNext());
 
         }
-       // cursor.close();
+        // cursor.close();
         return list;
     }
 
     public static List<SMSOrPopup> getSmsPopups(SQLiteDatabase db) {
-        String [] selectionArgs ={"ServerSMS","Popup"};
+        String [] selectionArgs ={"SMS","Popup"};
         Cursor cursor = db.query(SMSPOPUP_TABLE,null, SP_TYPE + " = ?" +"or " + SP_TYPE + " = ?",selectionArgs, null, null, null);
 
         List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
@@ -230,14 +230,14 @@ public class SmsOrPopupSql {
             int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
-                int idd =  Integer.parseInt(cursor.getString(idIndex));
-                String type = cursor.getString(typeIndex);
-                String sent = cursor.getString(sentIndex);
-                String sentName = cursor.getString(sentNameIndex);
-                String time = cursor.getString(timeIndex);
-                String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
-                return sp;
+            int idd =  Integer.parseInt(cursor.getString(idIndex));
+            String type = cursor.getString(typeIndex);
+            String sent = cursor.getString(sentIndex);
+            String sentName = cursor.getString(sentNameIndex);
+            String time = cursor.getString(timeIndex);
+            String text = cursor.getString(textIndex);
+            SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
+            return sp;
         }
         return null;
     }

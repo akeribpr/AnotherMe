@@ -152,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.replace(R.id.frag_container,settingsFra);
-           // transaction.remove(currentFragment);
-            //transaction.add(R.id.frag_container, settingsFra);
-            //transaction.show(calendarFra);
             transaction.commit();
             return true;
         }
@@ -178,9 +175,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.add(R.id.frag_container, newEventFra);
             transaction.addToBackStack(null);
             invalidateOptionsMenu();
-
-            //transaction.hide(calendarFra);
-            //transaction.show(newEventFra);
             transaction.commit();
             return true;
         }
@@ -247,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     private void selectImage() {
 
         final CharSequence[] items = { "Add User","Add Share", "Get History of Shard", "Cancel" };
-      //  boolean result=Utility.checkPermission(MainActivity.this);
+        //  boolean result=Utility.checkPermission(MainActivity.this);
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Share");
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -480,15 +474,14 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         editFra = new EditFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,editFra);
-
-        //transaction.remove(calendarFra);
-        //transaction.add(R.id.frag_container,editFra);
-        //transaction.addToBackStack(null);
+        //  transaction.replace(R.id.frag_container,editFra);
+        transaction.remove(calendarFra);
+        transaction.add(R.id.frag_container,editFra);
+        transaction.addToBackStack(null);
         invalidateOptionsMenu();
         editFra.setPosition(pos);
         transaction.commit();
-      }
+    }
 
 
     @Override

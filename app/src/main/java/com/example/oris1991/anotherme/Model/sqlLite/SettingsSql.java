@@ -22,7 +22,7 @@ public class SettingsSql {
     private static final String MAIL = "mail";
     private static final String POPUP = "PopUps";
     private static final String SMS = "Sms";
-    private static final String SOLUTION = "ServerSolution";
+    private static final String SOLUTION = "Solution";
     private static final String GPS = "gps";
 
 
@@ -49,23 +49,23 @@ public class SettingsSql {
         Settings settings = null;
         Cursor cursor = db.query(SETTINGS_TABLE,null,null,null, null, null, null);
 
-            if (cursor.moveToFirst()) {
-                int personId = cursor.getColumnIndex(PERSON_ID);
-                int fullName = cursor.getColumnIndex(FULL_NAME);
-                int phoneNumber = cursor.getColumnIndex(PHONE_NUMBER);
-                int age = cursor.getColumnIndex(AGE);
-                int password = cursor.getColumnIndex(PASSWORD);
-                int DateTimeRegister = cursor.getColumnIndex(DATE_TIME_REGISTER);
-                int mail = cursor.getColumnIndex(MAIL);
-                int PopUps = cursor.getColumnIndex(POPUP);
-                int Sms = cursor.getColumnIndex(SMS);
-                int Solution = cursor.getColumnIndex(SOLUTION);
-                int gps = cursor.getColumnIndex(GPS);
+        if (cursor.moveToFirst()) {
+            int personId = cursor.getColumnIndex(PERSON_ID);
+            int fullName = cursor.getColumnIndex(FULL_NAME);
+            int phoneNumber = cursor.getColumnIndex(PHONE_NUMBER);
+            int age = cursor.getColumnIndex(AGE);
+            int password = cursor.getColumnIndex(PASSWORD);
+            int DateTimeRegister = cursor.getColumnIndex(DATE_TIME_REGISTER);
+            int mail = cursor.getColumnIndex(MAIL);
+            int PopUps = cursor.getColumnIndex(POPUP);
+            int Sms = cursor.getColumnIndex(SMS);
+            int Solution = cursor.getColumnIndex(SOLUTION);
+            int gps = cursor.getColumnIndex(GPS);
 
-                settings = new Settings(cursor.getString(personId),cursor.getString(fullName),cursor.getString(phoneNumber),Integer.parseInt(cursor.getString(age)),
-                        cursor.getString(password),cursor.getString(DateTimeRegister),cursor.getString(mail),Boolean.parseBoolean(cursor.getString(PopUps)),Boolean.parseBoolean(cursor.getString(Sms))
-                        ,Boolean.parseBoolean(cursor.getString(Solution)),Boolean.parseBoolean(cursor.getString(gps)));
-            }
+            settings = new Settings(cursor.getString(personId),cursor.getString(fullName),cursor.getString(phoneNumber),Integer.parseInt(cursor.getString(age)),
+                    cursor.getString(password),cursor.getString(DateTimeRegister),cursor.getString(mail),Boolean.parseBoolean(cursor.getString(PopUps)),Boolean.parseBoolean(cursor.getString(Sms))
+                    ,Boolean.parseBoolean(cursor.getString(Solution)),Boolean.parseBoolean(cursor.getString(gps)));
+        }
         return settings;
     }
 

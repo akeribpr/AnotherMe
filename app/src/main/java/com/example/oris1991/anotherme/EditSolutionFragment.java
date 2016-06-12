@@ -94,15 +94,15 @@ public class EditSolutionFragment extends Fragment{
         {
             if(old.getSms()!=null){
 
-            smsId=old.getSms().getId();
-            phoneNumber=old.getSms().getSendto();
-            phoneName=old.getSms().getSendtoName();
-            if (old.getSms().getSendto()!=null&&old.getSms().getSendtoName()!=null){
-                phoneChoose.setText(phoneNumber+ " "+phoneName);
-                timeBefore=Integer.valueOf(sol.getSms().getTime());
-                smsNotification=old.getSms().getText();
-                smsTemplateChoose.setText(old.getSms().getText());
-            }
+                smsId=old.getSms().getId();
+                phoneNumber=old.getSms().getSendto();
+                phoneName=old.getSms().getSendtoName();
+                if (old.getSms().getSendto()!=null&&old.getSms().getSendtoName()!=null){
+                    phoneChoose.setText(phoneNumber+ " "+phoneName);
+                    timeBefore=Integer.valueOf(sol.getSms().getTime());
+                    smsNotification=old.getSms().getText();
+                    smsTemplateChoose.setText(old.getSms().getText());
+                }
             }
             if(old.getPopUp()!=null){
                 popupid=old.getPopUp().getId();
@@ -115,15 +115,15 @@ public class EditSolutionFragment extends Fragment{
         }
 //        else
 //        {
-//            phoneNumber=s.getServerSms().getSendto();
-//            phoneName=s.getServerSms().getSendtoName();
+//            phoneNumber=s.getSms().getSendto();
+//            phoneName=s.getSms().getSendtoName();
 //            phoneChoose.setText(phoneNumber + " " + phoneName);
-//            timeBefore=Integer.valueOf(s.getServerSms().getTime());
-//           /* Utility.taskArry.get(pos).getServerSolution()
-//            Utility.taskArry.get(pos).getServerSolution()
-//            Utility.taskArry.get(pos).getServerSolution()
-//            Utility.taskArry.get(pos).getServerSolution()
-//            Utility.taskArry.get(pos).getServerSolution()*/
+//            timeBefore=Integer.valueOf(s.getSms().getTime());
+//           /* Utility.taskArry.get(pos).getSolution()
+//            Utility.taskArry.get(pos).getSolution()
+//            Utility.taskArry.get(pos).getSolution()
+//            Utility.taskArry.get(pos).getSolution()
+//            Utility.taskArry.get(pos).getSolution()*/
 //        }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
@@ -145,7 +145,7 @@ public class EditSolutionFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                    smsDialog(getActivity());
+                smsDialog(getActivity());
             }
         });
 
@@ -175,14 +175,14 @@ public class EditSolutionFragment extends Fragment{
 
 
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
-             //   delegate.SaveSolutionEdit(sol,task);
+                //   delegate.SaveSolutionEdit(sol,task);
 
-               // SMSOrPopup sms = new SMSOrPopup(0,"ServerSMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
-               // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
-                //sol = new ServerSolution(1,sms,popup,spinnerActions.getSelectedItemPosition());
+                // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
 
                 delegate.SaveSolutionEdit(sol, task);
-               // delegate.showNot(smsNotification);
+                // delegate.showNot(smsNotification);
             }
         });
 
