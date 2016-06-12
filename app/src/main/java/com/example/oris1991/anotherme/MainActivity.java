@@ -46,6 +46,7 @@ import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Services.CheckUpdateService;
+import com.example.oris1991.anotherme.Model.Services.GpsService;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
@@ -57,7 +58,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate, LocationListener,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,EditSolutionFragment.Delegate {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,EditSolutionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     ShareHistoryFragment shareHistoryFragment;
     UsersFragment userFrag;
     Task task;
+    protected LocationManager locManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,32 +82,21 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         setContentView(R.layout.main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-  /*      getSupportActionBar().setDisplayShowHomeEnabled(true);*/
-      /*  getSupportActionBar().setTitle("anotherme");*/
-       // getSupportActionBar().setIcon(R.drawable.a_m_icon);
 
-        //Gps gp =new Gps("10:00","232.543","43.4543");
         Intent intent = new Intent(MainActivity.this,CheckUpdateService.class);
         startService(intent);
-        // Make sure that GPS is enabled on the device
-        mlocManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if(!enabled) {
             showDialogGPS();
         }
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        else {
+            Intent intentt = new Intent(MainActivity.this,GpsService.class);
+            startService(intentt);
         }
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
 
         calendarFra=new CalendarViewFragment();
         manager = getFragmentManager();
@@ -115,40 +106,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         //transaction.show(calendarFra);
         transaction.commit();
 
-
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        SharedPreferences  sharedPreferencesPut = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor =  sharedPreferencesPut.edit();
-        editor.putString("Lat", String.valueOf( location.getLatitude()));
-        editor.putString("Lon", String.valueOf(location.getLongitude()));
-        editor.commit();
-
-        sharedPreferencesGet = PreferenceManager
-                .getDefaultSharedPreferences(this);
-        String lat = sharedPreferencesGet.getString("Lat", "no lat");
-        String lon = sharedPreferencesGet.getString("Lon", "no lon");
-        Log.d("Tag", lat);
-        Log.d("Tag", lon);
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.d("Latitude", "disable");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        Log.d("Latitude", "enable");
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude", "status");
     }
 
 
@@ -195,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
             transaction.replace(R.id.frag_container,settingsFra);
-           // transaction.remove(currentFragment);
-            //transaction.add(R.id.frag_container, settingsFra);
-            //transaction.show(calendarFra);
             transaction.commit();
             return true;
         }
@@ -216,14 +170,10 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         {
             newEventFra = new NewEventFragment();
             FragmentTransaction transaction = manager.beginTransaction();
-            //getFragmentManager().beginTransaction();
             transaction.remove(calendarFra);
             transaction.add(R.id.frag_container, newEventFra);
             transaction.addToBackStack(null);
             invalidateOptionsMenu();
-
-            //transaction.hide(calendarFra);
-            //transaction.show(newEventFra);
             transaction.commit();
             return true;
         }
@@ -351,9 +301,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            //transaction.add(R.id.frag_container, calendarFra);
-            //transaction.hide(newEventFra);
-            //transaction.show(calendarFra);
             transaction.commit();
         }
         else
@@ -361,9 +308,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             solFra=new SoluttionFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frag_container,solFra);
-            //transaction.add(R.id.frag_container, solFra);
-            //transaction.hide(newEventFra);
-            //transaction.show(solFra);
             transaction.commit();
 
         }
@@ -377,9 +321,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,newEventFra);
-       // transaction.remove(solFra);
-       // transaction.add(R.id.frag_container, newEventFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         newEventFra.setSolution(sol);
         newEventFra.setTask(task);
@@ -393,10 +334,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editFra);
-
-       // transaction.remove(editSolFra);
-        //transaction.add(R.id.frag_container, editFra);
-        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
         editFra.setSolution(sol);
         editFra.setTask(task);
@@ -409,13 +346,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-
         transaction.replace(R.id.frag_container,calendarFra);
-
-
-        //transaction.remove(editSolFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -425,10 +356,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,calendarFra);
-
-        //transaction.remove(solFra);
-        //transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -442,16 +369,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
     @Override
     public void taskWithSolution(Task task, Solution sol) {
-        //this.task=task;
         solFra = new SoluttionFragment();
         solFra.setTask(task);
         solFra.setSol(sol);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,solFra);
-
-     //   transaction.remove(newEventFra);
-       // transaction.add(R.id.frag_container, solFra);
-       // transaction.addToBackStack("task");
         invalidateOptionsMenu();
         transaction.commit();
 
@@ -464,24 +386,15 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         editSolFra.setSol(sol,old);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editSolFra);
-
-        //transaction.remove(editFra);
-       // transaction.add(R.id.frag_container,editSolFra);
-        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
 
     @Override
     public void endFragmentEdit() {
-
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,calendarFra);
-
-       // transaction.remove(editFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -491,10 +404,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,calendarFra);
-
-       // transaction.remove(newEventFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -503,16 +412,14 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
         if (currentFragment instanceof CalendarViewFragment) {
             super.onBackPressed();
+            Intent intentt = new Intent(MainActivity.this,GpsService.class);
+            stopService(intentt);
         }
         else
         {
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-
-            //transaction.add(R.id.frag_container, calendarFra);
-            //transaction.remove(currentFragment);
-            //transaction.show(calendarFra);
             transaction.commit();
         }
     }
@@ -523,10 +430,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         editFra = new EditFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editFra);
-
-        //transaction.remove(calendarFra);
-        //transaction.add(R.id.frag_container,editFra);
-        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
         editFra.setPosition(pos);
         transaction.commit();
@@ -537,7 +440,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     public void upgateUsersFragment() {
         userFrag = new UsersFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-
         transaction.replace(R.id.frag_container, userFrag);
         invalidateOptionsMenu();
         transaction.commit();

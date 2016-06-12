@@ -42,7 +42,7 @@ public class CheckUpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("TAG","service on create");
+        //Log.d("TAG","service on create");
     }
 
 
@@ -51,12 +51,12 @@ public class CheckUpdateService extends Service {
 
         super.onDestroy();
         running = false;
-        Log.d("TAG","service on destroy");
+        //Log.d("TAG","service on destroy");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("TAG","service onStartCommand");
+       // Log.d("TAG","service onStartCommand");
         super.onStartCommand(intent, flags, startId);
         ServiceUpdate serviceUpdate = new ServiceUpdate();
         serviceUpdate.start();
