@@ -32,7 +32,7 @@ public class CalendarViewFragment extends Fragment{
 
     interface Delegate{
 
-      //  public void plusButton(int code);
+        //  public void plusButton(int code);
         public void startEdit(int pos);
 
     }
@@ -224,7 +224,7 @@ public class CalendarViewFragment extends Fragment{
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String itemvalue;
             event = Utility.readCalendarEvent(getActivity().getApplicationContext());
-            Log.d("=====ServerTask====", event.toString());
+            Log.d("=====Task====", event.toString());
             Log.d("=====Date ARRAY====", Utility.startDates.toString());
 
             for (int i = 0; i < Utility.startDates.size(); i++) {

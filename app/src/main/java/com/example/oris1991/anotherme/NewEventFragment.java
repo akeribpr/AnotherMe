@@ -114,6 +114,7 @@ public class NewEventFragment extends Fragment {
                 endMillis = endTime.getTimeInMillis();
                 Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
                 delegate.taskWithSolution(newTask,sol);
+
             }
         });
 

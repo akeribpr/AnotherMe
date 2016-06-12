@@ -120,7 +120,7 @@ public class SoluttionFragment  extends Fragment{
 
 
 
-    //    int i = spinnerActions.getSelectedItemPosition();
+        //    int i = spinnerActions.getSelectedItemPosition();
         doWith.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,8 +133,8 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-               // if (phoneNumber != null)
-                    smsDialog(getActivity());
+                // if (phoneNumber != null)
+                smsDialog(getActivity());
             }
         });
 
@@ -152,7 +152,7 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
-               timeBefore=newVal;
+                timeBefore=newVal;
 
             }
         });
@@ -161,11 +161,11 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                //SMSOrPopup sms = new SMSOrPopup(0,"ServerSMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
-               // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);
-              //  delegate.showNot(smsNotification);
+                //  delegate.showNot(smsNotification);
             }
         });
 
@@ -313,7 +313,7 @@ public class SoluttionFragment  extends Fragment{
                 popupTemplateChoose.setText(dataPopup.get(position).getText().toString());
                 popupData=dataPopup.get(position).getText().toString();
                 popupid= dataPopup.get(position).getId();
-               // SMSOrPopup s = Model.instance().getSmsOrPopupById(popupid);
+                // SMSOrPopup s = Model.instance().getSmsOrPopupById(popupid);
                 myDialogg.dismiss();
             }
         });

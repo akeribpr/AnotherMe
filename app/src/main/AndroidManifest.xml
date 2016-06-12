@@ -64,6 +64,7 @@
         android:name=".Model.Services.CheckUpdateService"
         android:enabled="true"
         android:exported="true" />
+        <service android:name=".Model.Services.CheckUpdateService$NotificationUtils$NotificationActionService"/>
         <service
             android:name=".Model.Services.GpsService"
             android:enabled="true"

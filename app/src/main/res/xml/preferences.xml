@@ -22,14 +22,14 @@
         android:key="pref_age"
         android:title="גיל"
         android:defaultValue="false"
-       />
+        />
     <CheckBoxPreference android:title="SMS"
         android:defaultValue="false"
         android:key="pref_SMS" />
     <CheckBoxPreference android:title="popups"
         android:defaultValue="false"
         android:key="pref_popups" />
-    <CheckBoxPreference android:title="serverSolution"
+    <CheckBoxPreference android:title="solution"
         android:defaultValue="false"
         android:key="pref_solution" />
     <CheckBoxPreference android:title="GPS"

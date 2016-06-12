@@ -1,5 +1,6 @@
 package com.example.oris1991.anotherme.Model.Services;
 
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,6 +14,7 @@ import android.os.IBinder;
 import android.os.Messenger;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -72,7 +74,8 @@ public class CheckUpdateService extends Service {
 
     class ServiceUpdate extends Thread{
         public void run(){
-            notification(2);
+            NotificationUtils.displayNotification(getApplicationContext());
+           // notification(2);
             while(running){
                 //makeTasks(modelServer.checkUpdateTask());
                 //  addShare(modelServer.checkUpdateShare());
@@ -103,14 +106,14 @@ public class CheckUpdateService extends Service {
     }
 
     public void notification(int solutionId){
-        String s;
-        Solution solution = Model.instance().getSolution(solutionId);
-        if(solution.getPopUp()!=null){
-            s = solution.getPopUp().getText();
-        }
-        else{
-            s = "need to do!";
-        }
+        String s = "itzik";
+//        Solution solution = Model.instance().getSolution(solutionId);
+//        if(solution.getPopUp()!=null){
+//            s = solution.getPopUp().getText();
+//        }
+//        else{
+//            s = "need to do!";
+//        }
 
         Intent resultIntent = new Intent(this, ReturnFromNotification.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -152,6 +155,48 @@ public class CheckUpdateService extends Service {
 //        dialogIntent.putExtras(b); //Put your id to your next Intent
 //        startActivity(dialogIntent);
 
+    }
+
+    public static class NotificationUtils {
+        public static final int NOTIFICATION_ID = 1;
+
+        public static final String ACTION_1 = "action_1";
+
+        public static void displayNotification(Context context) {
+
+            Intent action1Intent = new Intent(context, NotificationActionService.class)
+                    .setAction(ACTION_1);
+
+            PendingIntent action1PendingIntent = PendingIntent.getService(context, 0,
+                    action1Intent, PendingIntent.FLAG_ONE_SHOT);
+
+            NotificationCompat.Builder notificationBuilder =
+                    new NotificationCompat.Builder(context)
+                            .setSmallIcon(R.drawable.a_m_icon)
+                            .setContentTitle("Sample Notification")
+                            .setContentText("Notification text goes here")
+                            .addAction(new NotificationCompat.Action(R.drawable.a_m_icon,
+                                    "send sms?", action1PendingIntent));
+
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+        }
+
+        public static class NotificationActionService extends IntentService {
+            public NotificationActionService() {
+                super(NotificationActionService.class.getSimpleName());
+            }
+
+            @Override
+            protected void onHandleIntent(Intent intent) {
+                String action = intent.getAction();
+                if (ACTION_1.equals(action)) {
+                    // TODO: handle action 1.
+                    Log.d("tag","success");
+                    // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
+                }
+            }
+        }
     }
 //    String phoneNo = "0525541676";
 //    String msg = "massage";

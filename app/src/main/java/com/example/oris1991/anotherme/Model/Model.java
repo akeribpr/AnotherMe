@@ -19,7 +19,7 @@ public class Model implements ModelInterface {
     private final static Model instance = new Model();
 //ascacc
     ModelSql sqlModel;
-    //ModelServer modelServe;
+    ModelServer modelServe;
 
     private Model() {
         sqlModel = new ModelSql();
