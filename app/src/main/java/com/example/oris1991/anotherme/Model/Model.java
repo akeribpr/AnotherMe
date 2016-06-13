@@ -19,11 +19,11 @@ public class Model implements ModelInterface {
     private final static Model instance = new Model();
 //ascacc
     ModelSql sqlModel;
-    //ModelServer modelServe;
+    ModelServer modelServe;
 
     private Model() {
         sqlModel = new ModelSql();
-       // modelServe = new ModelServer();
+        modelServe = new ModelServer();
     }
 
 
@@ -43,11 +43,12 @@ public class Model implements ModelInterface {
         sqlModel.register(logIn);
     }
 
-    public  void register(LogIn login){
-        sqlModel.register(login);
-     //   modelServe.register(login);
-
-    }
+//    public  void register(LogIn login){
+//        sqlModel.register(login);
+//        modelServe.register(login);
+//     //   modelServe.register(login);
+//
+//    }
 
     public LogIn getUser(){
       return  sqlModel.getUser();
@@ -95,7 +96,7 @@ public class Model implements ModelInterface {
 
     @Override
     public List<Task> checkUpdateTask() {
-        return null;
+        return  modelServe.checkUpdateTask();
     }
 
     @Override
@@ -104,10 +105,14 @@ public class Model implements ModelInterface {
     }
 
     @Override
+    public Task getTask(int taskId) {
+        return sqlModel.getTask(taskId);
+    }
+
+    @Override
     public void addTask(Task task) {
         sqlModel.addTask(task);
-
-
+        modelServe.addTask(task);
     }
 
     @Override
@@ -117,6 +122,19 @@ public class Model implements ModelInterface {
 
     @Override
     public void addNewGpsLocation(ServerGps gps) {
+        modelServe.addNewGpsLocation(gps);
+    }
+
+    @Override
+    public Boolean register(LogIn sp) {
+        if(modelServe.register(sp)){
+            sqlModel.register(sp);
+            return true;
+        }
+        else {
+            return false;
+        }
+
 
     }
 
@@ -170,7 +188,7 @@ public class Model implements ModelInterface {
 
        // modelServe.addTask(task);
 
-     //   modelServe.addTask(task);
+
 
     }
 

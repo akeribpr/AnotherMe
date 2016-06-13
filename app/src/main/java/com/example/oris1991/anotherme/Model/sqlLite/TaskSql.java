@@ -97,10 +97,10 @@ public class TaskSql {
             String start = cursor.getString(startIndex);
             String end = cursor.getString(endIndex);
             String location = cursor.getString(locationIndex);
-            Task t = new Task(idd, title, Long.valueOf(start), Long.valueOf(end), location);
+            task = new Task(idd, title, Long.valueOf(start), Long.valueOf(end), location);
             if (cursor.getString(solution) != null) {
                 int solutionn = Integer.valueOf(cursor.getString(solution));
-                t.setSolution(Model.instance().getSolution(solutionn));
+                task.setSolution(Model.instance().getSolution(solutionn));
             }
         }
         return task;

@@ -4,6 +4,7 @@ package com.example.oris1991.anotherme.Model;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.oris1991.anotherme.Model.Entities.Gps;
+import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
@@ -30,7 +31,7 @@ public interface ModelInterface {
 
 
     void addNewGpsLocation(ServerGps gps);
-
+    public Boolean register(LogIn sp);
     public void addPic(SharePictureOrText sp);
     public void addUser(Users sp);
     public List<SharePictureOrText> getPicture();
@@ -43,6 +44,7 @@ public interface ModelInterface {
     public List<Task> getTasks();
     public  List<Task>  checkUpdateTask();
     public int numberOfRowe(String table);
+    public Task getTask(int taskId);
     public  void deleteSmsOrPopup(int id);
 
 

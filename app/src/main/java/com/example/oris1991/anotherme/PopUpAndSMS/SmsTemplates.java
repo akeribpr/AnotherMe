@@ -194,7 +194,7 @@ public class SmsTemplates extends AppCompatActivity {
                 }
                 else
                 {
-                    sp = new SMSOrPopup(1, "Sms template", "Template", "", null, templateTextt.getText().toString());
+                    sp = new SMSOrPopup(1, "Sms template", null, null, null, templateTextt.getText().toString());
                 }
 
                 Model.instance().addSmsOrPop(sp);

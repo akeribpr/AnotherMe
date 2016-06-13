@@ -270,6 +270,8 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
                 } else if (items[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
+
+
             }
         });
         builder.show();
@@ -352,16 +354,33 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void CancelSolution() {
-        calendarFra = new CalendarViewFragment();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,calendarFra);
+    public void CancelSolution(Task task) {
 
-        //transaction.remove(solFra);
-        //transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
+
+
+        editFra = new EditFragment();
+
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frag_container,editFra);
+
+        // transaction.remove(editSolFra);
+        //transaction.add(R.id.frag_container, editFra);
+        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
+        editFra.setTask(task);
         transaction.commit();
+
+
+
+//        calendarFra = new CalendarViewFragment();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.replace(R.id.frag_container,calendarFra);
+//
+//        //transaction.remove(solFra);
+//        //transaction.add(R.id.frag_container, calendarFra);
+//       // transaction.addToBackStack(null);
+//        invalidateOptionsMenu();
+//        transaction.commit();
     }
 
     @Override
@@ -435,9 +454,10 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     public void onBackPressed() {
         Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
         if (currentFragment instanceof CalendarViewFragment) {
-            super.onBackPressed();
             Intent intentt = new Intent(MainActivity.this,GpsService.class);
             stopService(intentt);
+            finish();
+            super.onBackPressed();
         }
       else  if(currentFragment instanceof NewEventFragment){
             calendarFra = new CalendarViewFragment();
@@ -450,7 +470,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            invalidateOptionsMenu();
+            //invalidateOptionsMenu();
             transaction.commit();
         }
         else if(currentFragment instanceof SoluttionFragment){
@@ -460,22 +480,26 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            invalidateOptionsMenu();
+          //  invalidateOptionsMenu();
             transaction.commit();
 
         }
         else if(currentFragment instanceof EditSolutionFragment){
-
+//            calendarFra = new CalendarViewFragment();
+//            FragmentTransaction transaction = manager.beginTransaction();
+//            transaction.replace(R.id.frag_container,calendarFra);
+//            //  invalidateOptionsMenu();
+//            transaction.commit();
         }
-        else {
-            calendarFra = new CalendarViewFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frag_container,calendarFra);
-            //transaction.add(R.id.frag_container, calendarFra);
-            //transaction.remove(currentFragment);
-            //transaction.show(calendarFra);
-            transaction.commit();
-        }
+//        else {
+//            calendarFra = new CalendarViewFragment();
+//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//            transaction.replace(R.id.frag_container,calendarFra);
+//            //transaction.add(R.id.frag_container, calendarFra);
+//            //transaction.remove(currentFragment);
+//            //transaction.show(calendarFra);
+//            transaction.commit();
+//        }
     }
 
     @Override

@@ -71,7 +71,7 @@ public class SoluttionFragment  extends Fragment{
     interface Delegate{
 
         public void SaveSolution(Solution sol,Task task);
-        public void CancelSolution();
+        public void CancelSolution(Task task);
         public void showNot(String smsNote);
 
     }
@@ -135,10 +135,10 @@ public class SoluttionFragment  extends Fragment{
             public void onClick(View v) {
 
                  if (phoneNumber != null)
-                smsDialog(getActivity());
+                    smsDialog(getActivity());
                 else{
-                     Toast.makeText(getActivity().getApplicationContext(), "please enter contact first", Toast.LENGTH_LONG).show();
-                 }
+                    Toast.makeText(getActivity().getApplicationContext(), "please enter contact first", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -177,7 +177,7 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                delegate.CancelSolution();
+                delegate.CancelSolution(task);
 
             }
         });
@@ -282,7 +282,7 @@ public class SoluttionFragment  extends Fragment{
                 smsNotification=dataSms.get(position).getText().toString();
                 smsId = dataSms.get(position).getId();
                 SMSOrPopup sms = Model.instance().getSmsOrPopupById(smsId);
-                if(sms.getSendtoName()==null||sms.getSendto()==null){
+                if((sms.getSendtoName()==null)&&(sms.getSendto()==null)){
 
                     sms.setSendto(phoneNumber);
                     sms.setSendtoName(phoneName);
@@ -374,7 +374,13 @@ public class SoluttionFragment  extends Fragment{
 
             SMSOrPopup sp = dataSms.get(position);
 
-            text.setText(sp.getText());
+//            if(sp.getTime().equals("Template")){
+//                text.setText(sp.getText()+"   Template");
+//            }
+//            else {
+                text.setText(sp.getText());
+          //  }
+
 
 
             return convertView;

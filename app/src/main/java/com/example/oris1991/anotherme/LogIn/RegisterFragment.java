@@ -61,14 +61,20 @@ public class RegisterFragment extends Fragment {
                     {
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
                     }
+
                     else
                     {
                         LogIn logIn = new LogIn(user,pass1);
-                        Model.instance().register(logIn);
-                        Intent intent = new Intent(getActivity(),
-                                MainActivity.class);
-                        startActivity(intent);
-                        delegate.finishFra();
+                        if(Model.instance().register(logIn)){
+                            Intent intent = new Intent(getActivity(),
+                                    MainActivity.class);
+                            startActivity(intent);
+                            delegate.finishFra();
+                        }
+                        else{
+                            Toast.makeText(mcontext, "user already exists. please choose a different username", Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 }
             }

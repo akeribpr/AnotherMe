@@ -73,6 +73,7 @@ public class EditFragment extends Fragment {
         }
         else
         {
+            int  c = Integer.valueOf(Utility.eventId.get(pos));
             eventTitle.setText(Utility.nameOfEvent.get(pos));
             eventLocation.setText(Utility.locations.get(pos));
             Calendar cls = Calendar.getInstance();
@@ -103,31 +104,45 @@ public class EditFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(task!=null){
+                    Model.instance().deleteTask(task.getId());
+                    if(task.getSolution()!=null){
+                        Model.instance().deleteSolution(task.getId());
+                    }
 
-             //   if(task!=null){
-//                    int i = Integer.valueOf(Utility.eventId.get(pos));
-//                    Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
-//                    Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
-             //   }
-            //    else{
+                    long startMillis = 0;
+                    long endMillis = 0;
+                    Calendar beginTime = Calendar.getInstance();
+                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
+                    startMillis = beginTime.getTimeInMillis();
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                    endMillis = endTime.getTimeInMillis();
+
+                    final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
+                    if (solutionAfterEditSolution !=null){
+                        newTask.setSolution(solutionAfterEditSolution);
+                    }
+                    else {
+                        newTask.setSolution(task.getSolution());
+                    }
+                    Model.instance().addTaskWithSolution(newTask);
+
+                    delegate.endFragmentEdit();
+
+                }
+                else{
+
 
                    int  c = Integer.valueOf(Utility.eventId.get(pos));
-                    if(Model.instance().getSolution(c)!=null){
+                Task taskTest= Model.instance().getTask(c);
+                    if(Model.instance().getSolution(c)!=null && solutionAfterEditSolution!=null){
                         Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
                         Model.instance().deleteSolution(Integer.valueOf(Utility.eventId.get(pos)));
                     }
                    else{
                         Model.instance().deleteTask(Integer.valueOf(Utility.eventId.get(pos)));
                     }
-
-                                    // Model.instance().deleteTask(task.getId());
-//                    if(task.getSolution()!=null){
-//                        Model.instance().deleteSolution(task.getSolution().getIdSolution());
-//                    }
-
-              //  }
-
-               // int i= Integer.valueOf(Utility.eventId.get(pos));
 
                 long startMillis = 0;
                 long endMillis = 0;
@@ -142,10 +157,13 @@ public class EditFragment extends Fragment {
                 if (solutionAfterEditSolution !=null){
                     newTask.setSolution(solutionAfterEditSolution);
                 }
-
+                else {
+                    newTask.setSolution(taskTest.getSolution());
+                }
                 Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentEdit();
+                }
             }
         });
 
@@ -154,21 +172,28 @@ public class EditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //if null to do
-                Solution old = null;
-                if(Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)))!=null){
-                    old = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
-                }
-                long startMillis = 0;
-                long endMillis = 0;
-                Calendar beginTime = Calendar.getInstance();
-                beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
-                startMillis = beginTime.getTimeInMillis();
-                Calendar endTime = Calendar.getInstance();
-                endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
-                endMillis = endTime.getTimeInMillis();
-                Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 
-                delegate.taskEditWithSolution(newTask,solutionAfterEditSolution,old);
+                if(task!=null){
+                    delegate.taskEditWithSolution(task,solutionAfterEditSolution,solutionAfterEditSolution);
+                }
+                else {
+                    Solution old = null;
+                    if(Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)))!=null){
+                        old = Model.instance().getSolution(Integer.valueOf(Utility.eventId.get(pos)));
+                    }
+                    long startMillis = 0;
+                    long endMillis = 0;
+                    Calendar beginTime = Calendar.getInstance();
+                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
+                    startMillis = beginTime.getTimeInMillis();
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                    endMillis = endTime.getTimeInMillis();
+                    Task newTask = new Task(Integer.valueOf(Utility.eventId.get(pos)),eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
+
+                    delegate.taskEditWithSolution(newTask,solutionAfterEditSolution,old);
+                }
+
 
             }
         });

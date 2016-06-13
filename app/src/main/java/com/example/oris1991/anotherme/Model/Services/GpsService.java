@@ -16,6 +16,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
+
+import java.util.Date;
+
 /**
  * Created by Itzik on 10/06/2016.
  */
@@ -65,6 +71,9 @@ import android.util.Log;
                     .getDefaultSharedPreferences(this);
             String lat = sharedPreferencesGet.getString("Lat", "no lat");
             String lon = sharedPreferencesGet.getString("Lon", "no lon");
+
+            ServerGps gps = new ServerGps(1.0,Double.parseDouble(lat),Double.parseDouble(lon),new Date(),new ServerPerson(Model.instance().getUser().getPersonId(),null));
+            Model.instance().addNewGpsLocation(gps);
             Log.d("Tag", lat);
             Log.d("Tag", lon);
         }

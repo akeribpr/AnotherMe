@@ -36,9 +36,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class PersonModelServer {
 
     private String urlPerson = "/PersonServlet";
+    private String urlLogin = "/Login";
+
     String result;
 
-
+//CONNECTION
     public Boolean register(String personId, String password,
                            Date DateTimeRegister, String mail, String phoneNumber) throws IOException {
 //        (DateTimeRegister.toString())==null?null:DateTimeRegister.toString()
@@ -99,6 +101,66 @@ public class PersonModelServer {
         // 3. Convert received JSON to Article
         System.out.println(result);
        // System.out.println(mapper.readValue(result, Boolean.class));
+        return Boolean.valueOf(result);
+    }
+
+
+    public Boolean signIn(String personId, String password) {
+        //        (DateTimeRegister.toString())==null?null:DateTimeRegister.toString()
+        String[] params = new String[]{ModelServer.url+urlLogin,  personId,  password};
+        new AsyncTask<String, Void, String>(){
+
+            @Override
+            protected String doInBackground(String... params) {
+                StringBuffer buffer = new StringBuffer();
+                try {
+                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
+
+                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    con.setRequestProperty("connection", "close");
+                    con.setRequestMethod("POST");
+                    con.setDoInput(true);
+                    con.setDoOutput(true);
+                    con.connect();
+
+                    OutputStream os= con.getOutputStream();
+                    os.write( ("userName=" + params[1]).getBytes("UTF-8"));
+                    os.write( ("&password=" + params[2]).getBytes("UTF-8"));
+
+                    os.flush();
+                    os.close();
+                    // 1. get received JSON data from request
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    if(br != null){
+                        result = br.readLine();
+
+                    }
+                    else
+                        result = "Did not work!(signIn)";
+
+                    //InputStream is = con.getInputStream();
+//                  byte[] b = new byte[1024];
+//
+//                 while (is.read(b) != -1)
+//                buffer.append(new String(b));
+
+                    con.disconnect();
+                }
+                catch(Throwable t) {
+                    t.printStackTrace();
+                }
+
+                return result;
+            }
+
+
+        }.execute(params);
+
+// 2. initiate jackson mapper
+        // ObjectMapper mapper = new ObjectMapper();
+        // 3. Convert received JSON to Article
+        System.out.println(result);
+        // System.out.println(mapper.readValue(result, Boolean.class));
         return Boolean.valueOf(result);
     }
 

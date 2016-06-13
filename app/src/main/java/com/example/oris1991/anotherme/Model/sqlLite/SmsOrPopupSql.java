@@ -188,6 +188,9 @@ public class SmsOrPopupSql {
         return list;
     }
     public static List<SMSOrPopup> getSmsTemplatesWithoutPerson(SQLiteDatabase db) {
+      //  String [] selectionArgs ={"Sms template","Template"};
+        //Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_TYPE + " = ?" +"and " + SP_TIME + " =?" ,selectionArgs, null, null, null);
+
         String [] selectionArgs ={"Sms template"};
         Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_TYPE + " = ?",selectionArgs, null, null, null);
 
@@ -200,7 +203,7 @@ public class SmsOrPopupSql {
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
-                if(cursor.getString(sentIndex)==null){
+              if(cursor.getString(sentIndex)==null){
                     int idd =  Integer.parseInt(cursor.getString(id));
                     String type = cursor.getString(typeIndex);
                     String sent = cursor.getString(sentIndex);
@@ -209,7 +212,7 @@ public class SmsOrPopupSql {
                     String text = cursor.getString(textIndex);
                     SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
                     list.add(sp);
-                }
+               }
 
             } while (cursor.moveToNext());
 

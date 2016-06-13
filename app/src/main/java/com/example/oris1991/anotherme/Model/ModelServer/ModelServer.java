@@ -1,8 +1,5 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
-import android.util.Log;
-
-import com.example.oris1991.anotherme.Model.Entities.Gps;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
@@ -13,7 +10,6 @@ import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 
-import java.util.ArrayList;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -25,28 +21,31 @@ public class ModelServer implements ModelInterface {
     public static final String url= "http://192.168.1.10:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
-    DoSolution doSolution;
      GpsModelServer gpsModelServer;
+    PicturesModelServer picturesModelServer;
     public  ModelServer(){
         taskModelServer = new TaskModelServer();
         personModelServer = new PersonModelServer();
-        doSolution = new DoSolution();
         gpsModelServer=new GpsModelServer();
+        picturesModelServer=new PicturesModelServer();
     }
 
 //    String personId = Model.instance().getUser().getServerPersonId();
     public Boolean register(LogIn login){
+        Boolean bool = false;
         try {
-           return personModelServer.register(login.getPersonId(),login.getPassword(),null,"05555555555","default@gmail.com");
+         bool  = personModelServer.register(login.getPersonId(),login.getPassword(),null,"05555555555","default@gmail.com");
+           return bool;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  false;
+        return  bool;
     }
 
     @Override
     public void addSmsOrPop(SMSOrPopup sp) {
-
+//               if ((sp.getType()).equals("SMS"))
+//                   taskModelServer.addPopUp(sp.getText(),false,sp.getSendto(),);
     }
 
     @Override
@@ -91,8 +90,8 @@ else taskModelServer.addNewTask
                 (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),1);
 
 
-        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
-        taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+//        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
+//        taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
     }
 
     @Override
@@ -145,14 +144,6 @@ else taskModelServer.addNewTask
         return null;
     }
 
-//    @Override
-//    public void checkUpdate() {
-//       ArrayList<Task> task = new ArrayList<Task>();
-//        ArrayList<SharePictureOrText> share = new ArrayList<SharePictureOrText>();
-//        doSolution.sendSms();
-//        Log.d("Log","check update!!!!!!!!!!!!!!!!!!!!!!!");
-//    }
-
     @Override
     public void addTaskWithSolution(Task task) {
 
@@ -171,6 +162,11 @@ else taskModelServer.addNewTask
     @Override
     public int numberOfRowe(String table) {
         return 0;
+    }
+
+    @Override
+    public Task getTask(int taskId) {
+        return null;
     }
 
     @Override

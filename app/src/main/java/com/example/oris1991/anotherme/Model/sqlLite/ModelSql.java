@@ -32,9 +32,11 @@ public class ModelSql implements ModelInterface {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
     }
 
-    public void register(LogIn logIn){
+    @Override
+    public Boolean register(LogIn logIn){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         LogInSql.register(db, logIn);
+        return true;
     }
 
     public LogIn getUser(){
@@ -68,6 +70,13 @@ public class ModelSql implements ModelInterface {
         return cnt+1;
 
     }
+
+    @Override
+    public Task getTask(int taskId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return TaskSql.getTaskById(db,taskId);
+    }
+
 
     @Override
     public void deleteSmsOrPopup(int id) {

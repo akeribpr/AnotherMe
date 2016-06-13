@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
@@ -119,18 +120,6 @@ public class EditSolutionFragment extends Fragment{
             spinnerActions.setSelection(old.getWhatToDo());
             np.setValue(timeBefore);
         }
-//        else
-//        {
-//            phoneNumber=s.getSms().getSendto();
-//            phoneName=s.getSms().getSendtoName();
-//            phoneChoose.setText(phoneNumber + " " + phoneName);
-//            timeBefore=Integer.valueOf(s.getSms().getTime());
-//           /* Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()
-//            Utility.taskArry.get(pos).getSolution()*/
-//        }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
         Button sms= (Button) view.findViewById(R.id.smsB);
@@ -151,7 +140,11 @@ public class EditSolutionFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                smsDialog(getActivity());
+                if (phoneNumber != null)
+                    smsDialog(getActivity());
+                else{
+                    Toast.makeText(getActivity().getApplicationContext(), "please enter contact first", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -180,13 +173,13 @@ public class EditSolutionFragment extends Fragment{
             public void onClick(View v) {
 
 
-                solutionAfterEditSolution = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
+                solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 //   delegate.SaveSolutionEdit(sol,task);
 
                 // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
-
+                task.setSolution(solutionAfterEditSolution);
                 delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
                 // delegate.showNot(smsNotification);
             }
@@ -295,7 +288,7 @@ public class EditSolutionFragment extends Fragment{
                 smsNotification=dataSms.get(position).getText().toString();
                 smsId = dataSms.get(position).getId();
                 SMSOrPopup sms = Model.instance().getSmsOrPopupById(smsId);
-                if(sms.getSendtoName()==null||sms.getSendto()==null){
+                if((sms.getSendtoName()==null)&&(sms.getSendto()==null)){
 
                     sms.setSendto(phoneNumber);
                     sms.setSendtoName(phoneName);
@@ -316,51 +309,7 @@ public class EditSolutionFragment extends Fragment{
 
         myDialog.show();
     }
-//    public void smsDialog( final Context activity) {
-//
-//        final Dialog myDialog = new Dialog(activity);
-//        myDialog.setContentView(R.layout.sms_dialog);
-//        myDialog.setTitle("Pick a sms template:");
-//        myDialog.setCancelable(true);
-//
-//        Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
-//        listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
-//        if((phoneNumber!=null)){
-//            if(Model.instance().getSmsForPerson(phoneNumber).size()!=0){
-//                dataSms = (Model.instance().getSmsForPerson(phoneNumber));
-//                dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
-//            }
-//
-//        }
-//        else{
-//            dataSms = (Model.instance().getSmsTemplatesWithoutPerson());
-//        }
-//        adapterSms = new AdapterSmsList();
-//
-//        listSms.setAdapter(adapterSms);
-//
-//        listSms.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                //add by id to solution sms
-//                smsTemplateChoose.setText(dataSms.get(position).getText().toString());
-//                smsNotification=dataSms.get(position).getText().toString();
-//                smsId=dataSms.get(position).getId();
-//                myDialog.dismiss();
-//            }
-//        });
-//
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                myDialog.dismiss();
-//            }
-//        });
-//
-//
-//
-//        myDialog.show();
-//    }
+
 
     public void popupDialog( final Context activity) {
 
@@ -471,7 +420,12 @@ public class EditSolutionFragment extends Fragment{
 
             SMSOrPopup sp = dataPopup.get(position);
 
-            text.setText(sp.getText());
+          //  if(sp.getTime().equals("Template")){
+          //      text.setText(sp.getText()+"   Template");
+           // }
+           // else {
+                text.setText(sp.getText());
+          //  }
 
 
             return convertView;
