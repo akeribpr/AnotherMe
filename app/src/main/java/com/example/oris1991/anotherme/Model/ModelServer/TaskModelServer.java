@@ -51,7 +51,7 @@ public class TaskModelServer {
                     con.setDoOutput(true);
                     con.connect();
                     con.getOutputStream().write(("personId=" + params[1]).getBytes());
-                    con.getOutputStream().write(("&taskText=" + params[2]).getBytes());
+                    con.getOutputStream().write(("&txt=" + params[2]).getBytes());
                     con.getOutputStream().write(("&start=" + params[3]).getBytes());
                     con.getOutputStream().write(("&end=" + params[4]).getBytes());
                     con.getOutputStream().write(("&address=" + params[5]).getBytes());

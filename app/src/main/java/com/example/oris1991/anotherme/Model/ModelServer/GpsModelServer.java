@@ -16,12 +16,12 @@ import java.util.Date;
  */
 public class GpsModelServer {
 
-    private String url = "/AddGps";
+    private String urlGps = "/AddGps";
     String result;
 
 
     public void addNewGpsLocation(ServerGps gps) {
-        String[] params = new String[]{url,  String.valueOf(gps.getX()), String.valueOf(gps.getY()),
+        String[] params = new String[]{ModelServer.url+urlGps,  String.valueOf(gps.getX()), String.valueOf(gps.getY()),
                 gps.getGpsDate().toString(),  gps.getPerson().getPersonId()};
         new AsyncTask<String, Void, String>(){
 
@@ -31,7 +31,7 @@ public class GpsModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(url)).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
                     con.setRequestProperty("connection", "close");
                     con.setRequestMethod("POST");
                     con.setDoInput(true);

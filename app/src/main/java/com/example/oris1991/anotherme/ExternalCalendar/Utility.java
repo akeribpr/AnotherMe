@@ -147,7 +147,7 @@ public class Utility {
 		/*String[] selectionsArgs = new String[] {String.valueOf(numberOfEvent)};
 		int calendarUri =context.getContentResolver().delete(Uri.parse(String.valueOf(CalendarContract.Events.CONTENT_URI)), CalendarContract.Events._ID+"=?",
 				selectionsArgs);*/
-		Log.d("Tag",String.valueOf(calendarUri));
+	//	Log.d("Tag",String.valueOf(calendarUri));
 
 
 

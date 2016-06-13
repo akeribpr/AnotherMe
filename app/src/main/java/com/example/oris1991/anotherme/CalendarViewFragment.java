@@ -247,8 +247,8 @@ public class CalendarViewFragment extends Fragment{
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String itemvalue;
             event = Utility.readCalendarEvent(getActivity().getApplicationContext());
-            Log.d("=====Task====", event.toString());
-            Log.d("=====Date ARRAY====", Utility.startDates.toString());
+           // Log.d("=====Task====", event.toString());
+           // Log.d("=====Date ARRAY====", Utility.startDates.toString());
 
             for (int i = 0; i < Utility.startDates.size(); i++) {
                 itemvalue = df.format(itemmonth.getTime());

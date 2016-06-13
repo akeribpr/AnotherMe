@@ -11,6 +11,10 @@ import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +22,7 @@ import java.util.List;
  * Created by eldar on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.1.10:8080/Another-Me";
+    public static final String url= "http://192.168.0.113:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
      GpsModelServer gpsModelServer;
@@ -82,7 +86,23 @@ public class ModelServer implements ModelInterface {
     @Override
     public void addTask(Task task) {
 
-
+//        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//        Format format = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+//        Date start = new Date(task.getStartTime());
+//        Date end = new Date(task.getEndTime());
+//
+//        String i = format.format(start);
+//        String j = format.format(end);
+//
+//
+//        Date startDate = null;
+//        Date endDate = null;
+//        try {
+//            startDate = df.parse(i);
+//            endDate = df.parse(j);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         if(task.getSolution()==null)
         taskModelServer.addNewTask
                 (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);

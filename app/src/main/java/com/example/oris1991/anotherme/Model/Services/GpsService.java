@@ -27,91 +27,105 @@ import java.util.Date;
  */
 
     public class GpsService extends Service implements LocationListener {
-        protected LocationManager locManager;
-        SharedPreferences sharedPreferencesGet;
-        LocationListener listener;
+    protected LocationManager locManager;
+    SharedPreferences sharedPreferencesGet;
+    LocationListener locationListener;
 
-        @Override
-        public void onCreate() {
-            super.onCreate();
-            locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            boolean enabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            if(!enabled) {
-                onDestroy();
-            }
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,30000, 0, this);
+    @Override
+    public void onCreate() {
 
-            Log.d("TAG","service on create");
+
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean enabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (!enabled) {
+            onDestroy();
         }
-        @Override
-        public void onDestroy() {
-            super.onDestroy();
-            Log.d("TAG","service on destroy");
-        }
-        @Override
-        public void onLocationChanged(Location location) {
-            SharedPreferences sharedPreferencesPut = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = sharedPreferencesPut.edit();
-            editor.putString("Lat", String.valueOf(location.getLatitude()));
-            editor.putString("Lon", String.valueOf(location.getLongitude()));
-            editor.commit();
-
-            sharedPreferencesGet = PreferenceManager
-                    .getDefaultSharedPreferences(this);
-            String lat = sharedPreferencesGet.getString("Lat", "no lat");
-            String lon = sharedPreferencesGet.getString("Lon", "no lon");
-
-            ServerGps gps = new ServerGps(1.0,Double.parseDouble(lat),Double.parseDouble(lon),new Date(),new ServerPerson(Model.instance().getUser().getPersonId(),null));
-            Model.instance().addNewGpsLocation(gps);
-            Log.d("Tag", lat);
-            Log.d("Tag", lon);
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
 
         }
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 0, this);
 
-        @Override
-        public void onProviderEnabled(String provider) {
+        Log.d("TAG", "service gps on create");
+        super.onCreate();
+    }
 
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("TAG", "service gps on destroy");
+    }
 
-        @Override
-        public void onProviderDisabled(String provider) {
+    @Override
+    public void onLocationChanged(Location location) {
+        Log.d("TAG", "service gps update");
+        SharedPreferences sharedPreferencesPut = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferencesPut.edit();
+        editor.putString("Lat", String.valueOf(location.getLatitude()));
+        editor.putString("Lon", String.valueOf(location.getLongitude()));
+        editor.commit();
 
-        }
+        sharedPreferencesGet = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String lat = sharedPreferencesGet.getString("Lat", "no lat");
+        String lon = sharedPreferencesGet.getString("Lon", "no lon");
 
-        @Nullable
-        @Override
-        public IBinder onBind(Intent intent) {
-            return null;
-        }
-        @Override
-        public int onStartCommand(Intent intent, int flags, int startId) {
-            Log.d("TAG","service onStartCommand");
-            super.onStartCommand(intent, flags, startId);
-            ServiceWorker worker = new ServiceWorker();
-            worker.start();
-            return START_STICKY;
-        }
+        ServerGps gps = new ServerGps(1.0, Double.parseDouble(lat), Double.parseDouble(lon), new Date(), new ServerPerson(Model.instance().getUser().getPersonId(), null));
+        Model.instance().addNewGpsLocation(gps);
+        Log.d("Tag", lat);
+        Log.d("Tag", lon);
+    }
 
-        class ServiceWorker extends Thread {
-
-            public void run() {
-
-            }
-        }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+//            locManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+//           boolean enabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//            if(!enabled) {
+//                onDestroy();
+//            }
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                // TODO: Consider calling
+//                //    ActivityCompat#requestPermissions
+//                // here to request the missing permissions, and then overriding
+//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                //                                          int[] grantResults)
+//                // to handle the case where the user grants the permission. See the documentation
+//                // for ActivityCompat#requestPermissions for more details.
+//
+//            }
+//            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,30000, 0, this);
+        Log.d("TAG", "service gps onStartCommand");
+
+        return START_STICKY;
+    }
+
+}

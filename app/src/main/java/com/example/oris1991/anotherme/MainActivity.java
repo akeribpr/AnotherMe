@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(
                         new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                Intent intentt = new Intent(MainActivity.this,GpsService.class);
+                startService(intentt);
             }
         });
         builder.setNegativeButton("Ignore", new DialogInterface.OnClickListener() {

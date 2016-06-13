@@ -32,6 +32,7 @@ public class Model implements ModelInterface {
     }
 
     public Boolean checkIfUserExist(LogIn logIn){
+
         return sqlModel.checkIfUserExist(logIn);
     }
 
@@ -190,8 +191,7 @@ public class Model implements ModelInterface {
     @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
-
-       // modelServe.addTask(task);
+       modelServe.addTask(task);
 
 
 
