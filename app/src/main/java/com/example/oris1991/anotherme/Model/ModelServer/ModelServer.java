@@ -106,8 +106,8 @@ public class ModelServer implements ModelInterface {
         if(task.getSolution()==null)
         taskModelServer.addNewTask
                 (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);
-else taskModelServer.addNewTask
-                (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),1);
+//else taskModelServer.addNewTask
+           //     (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),1);
 
 
 //        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
