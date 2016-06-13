@@ -38,6 +38,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         >
 
 
@@ -66,6 +67,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         >
 
 
@@ -94,6 +96,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         >
 
         <Spinner
@@ -108,7 +111,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="בחר משימה"
-            android:layout_marginTop="25dp"
+
             />
 
 
@@ -119,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="בחר זמן לפני תחילת המשימה"
+            android:text=" בחר זמן לפני תחילת המשימה בדקות"
             android:gravity="center"
             android:layout_marginTop="25dp"
     />

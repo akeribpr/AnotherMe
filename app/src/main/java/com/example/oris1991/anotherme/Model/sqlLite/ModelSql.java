@@ -85,6 +85,12 @@ public class ModelSql implements ModelInterface {
 
     }
 
+    @Override
+    public void editTimeBefore(int id, int time) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SmsOrPopupSql.editTimeBefore(db,id,time);
+    }
+
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         sp.setId(numberOfRowe(SMSPOPUP_TABLE));

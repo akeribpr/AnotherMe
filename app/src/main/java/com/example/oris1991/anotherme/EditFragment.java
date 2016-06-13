@@ -81,9 +81,15 @@ public class EditFragment extends Fragment {
             cls.setTimeInMillis(Long.valueOf(Utility.startDateAndTime.get(pos)));
             cle.setTimeInMillis(Long.valueOf(Utility.endDateAndTime.get(pos)));
             eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
-            eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
+            if (eventStartTime.getMinutes()/10==0)
+                eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":0" + cls.get(Calendar.MINUTE));
+            else
+                eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
             eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
-            eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
+            if (eventEndTime.getMinutes()/10==0)
+                eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":0" + cle.get(Calendar.MINUTE));
+            else
+                eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
             eventStartDate.set(cls.get(Calendar.YEAR), Integer.valueOf(cls.get(Calendar.MONTH)), cls.get(Calendar.DAY_OF_MONTH));
             eventEndDate.set(cle.get(Calendar.YEAR), Integer.valueOf(cle.get(Calendar.MONTH)), cle.get(Calendar.DAY_OF_MONTH));
             eventStartTime.set(cls.get(Calendar.HOUR_OF_DAY), cls.get(Calendar.MINUTE));
@@ -113,10 +119,10 @@ public class EditFragment extends Fragment {
                     long startMillis = 0;
                     long endMillis = 0;
                     Calendar beginTime = Calendar.getInstance();
-                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
+                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventStartTime.getMinutes());
                     startMillis = beginTime.getTimeInMillis();
                     Calendar endTime = Calendar.getInstance();
-                    endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                    endTime.set(eventEndDate.getYear(), eventEndDate.getMonth(), eventEndDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                     endMillis = endTime.getTimeInMillis();
 
                     final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
@@ -147,10 +153,10 @@ public class EditFragment extends Fragment {
                 long startMillis = 0;
                 long endMillis = 0;
                 Calendar beginTime = Calendar.getInstance();
-                beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
+                beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventStartTime.getMinutes());
                 startMillis = beginTime.getTimeInMillis();
                 Calendar endTime = Calendar.getInstance();
-                endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                endTime.set(eventEndDate.getYear(), eventEndDate.getMonth(), eventEndDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                 endMillis = endTime.getTimeInMillis();
 
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
@@ -174,7 +180,16 @@ public class EditFragment extends Fragment {
                 //if null to do
 
                 if(task!=null){
-                    delegate.taskEditWithSolution(task,solutionAfterEditSolution,solutionAfterEditSolution);
+                    long startMillis = 0;
+                    long endMillis = 0;
+                    Calendar beginTime = Calendar.getInstance();
+                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventStartTime.getMinutes());
+                    startMillis = beginTime.getTimeInMillis();
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(eventEndDate.getYear(), eventEndDate.getMonth(), eventEndDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                    endMillis = endTime.getTimeInMillis();
+                    Task newTask = new Task(Integer.valueOf(Utility.eventId.get(pos)),eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
+                    delegate.taskEditWithSolution(newTask,solutionAfterEditSolution,solutionAfterEditSolution);
                 }
                 else {
                     Solution old = null;
@@ -184,10 +199,10 @@ public class EditFragment extends Fragment {
                     long startMillis = 0;
                     long endMillis = 0;
                     Calendar beginTime = Calendar.getInstance();
-                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventEndTime.getMinutes());
+                    beginTime.set(eventStartDate.getYear(),eventStartDate.getMonth(), eventStartDate.getDay(), eventStartTime.getHour(),eventStartTime.getMinutes());
                     startMillis = beginTime.getTimeInMillis();
                     Calendar endTime = Calendar.getInstance();
-                    endTime.set(eventEndDate.getYear(), eventStartDate.getMonth(), eventStartDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
+                    endTime.set(eventEndDate.getYear(), eventEndDate.getMonth(), eventEndDate.getDay(), eventEndTime.getHour(),eventEndTime.getMinutes());
                     endMillis = endTime.getTimeInMillis();
                     Task newTask = new Task(Integer.valueOf(Utility.eventId.get(pos)),eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
 

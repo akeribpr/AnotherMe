@@ -181,6 +181,11 @@ public class Model implements ModelInterface {
         sqlModel.deleteSmsOrPopup(id);
     }
 
+    @Override
+    public void editTimeBefore(int id, int time) {
+        sqlModel.editTimeBefore(id,time);
+    }
+
 
     @Override
     public void addTaskWithSolution(Task task) {

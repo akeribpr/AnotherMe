@@ -65,9 +65,13 @@ public class EditSolutionFragment extends Fragment{
     interface Delegate{
 
         public void SaveSolutionEdit(Solution sol,Task task);
-        public void CancelSolutionEdit();
+        public void CancelSolutionEdit(Task task);
         public void showNot(String smsNote);
 
+    }
+
+    public Task getTask() {
+        return task;
     }
 
     public void setSol(Solution solutionAfterEditSolution,Solution old) {
@@ -102,7 +106,6 @@ public class EditSolutionFragment extends Fragment{
                     phoneChoose.setText(phoneNumber+ " "+phoneName);
                     if(old.getSms().getTime()!=null){
                         timeBefore=Integer.valueOf(old.getSms().getTime());
-
                     }
                     else{
                         timeBefore=0;
@@ -189,7 +192,7 @@ public class EditSolutionFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-                delegate.CancelSolutionEdit();
+                delegate.CancelSolutionEdit(task);
 
             }
         });
@@ -218,13 +221,6 @@ public class EditSolutionFragment extends Fragment{
         myDialog.setContentView(R.layout.do_with_dialog);
         myDialog.setCancelable(true);
 
-
-        Button pickOldContact= (Button) myDialog.findViewById(R.id.old_contact);
-        pickOldContact.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
 
         Button pickNewContact= (Button) myDialog.findViewById(R.id.new_contact);
         pickNewContact.setOnClickListener(new View.OnClickListener() {

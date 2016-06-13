@@ -245,9 +245,16 @@ public class SmsOrPopupSql {
         return null;
     }
 
+    public static void editTimeBefore(SQLiteDatabase db, int id, int time) {
+        SMSOrPopup sp = getSmsOrPopupById(db,id);
+        sp.setTime(String.valueOf(time));
+        deleteSmsOrPopup(db, id);
+        add(db,sp);
+    }
+
     public static void deleteSmsOrPopup(SQLiteDatabase db, int id) {
 
-        db.delete(SMSPOPUP_TABLE, ID + " = '" +id+"'", null);
+        db.delete(SMSPOPUP_TABLE, ID + " = '" + id + "'", null);
     }
 
 

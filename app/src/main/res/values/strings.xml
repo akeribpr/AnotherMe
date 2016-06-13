@@ -19,7 +19,7 @@
         <item>קניות</item>
         <item>ביביסיטר</item>
         <item>פגישה</item>
-        <item>מסימת יומן</item>
+        <item>משימת יומן</item>
         <item>משימת אפליקציה</item>
     </string-array>
     <string name="title_activity_connector">ConnectorActivity</string>

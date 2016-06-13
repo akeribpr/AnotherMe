@@ -339,16 +339,12 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
     @Override
-    public void CancelSolutionEdit() {
+    public void CancelSolutionEdit(Task task) {
 
-        calendarFra = new CalendarViewFragment();
+        editFra = new EditFragment();
+        editFra.setTask(task);
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,calendarFra);
-
-
-        //transaction.remove(editSolFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
+        transaction.replace(R.id.frag_container,editFra);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -356,31 +352,14 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     @Override
     public void CancelSolution(Task task) {
 
-
-
-        editFra = new EditFragment();
+        newEventFra=new NewEventFragment();
 
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.frag_container,editFra);
+        transaction.replace(R.id.frag_container,newEventFra);
 
-        // transaction.remove(editSolFra);
-        //transaction.add(R.id.frag_container, editFra);
-        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
-        editFra.setTask(task);
+        newEventFra.setTask(task);
         transaction.commit();
-
-
-
-//        calendarFra = new CalendarViewFragment();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(R.id.frag_container,calendarFra);
-//
-//        //transaction.remove(solFra);
-//        //transaction.add(R.id.frag_container, calendarFra);
-//       // transaction.addToBackStack(null);
-//        invalidateOptionsMenu();
-//        transaction.commit();
     }
 
     @Override
@@ -392,16 +371,13 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
     @Override
     public void taskWithSolution(Task task, Solution sol) {
-        //this.task=task;
+
         solFra = new SoluttionFragment();
         solFra.setTask(task);
         solFra.setSol(sol);
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,solFra);
 
-     //   transaction.remove(newEventFra);
-       // transaction.add(R.id.frag_container, solFra);
-       // transaction.addToBackStack("task");
         invalidateOptionsMenu();
         transaction.commit();
 
@@ -415,9 +391,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editSolFra);
 
-        //transaction.remove(editFra);
-       // transaction.add(R.id.frag_container,editSolFra);
-        //transaction.addToBackStack(null);
+
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -465,8 +439,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             transaction.replace(R.id.frag_container,calendarFra);
            // invalidateOptionsMenu();
             transaction.commit();
-        }
-        else if(currentFragment instanceof SettingsFragment){
+        } else if(currentFragment instanceof SettingsFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
@@ -475,31 +448,29 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         }
         else if(currentFragment instanceof SoluttionFragment){
 
+            Task task =  ((SoluttionFragment) currentFragment).getTask();
+            newEventFra = new NewEventFragment();
+            newEventFra.setTask(task);
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,newEventFra);
+            transaction.commit();
         }
+
         else if(currentFragment instanceof EditFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-          //  invalidateOptionsMenu();
             transaction.commit();
 
         }
         else if(currentFragment instanceof EditSolutionFragment){
-//            calendarFra = new CalendarViewFragment();
-//            FragmentTransaction transaction = manager.beginTransaction();
-//            transaction.replace(R.id.frag_container,calendarFra);
-//            //  invalidateOptionsMenu();
-//            transaction.commit();
+            Task task =  ((EditSolutionFragment) currentFragment).getTask();
+            editFra = new EditFragment();
+            editFra.setTask(task);
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,editFra);
+            transaction.commit();
         }
-//        else {
-//            calendarFra = new CalendarViewFragment();
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//            transaction.replace(R.id.frag_container,calendarFra);
-//            //transaction.add(R.id.frag_container, calendarFra);
-//            //transaction.remove(currentFragment);
-//            //transaction.show(calendarFra);
-//            transaction.commit();
-//        }
     }
 
     @Override

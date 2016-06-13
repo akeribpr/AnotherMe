@@ -80,6 +80,10 @@ public class SoluttionFragment  extends Fragment{
         this.sol = sol;
     }
 
+    public Task getTask() {
+        return task;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,21 +104,28 @@ public class SoluttionFragment  extends Fragment{
 
         if (sol!=null)
         {
-            phoneNumber=sol.getSms().getSendto();
-            phoneName=sol.getSms().getSendtoName();
-            if (sol.getSms().getSendto()!=null&&sol.getSms().getSendtoName()!=null)
-                phoneChoose.setText(phoneNumber+ " "+phoneName);
-            timeBefore=Integer.valueOf(sol.getSms().getTime());
-            smsNotification=sol.getSms().getText();
-            smsTemplateChoose.setText(sol.getSms().getText());
-            popupData=sol.getPopUp().getText();
-            popupTemplateChoose.setText(sol.getPopUp().getText());
+            if(sol.getSms()!=null) {
+                phoneNumber = sol.getSms().getSendto();
+                phoneName = sol.getSms().getSendtoName();
+                if (sol.getSms().getSendto() != null && sol.getSms().getSendtoName() != null)
+                    phoneChoose.setText(phoneNumber + " " + phoneName);
+                if (sol.getSms().getTime()!=null)
+                    timeBefore = Integer.valueOf(sol.getSms().getTime());
+                else
+                    timeBefore=0;
+                smsNotification = sol.getSms().getText();
+                smsTemplateChoose.setText(sol.getSms().getText());
+            }
+            if(sol.getPopUp()!=null) {
+                popupData = sol.getPopUp().getText();
+                popupTemplateChoose.setText(sol.getPopUp().getText());
+            }
             spinnerActions.setSelection(sol.getWhatToDo());
             np.setValue(timeBefore);
         }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
-        Button sms= (Button) view.findViewById(R.id.smsB);
+        final Button sms= (Button) view.findViewById(R.id.smsB);
         Button popup= (Button) view.findViewById(R.id.popupB);
         Button save= (Button) view.findViewById(R.id.solution_save);
         Button cancel= (Button) view.findViewById(R.id.solution_cancel);
@@ -167,6 +178,8 @@ public class SoluttionFragment  extends Fragment{
 
                 //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                if (smsId!=0)
+                    Model.instance().editTimeBefore(smsId,timeBefore);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);
                 //  delegate.showNot(smsNotification);
@@ -210,14 +223,6 @@ public class SoluttionFragment  extends Fragment{
         myDialog.setCancelable(true);
         Window view = ((Dialog)myDialog).getWindow();
         view.setBackgroundDrawableResource(R.color.summer);
-
-
-        Button pickOldContact= (Button) myDialog.findViewById(R.id.old_contact);
-        pickOldContact.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
 
         Button pickNewContact= (Button) myDialog.findViewById(R.id.new_contact);
         pickNewContact.setOnClickListener(new View.OnClickListener() {

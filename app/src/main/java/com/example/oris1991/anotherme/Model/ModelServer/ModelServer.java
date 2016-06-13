@@ -173,4 +173,9 @@ else taskModelServer.addNewTask
     public void deleteSmsOrPopup(int id) {
 
     }
+
+    @Override
+    public void editTimeBefore(int id, int time) {
+
+    }
 }

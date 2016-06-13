@@ -46,6 +46,7 @@ public interface ModelInterface {
     public int numberOfRowe(String table);
     public Task getTask(int taskId);
     public  void deleteSmsOrPopup(int id);
+    public void editTimeBefore(int id, int time);
 
 
 

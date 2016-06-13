@@ -1,7 +1,9 @@
 package com.example.oris1991.anotherme.PopUpAndSMS;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oris1991.anotherme.HistoryActivity;
 import com.example.oris1991.anotherme.R;
@@ -50,6 +54,44 @@ public class PopupTemplates  extends AppCompatActivity{
 
         adapter = new MyAddapter();
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                final int idFromList = data.get(position).getId();
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+                                Model.instance().deleteSmsOrPopup(idFromList);
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+                adapter.notifyDataSetChanged();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(PopupTemplates.this);
+                builder.setMessage("delete " + data.get(position).getText() + " ?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
+            }
+
+
+        });
+
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

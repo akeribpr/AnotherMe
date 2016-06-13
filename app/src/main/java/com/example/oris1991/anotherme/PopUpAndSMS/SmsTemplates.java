@@ -80,7 +80,9 @@ public class SmsTemplates extends AppCompatActivity {
 
                                 Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
                                 Model.instance().deleteSmsOrPopup(idFromList);
-
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -92,7 +94,7 @@ public class SmsTemplates extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SmsTemplates.this);
-                builder.setMessage("delete " + idFromList + " ?").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage("delete " + data.get(position).getText() + " ?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
 
             }
@@ -112,6 +114,7 @@ public class SmsTemplates extends AppCompatActivity {
         });
 
     }
+
 
 
 

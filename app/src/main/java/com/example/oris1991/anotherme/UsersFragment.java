@@ -67,30 +67,30 @@ public class UsersFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 idFromList = data.get(position).getname();
-              //  Toast.makeText(getActivity().getApplicationContext(),idFromList, Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity().getApplicationContext(),idFromList, Toast.LENGTH_LONG).show();
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                Log.d("log","Yes button clicked "+idFromList);
+                                Log.d("log", "Yes button clicked " + idFromList);
                                 Users user = new Users(idFromList);
-                             Boolean bool = Model.instance().deleteUser(user);
-                             Toast.makeText(getActivity().getApplicationContext(),"Done", Toast.LENGTH_LONG).show();
+                                Boolean bool = Model.instance().deleteUser(user);
+                                Toast.makeText(getActivity().getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
                                 UsersFragmentInterface interfaceUpdate = (UsersFragmentInterface) getActivity();
                                 interfaceUpdate.upgateUsersFragment();
 
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
-                                Log.d("log","No button clicked "+idFromList);
+                                Log.d("log", "No button clicked " + idFromList);
                                 break;
                         }
                     }
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("delete "+idFromList+" ?").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage("delete " + idFromList + " ?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
@@ -98,6 +98,8 @@ public class UsersFragment extends Fragment {
 
         return view;
     }
+
+
 
     class MyAddapter extends BaseAdapter {
 
