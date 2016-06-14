@@ -22,7 +22,7 @@ import java.util.List;
  * Created by eldar on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.0.113:8080/Another-Me";
+    public static final String url= "http://192.168.0.108:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
      GpsModelServer gpsModelServer;
