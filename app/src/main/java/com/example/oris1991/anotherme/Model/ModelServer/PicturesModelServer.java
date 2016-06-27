@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by eldar on 12/06/2016.
+ * Created by itzik on 12/06/2016.
  */
 public class PicturesModelServer {
 

@@ -88,7 +88,7 @@ public class SoluttionFragment  extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.solution_fragment, container, false);
+        final View view = inflater.inflate(R.layout.solution_fragment, container, false);
         setHasOptionsMenu(true);
         final Delegate delegate = (Delegate) getActivity();
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
@@ -126,7 +126,7 @@ public class SoluttionFragment  extends Fragment{
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
         final Button sms= (Button) view.findViewById(R.id.smsB);
-        Button popup= (Button) view.findViewById(R.id.popupB);
+        final Button popup= (Button) view.findViewById(R.id.popupB);
         Button save= (Button) view.findViewById(R.id.solution_save);
         Button cancel= (Button) view.findViewById(R.id.solution_cancel);
 
@@ -178,11 +178,18 @@ public class SoluttionFragment  extends Fragment{
 
                 //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                if(smsId==0||popupid==0) {
+                 Toast.makeText(view.getContext(), "user already exists. please choose a different username", Toast.LENGTH_LONG).show();
+                }
+                else{
+
+
                 if (smsId!=0)
                     Model.instance().editTimeBefore(smsId,timeBefore);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);
                 //  delegate.showNot(smsNotification);
+                }
             }
         });
 

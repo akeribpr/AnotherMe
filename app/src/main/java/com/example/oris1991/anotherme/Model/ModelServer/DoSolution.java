@@ -18,7 +18,7 @@ import com.example.oris1991.anotherme.R;
 import java.util.ArrayList;
 
 /**
- * Created by Itzik on 11/06/2016.
+ * Created by itzik on 11/06/2016.
  */
 public class DoSolution{
 

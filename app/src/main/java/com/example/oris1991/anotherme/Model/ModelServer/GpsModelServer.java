@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.Date;
 
 /**
- * Created by eldar on 11/06/2016.
+ * Created by itzik on 11/06/2016.
  */
 public class GpsModelServer {
 

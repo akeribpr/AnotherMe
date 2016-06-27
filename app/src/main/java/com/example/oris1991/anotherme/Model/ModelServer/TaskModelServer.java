@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by eldar on 06/06/2016.
+ * Created by itzik on 06/06/2016.
  */
 public class TaskModelServer {
     private String urlTask = "/Task";
     private String urlTasksToDo = "/GetTasksToDo";
     private String urlGetTask = "/GetTask";
     private String urlAddSms = "/AddSms";
+    private String urlAddPopUp = "/AddPopUp";
 
     String result;
 
@@ -34,7 +35,7 @@ public class TaskModelServer {
           Date start, Date end, String address, int platform, String withPerson, Double popUp, Double sms, int action) {
 
         String[] params = new String[]{ModelServer.url+urlTask, personId, taskText,
-                start.toString(), end.toString(), address, String.valueOf(platform), withPerson, String.valueOf(popUp), String.valueOf(sms)
+               String.valueOf(start.getTime()), String.valueOf(end.getTime()), address, String.valueOf(platform), withPerson, String.valueOf(popUp), String.valueOf(sms)
                 , String.valueOf(action)};
         AsyncTask t=new AsyncTask<String, Void, String>() {
 
@@ -46,7 +47,6 @@ public class TaskModelServer {
 
                     HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
-
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
@@ -190,7 +190,7 @@ public class TaskModelServer {
 
 
     public void addPopUp(String text, boolean popUpTamplates, String senderId,String personId){
-        String[] params = new String[]{ModelServer.url+urlTask, text, String.valueOf(popUpTamplates),
+        String[] params = new String[]{ModelServer.url+urlAddPopUp, text, String.valueOf(popUpTamplates),
                 senderId, personId};
         new AsyncTask<String, Void, String>() {
 
@@ -209,7 +209,6 @@ public class TaskModelServer {
                     con.getOutputStream().write(("&popUpTamplates=" + params[2]).getBytes());
                     con.getOutputStream().write(("&senderId=" + params[3]).getBytes());
                     con.getOutputStream().write(("&personId=" + params[4]).getBytes());
-
 
                     con.disconnect();
                 } catch (Throwable t) {
@@ -281,7 +280,7 @@ public class TaskModelServer {
 
     public void addSms(boolean SmsTamplates, String txt,
                                         String senderId, String personId) {
-        String[] params = new String[]{ModelServer.url+urlTask, personId,txt, senderId,};
+        String[] params = new String[]{ModelServer.url+urlAddSms, personId,txt, senderId,};
         AsyncTask t=new AsyncTask<String, Void, String>() {
 
             @Override
@@ -384,9 +383,6 @@ public class TaskModelServer {
 //        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
     return null;
     }
-
-
-    ////////////
 
 
 

@@ -38,6 +38,7 @@ public class Model implements ModelInterface {
 
     public void addSmsOrPop(SMSOrPopup sp) {
         sqlModel.addSmsOrPop(sp);
+        modelServe.addSmsOrPop(sp);
     }
 
     public void loginUser(LogIn logIn) {
@@ -128,13 +129,18 @@ public class Model implements ModelInterface {
 
     @Override
     public Boolean register(LogIn sp) {
-        if(modelServe.register(sp)){
-            sqlModel.register(sp);
-            return true;
-        }
-        else {
-            return false;
-        }
+
+///////////////////////////////////////////////////////////////////////////////////////
+        sqlModel.register(sp);
+        return true;
+
+//        if(modelServe.register(sp)){
+//            sqlModel.register(sp);
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
 
 
     }

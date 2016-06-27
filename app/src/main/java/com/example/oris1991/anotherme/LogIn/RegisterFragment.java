@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
@@ -26,6 +27,7 @@ public class RegisterFragment extends Fragment {
     }
 
     EditText usernameText,passwordText,password2Text;
+    ProgressBar progressBar;
     String pass1,pass2,user;
     Context mcontext;
     Delegate delegate;
@@ -39,40 +41,55 @@ public class RegisterFragment extends Fragment {
         usernameText = (EditText)view.findViewById(R.id.usernameEditText);
         passwordText = (EditText)view.findViewById(R.id.passwordEditText);
         password2Text = (EditText)view.findViewById(R.id.password2EditText);
+        progressBar = (ProgressBar) view.findViewById(R.id.sdProgressBar);
         mcontext = getActivity().getApplicationContext();
+
+
         //model = ModelMain.instance();
         Button submit= (Button) view.findViewById(R.id.submitB);
         Button exit= (Button) view.findViewById(R.id.exitB);
-
+        progressBar.setVisibility(View.INVISIBLE);
         submit.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 user =  usernameText.getText().toString();
                 pass1 = passwordText.getText().toString();
                 pass2 = password2Text.getText().toString();
 
                 if(pass1.compareTo(pass2)!=0)
                 {
+
                     Toast.makeText(mcontext, "The passwords don't match", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
                 else
                 {
+                    progressBar.setVisibility(View.VISIBLE);
                     if (pass1.length()<1)
                     {
+
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
+                       // progressBar.setVisibility(View.INVISIBLE);
                     }
 
                     else
                     {
+                        progressBar.setVisibility(View.VISIBLE);
                         LogIn logIn = new LogIn(user,pass1);
+
                         if(Model.instance().register(logIn)){
+                           // progressBar.setVisibility(View.INVISIBLE);
                             Intent intent = new Intent(getActivity(),
                                     MainActivity.class);
                             startActivity(intent);
                             delegate.finishFra();
                         }
                         else{
+
                             Toast.makeText(mcontext, "user already exists. please choose a different username", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
 
                     }

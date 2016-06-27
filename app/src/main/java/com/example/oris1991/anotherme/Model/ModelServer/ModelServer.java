@@ -19,10 +19,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by eldar on 31/05/2016.
+ * Created by itzik on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.0.108:8080/Another-Me";
+    public static final String url= "http://192.168.1.5:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
      GpsModelServer gpsModelServer;
@@ -39,6 +39,7 @@ public class ModelServer implements ModelInterface {
         Boolean bool = false;
         try {
          bool  = personModelServer.register(login.getPersonId(),login.getPassword(),null,"05555555555","default@gmail.com");
+
            return bool;
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,8 +49,17 @@ public class ModelServer implements ModelInterface {
 
     @Override
     public void addSmsOrPop(SMSOrPopup sp) {
-//               if ((sp.getType()).equals("SMS"))
-//                   taskModelServer.addPopUp(sp.getText(),false,sp.getSendto(),);
+               if ((sp.getType()).equals("Sms template")){
+
+                   taskModelServer.addSms(true,sp.getText(),Model.instance().getUser().getPersonId(),sp.getSendtoName());
+
+               }
+        else{
+
+                   taskModelServer.addPopUp(sp.getText(),false,sp.getSendto(),"");
+
+               }
+
     }
 
     @Override
@@ -86,28 +96,16 @@ public class ModelServer implements ModelInterface {
     @Override
     public void addTask(Task task) {
 
-//        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-//        Format format = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-//        Date start = new Date(task.getStartTime());
-//        Date end = new Date(task.getEndTime());
-//
-//        String i = format.format(start);
-//        String j = format.format(end);
-//
-//
-//        Date startDate = null;
-//        Date endDate = null;
-//        try {
-//            startDate = df.parse(i);
-//            endDate = df.parse(j);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-        if(task.getSolution()==null)
-        taskModelServer.addNewTask
-                (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);
-//else taskModelServer.addNewTask
-           //     (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),1);
+        if(task.getSolution()==null){
+            taskModelServer.addNewTask
+                    (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);
+        }
+
+else {
+//            taskModelServer.addNewTask(Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),2);
+            taskModelServer.addNewTask(Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getLocation(),7,task.getSolution().getSms().getSendtoName(),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),task.getSolution().getWhatToDo());
+
+        }
 
 
 //        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
