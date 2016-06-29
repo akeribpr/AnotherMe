@@ -148,6 +148,7 @@ public class Model implements ModelInterface {
     @Override
     public void addPic(SharePictureOrText sp) {
         sqlModel.addPic(sp);
+        modelServe.addPic(sp);
     }
 
     @Override
@@ -191,6 +192,11 @@ public class Model implements ModelInterface {
     @Override
     public void editTimeBefore(int id, int time) {
         sqlModel.editTimeBefore(id,time);
+    }
+
+    @Override
+    public String getPhoneNumber(String personId) {
+        return null;
     }
 
 

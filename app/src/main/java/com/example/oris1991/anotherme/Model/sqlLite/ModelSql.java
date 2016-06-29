@@ -91,6 +91,13 @@ public class ModelSql implements ModelInterface {
         SmsOrPopupSql.editTimeBefore(db,id,time);
     }
 
+    @Override
+    public String getPhoneNumber(String personId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        return  SmsOrPopupSql.getPhoneNumber(db,personId);
+    }
+
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         sp.setId(numberOfRowe(SMSPOPUP_TABLE));

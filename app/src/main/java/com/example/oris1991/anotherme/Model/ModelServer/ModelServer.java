@@ -9,12 +9,14 @@ import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelInterface;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
+import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class ModelServer implements ModelInterface {
                }
         else{
 
-                   taskModelServer.addPopUp(sp.getText(),false,sp.getSendto(),"");
+                   taskModelServer.addPopUp(sp.getText(),false,"",Model.instance().getUser().getPersonId());
 
                }
 
@@ -124,7 +126,7 @@ else {
 
     @Override
     public void addPic(SharePictureOrText sp) {
-
+        picturesModelServer.addPicturesToShare(sp.getPicName(),Model.instance().getUser().getPersonId(),sp.getShardWtith(),sp.getText());
     }
 
     @Override
@@ -174,7 +176,18 @@ else {
 
     @Override
     public List<Task> checkUpdateTask() {
-        return null;
+        List<ServerTask> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+        if(taskServer==null){
+            return null;
+        }
+        else{
+            List<Task> tasks = new ArrayList<Task>();
+            for (int i= 0;i<taskServer.size();i++){
+                tasks.add(taskServer.get(i).convertServerTask());
+            }
+            return tasks;
+        }
+
     }
 
     @Override
@@ -195,5 +208,10 @@ else {
     @Override
     public void editTimeBefore(int id, int time) {
 
+    }
+
+    @Override
+    public String getPhoneNumber(String personId) {
+        return null;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.Model.ModelServer.PopUp;
 
+
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.util.Date;
@@ -77,5 +79,8 @@ public class ServerPopUp {
     public void setPersonId(ServerPerson personId) {
         this.personId = personId;
     }
-
+    public SMSOrPopup convertServerPopUp(){
+        SMSOrPopup smsOrPopup = new SMSOrPopup(1,"PopUp template",getSenderId().getPersonId(),getSenderId().getPersonId(),getDateTimeShow().toString(),getText());
+        return smsOrPopup;
+    }
 }

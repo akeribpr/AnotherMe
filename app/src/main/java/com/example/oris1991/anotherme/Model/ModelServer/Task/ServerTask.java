@@ -1,5 +1,6 @@
 package com.example.oris1991.anotherme.Model.ModelServer.Task;
 
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.ModelServer.Solution.ServerSolution;
 import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
@@ -133,4 +134,10 @@ public class ServerTask implements Serializable {
 		this.serverSolution = serverSolution;
 	}
 
+	public Task convertServerTask(){
+		Task task = new Task(1,getTaskText(),getStart().getTime(),getEnd().getTime(),getAddress());
+		task.setSolution(getServerSolution().convertServerSolution());
+		return task;
+
+	}
 }

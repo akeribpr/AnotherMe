@@ -1,6 +1,7 @@
 package com.example.oris1991.anotherme.Model.ModelServer.Solution;
 
-import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.ModelServer.PopUp.ServerPopUp;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
 import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 import com.example.oris1991.anotherme.Model.ModelServer.sms.ServerSMS;
@@ -112,5 +113,9 @@ public class ServerSolution implements Serializable {
 		this.timeToArriving = timeToArriving;
 	}
 
+	public Solution convertServerSolution(){
+		Solution solution = new Solution(1,getServerSms().convertServerSms(),getServerPopUp().convertServerPopUp(),getAction());
 
+		return solution;
+	}
 }

@@ -1,5 +1,8 @@
 package com.example.oris1991.anotherme.Model.ModelServer.sms;
 
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.Model.ModelServer.ModelServer;
 import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 
 import java.io.Serializable;
@@ -77,6 +80,11 @@ public class ServerSMS implements Serializable {
 
 	public ServerPerson getPerson() {
 		return serverPersonId;
+	}
+
+	public SMSOrPopup convertServerSms(){
+		SMSOrPopup smsOrPopup = new SMSOrPopup(1,"Sms template",Model.instance().getPhoneNumber(getSenderId().getPersonId()),getSenderId().getPersonId(),getDateTimeSend().toString(),getMsg());
+		return smsOrPopup;
 	}
 
 }

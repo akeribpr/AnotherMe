@@ -77,11 +77,11 @@ public class CheckUpdateService extends Service {
             NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
-                //makeTasks(modelServer.checkUpdateTask());
-                //  addShare(modelServer.checkUpdateShare());
+                makeTasks(modelServer.checkUpdateTask());
+                //addShare(modelServer.checkUpdateShare());
 
                 try {
-                    sleep(60000);
+                    sleep(6000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -90,12 +90,19 @@ public class CheckUpdateService extends Service {
     }
 
     public void makeTasks(List<Task> task){
-        for(int i= 0; i<task.size();i++){
-            if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
-                notification(task.get(i).getSolution().getIdSolution());
-            }
-
+        if(task==null){
+            Log.d("Task","No Update!!!");
         }
+        else{
+
+            Log.d("Task"," Update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//            for(int i= 0; i<task.size();i++){
+//                if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
+//                    notification(task.get(i).getSolution().getIdSolution());
+//                }
+//            }
+        }
+
     }
     public void addShare(List<SharePictureOrText> share){
         for(int i= 0; i<share.size();i++){

@@ -252,6 +252,29 @@ public class SmsOrPopupSql {
         add(db,sp);
     }
 
+    public static String getPhoneNumber(SQLiteDatabase db,String personId) {
+        String [] selectionArgs ={personId};
+        Cursor cursor = db.query(SMSPOPUP_TABLE,null,SP_SENTTO_NAME + " = ?",selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+//            int idIndex = cursor.getColumnIndex(ID);
+//            int typeIndex = cursor.getColumnIndex(SP_TYPE);
+            int sentIndex = cursor.getColumnIndex(SP_SENTTO);
+//            int sentNameIndex = cursor.getColumnIndex(SP_SENTTO_NAME);
+//            int timeIndex = cursor.getColumnIndex(SP_TIME);
+//            int textIndex = cursor.getColumnIndex(SP_TEXT);
+//            int idd =  Integer.parseInt(cursor.getString(idIndex));
+//            String type = cursor.getString(typeIndex);
+            String sent = cursor.getString(sentIndex);
+//            String sentName = cursor.getString(sentNameIndex);
+//            String time = cursor.getString(timeIndex);
+//            String text = cursor.getString(textIndex);
+//            SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
+            return sent;
+        }
+        return null;
+    }
+
+
     public static void deleteSmsOrPopup(SQLiteDatabase db, int id) {
 
         db.delete(SMSPOPUP_TABLE, ID + " = '" + id + "'", null);
