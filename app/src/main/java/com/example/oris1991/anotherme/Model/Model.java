@@ -131,16 +131,16 @@ public class Model implements ModelInterface {
     public Boolean register(LogIn sp) {
 
 ///////////////////////////////////////////////////////////////////////////////////////
-        sqlModel.register(sp);
-        return true;
+//        sqlModel.register(sp);
+//        return true;
 
-//        if(modelServe.register(sp)){
-//            sqlModel.register(sp);
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
+        if(modelServe.register(sp)){
+            sqlModel.register(sp);
+            return true;
+        }
+        else {
+            return false;
+        }
 
 
     }

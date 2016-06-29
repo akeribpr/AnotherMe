@@ -77,7 +77,7 @@ public class CheckUpdateService extends Service {
             NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
-                makeTasks(modelServer.checkUpdateTask());
+              //  makeTasks(modelServer.checkUpdateTask());
                 //addShare(modelServer.checkUpdateShare());
 
                 try {
