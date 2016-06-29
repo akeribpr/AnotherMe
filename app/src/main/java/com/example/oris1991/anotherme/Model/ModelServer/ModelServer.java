@@ -183,7 +183,10 @@ else {
         else{
             List<Task> tasks = new ArrayList<Task>();
             for (int i= 0;i<taskServer.size();i++){
-                tasks.add(taskServer.get(i).convertServerTask());
+
+                ServerTask s = taskServer.get(i);
+      //          Task t = taskServer.get(i).convertServerTask();
+            //    tasks.add(t);
             }
             return tasks;
         }

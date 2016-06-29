@@ -9,6 +9,7 @@ import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
 import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
 import com.example.oris1991.anotherme.Model.ModelServer.sms.ServerSMS;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -193,7 +194,18 @@ public class TaskModelServer {
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     if (br != null) {
-                        result = br.readLine();
+
+
+                        StringBuilder sb = new StringBuilder();
+
+                        String line;
+
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line);
+                        }
+
+                        result = sb.toString();
+                        //result = br.readLine();
                     } else
                         result = "Did not work!";
                     con.disconnect();
@@ -222,19 +234,31 @@ public class TaskModelServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+
         // 3. Convert received JSON to Article
         try {
             if(result.equals("null")){
                 return null;
-            }
-            else{
-                return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+            }            else{
+
+               // List<ServerTask> taskServer =  mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+               // List<ServerTask> myObjects = mapper.readValue(result, new TypeReference<List<ServerTask>>(){});
+                ServerTask[] myObjects = mapper.readValue(result, ServerTask[].class);
+
+                Log.d("Get","Array list");
+
+             //   List<ServerTask> myObjects = mapper.readValue(result, mapper.getTypeFactory().constructCollectionType(List.class, ServerTask.class));
+                return null;
+              //  return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+
+
 //        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
     }
 
