@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <EditTextPreference
         android:key="pref_name"
         android:summary="אלדר יעקובי"
@@ -11,7 +12,6 @@
         />
     <Preference
         android:key="pref_register_time"
-        android:summary="1.1.16"
         android:title="זמן רישום"/>
     <EditTextPreference
         android:key="pref_mail"
@@ -24,15 +24,15 @@
         android:defaultValue="false"
         />
     <CheckBoxPreference android:title="SMS"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="pref_SMS" />
     <CheckBoxPreference android:title="popups"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="pref_popups" />
     <CheckBoxPreference android:title="solution"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="pref_solution" />
     <CheckBoxPreference android:title="GPS"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="pref_gps" />
 </PreferenceScreen>

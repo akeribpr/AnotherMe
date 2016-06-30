@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.bluetooth.le.AdvertiseData;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -77,7 +78,7 @@ public class CheckUpdateService extends Service {
             NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
-               makeTasks(modelServer.checkUpdateTask());
+             //  makeTasks(modelServer.checkUpdateTask());
                 //addShare(modelServer.checkUpdateShare());
 
                 try {
@@ -112,7 +113,7 @@ public class CheckUpdateService extends Service {
 
     }
 
-    public void notification(int solutionId){
+  /*  public void notification(int solutionId){
         String s = "itzik";
 //        Solution solution = Model.instance().getSolution(solutionId);
 //        if(solution.getPopUp()!=null){
@@ -162,28 +163,41 @@ public class CheckUpdateService extends Service {
 //        dialogIntent.putExtras(b); //Put your id to your next Intent
 //        startActivity(dialogIntent);
 
-    }
+    }*/
 
     public static class NotificationUtils {
         public static final int NOTIFICATION_ID = 1;
 
         public static final String ACTION_1 = "action_1";
+        public static final String ACTION_2 = "action_2";
 
         public static void displayNotification(Context context) {
 
-            Intent action1Intent = new Intent(context, NotificationActionService.class)
+            Intent sendIntent = new Intent(context, NotificationActionService.class)
                     .setAction(ACTION_1);
 
-            PendingIntent action1PendingIntent = PendingIntent.getService(context, 0,
-                    action1Intent, PendingIntent.FLAG_ONE_SHOT);
+            Intent cancelIntent = new Intent(context, NotificationActionService.class)
+                    .setAction(ACTION_2);
+
+            PendingIntent sendPendingIntent = PendingIntent.getService(context, 0,
+                    sendIntent, PendingIntent.FLAG_ONE_SHOT);
+
+            PendingIntent cancelPendingIntent = PendingIntent.getService(context, 0,
+                    cancelIntent, PendingIntent.FLAG_ONE_SHOT);
 
             NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.a_m_icon)
+                            .setAutoCancel(true)
                             .setContentTitle("Sample Notification")
-                            .setContentText("Notification text goes here")
-                            .addAction(new NotificationCompat.Action(R.drawable.a_m_icon,
-                                    "send sms?", action1PendingIntent));
+                            .setContentText("Send sms?")
+                           /* .setContentIntent(PendingIntent.getActivity(, 0, new Intent(), 0))*/
+                            .addAction(new NotificationCompat.Action(R.drawable.send_icon,
+                                    "send ", sendPendingIntent))
+                            .addAction(new NotificationCompat.Action(R.drawable.cancel,
+                                    "cancel ", cancelPendingIntent)) ;
+
+
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
@@ -199,7 +213,16 @@ public class CheckUpdateService extends Service {
                 String action = intent.getAction();
                 if (ACTION_1.equals(action)) {
                     // TODO: handle action 1.
-                    Log.d("tag","success");
+                    Log.d("tag","success send");
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    manager.cancel(NOTIFICATION_ID);
+                    // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
+                }
+                if (ACTION_2.equals(action)) {
+                    // TODO: handle action 1.
+                    Log.d("tag","success cancel");
+                    NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    manager.cancel(NOTIFICATION_ID);
                     // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
             }

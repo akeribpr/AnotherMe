@@ -4,12 +4,16 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,6 +30,8 @@ import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelMain;
+import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
+import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
 import java.util.List;
 
@@ -53,6 +59,7 @@ public class UsersFragment extends Fragment {
         View view = inflater.inflate(R.layout.add_users_list_fragment,
                 container, false);
 
+        setHasOptionsMenu(true);
 
         list = (ListView) view.findViewById(R.id.add_user_list);
         data = Model.instance().getUsers();
@@ -100,6 +107,40 @@ public class UsersFragment extends Fragment {
     }
 
 
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_share, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_history) {
+            Intent intent = new Intent(getActivity(),
+                    HistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_sms_templates)
+        {
+            Intent intent = new Intent(getActivity(),
+                    SmsTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_popup_templates)
+        {
+            Intent intent = new Intent(getActivity(),
+                    PopupTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     class MyAddapter extends BaseAdapter {
 

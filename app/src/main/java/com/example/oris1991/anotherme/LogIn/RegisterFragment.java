@@ -3,7 +3,10 @@ package com.example.oris1991.anotherme.LogIn;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,10 @@ import com.example.oris1991.anotherme.MainActivity;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by oris1991 on 08/05/2016.
@@ -80,9 +87,23 @@ public class RegisterFragment extends Fragment {
                         LogIn logIn = new LogIn(user,pass1);
 
                         if(Model.instance().register(logIn)){
+
+                            DateFormat df = new SimpleDateFormat(" d MMM yyyy");
+                            String date = df.format(Calendar.getInstance().getTime());
+
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                            SharedPreferences.Editor registerTime = prefs.edit();
+
+                            /*SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                            SharedPreferences.Editor registerTime = sharedPref.edit();*/
+
+                            registerTime.putString("regTime",date);
+                            registerTime.commit();
+
                            // progressBar.setVisibility(View.INVISIBLE);
                             Intent intent = new Intent(getActivity(),
                                     MainActivity.class);
+
                             startActivity(intent);
                             delegate.finishFra();
                         }

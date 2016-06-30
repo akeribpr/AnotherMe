@@ -24,7 +24,7 @@ import java.util.List;
  * Created by itzik on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.1.5:8080/Another-Me";
+    public static final String url= "http://192.168.43.35:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
      GpsModelServer gpsModelServer;

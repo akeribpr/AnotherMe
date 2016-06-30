@@ -15,6 +15,7 @@ import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -68,8 +69,12 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             showDialogGPS();
         }
         else {
-            Intent intentt = new Intent(MainActivity.this,GpsService.class);
-            startService(intentt);
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean checkGpsEnabeled = sharedPref.getBoolean("pref_gps", true);
+            if (checkGpsEnabeled) {
+                Intent intentt = new Intent(MainActivity.this, GpsService.class);
+                startService(intentt);
+            }
         }
 
         calendarFra=new CalendarViewFragment();
@@ -297,9 +302,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             solFra=new SoluttionFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.frag_container,solFra);
-            //transaction.add(R.id.frag_container, solFra);
-            //transaction.hide(newEventFra);
-            //transaction.show(solFra);
             transaction.commit();
 
         }
@@ -439,13 +441,28 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-           // invalidateOptionsMenu();
+            // invalidateOptionsMenu();
             transaction.commit();
-        } else if(currentFragment instanceof SettingsFragment){
+        }
+        else  if(currentFragment instanceof UsersFragment){
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,calendarFra);
+            // invalidateOptionsMenu();
+            transaction.commit();
+        }
+        else if(currentFragment instanceof SettingsFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
             //invalidateOptionsMenu();
+            transaction.commit();
+        }
+        else  if(currentFragment instanceof ShareHistoryFragment){
+            calendarFra = new CalendarViewFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.frag_container,calendarFra);
+            // invalidateOptionsMenu();
             transaction.commit();
         }
         else if(currentFragment instanceof SoluttionFragment){

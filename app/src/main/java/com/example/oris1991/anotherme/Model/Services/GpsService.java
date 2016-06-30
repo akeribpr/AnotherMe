@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.preference.CheckBoxPreference;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -50,6 +51,8 @@ import java.util.Date;
             // for ActivityCompat#requestPermissions for more details.
 
         }
+
+
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 0, this);
 
         Log.d("TAG", "service gps on create");
@@ -64,6 +67,12 @@ import java.util.Date;
 
     @Override
     public void onLocationChanged(Location location) {
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean checkGpsEnabeled = sharedPref.getBoolean("pref_gps", true);
+        if (!checkGpsEnabeled)
+            stopSelf();
+
         Log.d("TAG", "service gps update");
         SharedPreferences sharedPreferencesPut = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -76,6 +85,7 @@ import java.util.Date;
                 .getDefaultSharedPreferences(this);
         String lat = sharedPreferencesGet.getString("Lat", "no lat");
         String lon = sharedPreferencesGet.getString("Lon", "no lon");
+
 
         ServerGps gps = new ServerGps(1.0, Double.parseDouble(lat), Double.parseDouble(lon), new Date(), new ServerPerson(Model.instance().getUser().getPersonId(), null));
         Model.instance().addNewGpsLocation(gps);

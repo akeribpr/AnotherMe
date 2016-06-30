@@ -2,11 +2,15 @@ package com.example.oris1991.anotherme;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,9 +24,13 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelMain;
+import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
+import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
 import java.util.List;
 
@@ -44,8 +52,7 @@ public class ShareHistoryFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.share_history_list,
                 container, false);
-
-
+        setHasOptionsMenu(true);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBarList);
         list = (ListView) view.findViewById(R.id.shareHistoryListview);
@@ -67,6 +74,41 @@ public class ShareHistoryFragment extends Fragment{
 
         return view;
 
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_share, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_history) {
+            Intent intent = new Intent(getActivity(),
+                    HistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_sms_templates)
+        {
+            Intent intent = new Intent(getActivity(),
+                    SmsTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_popup_templates)
+        {
+            Intent intent = new Intent(getActivity(),
+                    PopupTemplates.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     class MyAddapter extends BaseAdapter {

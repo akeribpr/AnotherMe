@@ -238,13 +238,13 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if(result.equals("null")){
+            if(result==null){
                 return null;
             }            else{
 
-               // List<ServerTask> taskServer =  mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+                List<ServerTask> taskServer =  mapper.readValue(result, new ArrayList<ServerTask>().getClass());
                // List<ServerTask> myObjects = mapper.readValue(result, new TypeReference<List<ServerTask>>(){});
-                ServerTask[] myObjects = mapper.readValue(result, ServerTask[].class);
+          //      ServerTask[] myObjects = mapper.readValue(result, ServerTask[].class);
 
                 Log.d("Get","Array list");
 
@@ -261,6 +261,8 @@ public class TaskModelServer {
 
 //        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
     }
+
+
 
 
 //    public ServerTask getTask(Date date, String personId) throws IOException {
