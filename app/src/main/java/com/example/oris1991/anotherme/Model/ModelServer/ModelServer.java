@@ -106,7 +106,7 @@ public class ModelServer implements ModelInterface {
 
         if(task.getSolution()==null){
             taskModelServer.addNewTask
-                    (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),null,7,null,null,null,1);
+                    (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getLocation(),7,null,null,null,0);
         }
 
 else {
