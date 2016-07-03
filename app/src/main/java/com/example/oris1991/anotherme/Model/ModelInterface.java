@@ -18,7 +18,7 @@ import java.util.List;
  * Created by eldar on 31/05/2016.
  */
 public interface ModelInterface {
-
+    public Boolean checkIfUserExist(LogIn logIn);
     public void addSmsOrPop(SMSOrPopup sp);
     public List<SMSOrPopup> getSmsForPerson(String person);
     public List<SMSOrPopup> getSmsOrPopups();
@@ -50,6 +50,7 @@ public interface ModelInterface {
     public List<SMSOrPopup> getHistory();
     public void addHistoryEvent(SMSOrPopup sp);
     public void addPictuerFromServer(SharePictureOrText sp);
+    public  Boolean deleteSharePictureOrText(int sp);
 
 
 

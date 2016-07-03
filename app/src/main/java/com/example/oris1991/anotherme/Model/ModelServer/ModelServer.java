@@ -51,6 +51,11 @@ public class ModelServer implements ModelInterface {
     }
 
     @Override
+    public Boolean checkIfUserExist(LogIn logIn) {
+        return personModelServer.signIn(logIn.getPersonId(),logIn.getPassword());
+    }
+
+    @Override
     public void addSmsOrPop(SMSOrPopup sp) {
                if ((sp.getType()).equals("Sms template")){
 
@@ -235,6 +240,11 @@ else {
     @Override
     public void addPictuerFromServer(SharePictureOrText sp) {
 
+    }
+
+    @Override
+    public Boolean deleteSharePictureOrText(int sp) {
+        return null;
     }
 
     public void deleteHistoryById(int id){

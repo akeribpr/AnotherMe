@@ -26,13 +26,13 @@ public class PersonModelServer {
 
     String result;
 
-//CONNECTION
+    //CONNECTION
     public Boolean register(String personId, String password,
-                           Date DateTimeRegister, String mail, String phoneNumber) throws IOException {
+                            Date DateTimeRegister, String mail, String phoneNumber) throws IOException {
 //        (DateTimeRegister.toString())==null?null:DateTimeRegister.toString()
-        String[] params = new String[]{ModelServer.url+urlPerson,  personId,  password,
-                null,  mail,  phoneNumber};
-        new AsyncTask<String, Void, String>(){
+        String[] params = new String[]{ModelServer.url + urlPerson, personId, password,
+                null, mail, phoneNumber};
+        new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -40,32 +40,30 @@ public class PersonModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestProperty("connection", "close");
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
 
-                    OutputStream os= con.getOutputStream();
-                    os.write( ("personId=" + params[1]).getBytes("UTF-8"));
-                    os.write( ("&password=" + params[2]).getBytes("UTF-8"));
-                    os.write( ("&DateTimeRegister=" + params[3]).getBytes("UTF-8"));
-                    os.write( ("&mail=" + params[4]).getBytes("UTF-8"));
-                    os.write( ("&phoneNumber=" + params[5]).getBytes("UTF-8"));
+                    OutputStream os = con.getOutputStream();
+                    os.write(("personId=" + params[1]).getBytes("UTF-8"));
+                    os.write(("&password=" + params[2]).getBytes("UTF-8"));
+                    os.write(("&DateTimeRegister=" + params[3]).getBytes("UTF-8"));
+                    os.write(("&mail=" + params[4]).getBytes("UTF-8"));
+                    os.write(("&phoneNumber=" + params[5]).getBytes("UTF-8"));
                     os.flush();
-                   os.close();
+                    os.close();
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
 
-                    }
-                    else
+                    } else
                         result = "Did not work!(get person)";
                     con.disconnect();
-                }
-                catch(Throwable t) {
+                } catch (Throwable t) {
                     t.printStackTrace();
                 }
 
@@ -88,8 +86,8 @@ public class PersonModelServer {
 
     public Boolean signIn(String personId, String password) {
         //        (DateTimeRegister.toString())==null?null:DateTimeRegister.toString()
-        String[] params = new String[]{ModelServer.url+urlLogin,  personId,  password};
-        new AsyncTask<String, Void, String>(){
+        String[] params = new String[]{ModelServer.url + urlLogin, personId, password};
+        new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -97,37 +95,28 @@ public class PersonModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestProperty("connection", "close");
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
 
-                    OutputStream os= con.getOutputStream();
-                    os.write( ("userName=" + params[1]).getBytes("UTF-8"));
-                    os.write( ("&password=" + params[2]).getBytes("UTF-8"));
+                    OutputStream os = con.getOutputStream();
+                    os.write(("userName=" + params[1]).getBytes("UTF-8"));
+                    os.write(("&password=" + params[2]).getBytes("UTF-8"));
 
                     os.flush();
                     os.close();
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
 
-                    }
-                    else
-                        result = "Did not work!(signIn)";
-
-                    //InputStream is = con.getInputStream();
-//                  byte[] b = new byte[1024];
-//
-//                 while (is.read(b) != -1)
-//                buffer.append(new String(b));
-
+                    } else
+                        result = "Did not work!(get person)";
                     con.disconnect();
-                }
-                catch(Throwable t) {
+                } catch (Throwable t) {
                     t.printStackTrace();
                 }
 
@@ -137,17 +126,19 @@ public class PersonModelServer {
 
         }.execute(params);
 
-// 2. initiate jackson mapper
-        // ObjectMapper mapper = new ObjectMapper();
-        // 3. Convert received JSON to Article
         System.out.println(result);
-        // System.out.println(mapper.readValue(result, Boolean.class));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return Boolean.valueOf(result);
     }
 
     public ServerPerson getUser(String personId) throws IOException {
-        String[] params = new String[]{ModelServer.url+urlPerson,personId};
-        new AsyncTask<String, Void, String>(){
+        String[] params = new String[]{ModelServer.url + urlPerson, personId};
+        new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -155,24 +146,22 @@ public class PersonModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
-                    con.getOutputStream().write( ("personId=" + params[1]).getBytes());
+                    con.getOutputStream().write(("personId=" + params[1]).getBytes());
 
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
-                    }
-                    else
+                    } else
                         result = "Did not work!(get person)";
                     con.disconnect();
 
-                }
-                catch(Throwable t) {
+                } catch (Throwable t) {
                     t.printStackTrace();
                     return null;
                 }
@@ -183,8 +172,8 @@ public class PersonModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                Log.d("s",result);
-                PersonModelServer.this.result=result;
+                Log.d("s", result);
+                PersonModelServer.this.result = result;
             }
         }.execute(params);
 
@@ -196,9 +185,9 @@ public class PersonModelServer {
 
     }
 
-    public Boolean checkIfPersonExists(String personId) throws IOException {
-        String[] params = new String[]{ModelServer.url+urlPerson,personId};
-        new AsyncTask<String, Void, String>(){
+    public Boolean checkIfPersonExists(String personId) {
+        String[] params = new String[]{ModelServer.url + urlPerson, personId};
+        new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -206,7 +195,7 @@ public class PersonModelServer {
                 try {
                     //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
@@ -215,15 +204,13 @@ public class PersonModelServer {
 
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
-                    }
-                    else
+                    } else
                         result = "Did not work!(get person)";
                     con.disconnect();
 
-                }
-                catch(Throwable t) {
+                } catch (Throwable t) {
                     t.printStackTrace();
                     return null;
                 }
@@ -234,10 +221,8 @@ public class PersonModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                if (result!=null&&!result.isEmpty()){
-                    Log.d("s",result);
-                    PersonModelServer.this.result=result;
-                }
+                Log.d("s", result);
+                PersonModelServer.this.result = result;
             }
         }.execute(params);
 
@@ -245,7 +230,12 @@ public class PersonModelServer {
         // 2. initiate jackson mapper
         ObjectMapper mapper = new ObjectMapper();
         // 3. Convert received JSON to Article
-        return mapper.readValue(result, Boolean.class);
+        try {
+            return mapper.readValue(result, Boolean.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

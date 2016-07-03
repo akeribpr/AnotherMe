@@ -33,9 +33,18 @@ public class Model implements ModelInterface {
         return instance;
     }
 
+    @Override
     public Boolean checkIfUserExist(LogIn logIn){
 
-        return sqlModel.checkIfUserExist(logIn);
+        if(sqlModel.checkIfUserExist(logIn)&&modelServe.checkIfUserExist(logIn)){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+       // return sqlModel.checkIfUserExist(logIn);
+
     }
 
     public void addSmsOrPop(SMSOrPopup sp) {
@@ -132,10 +141,6 @@ public class Model implements ModelInterface {
     @Override
     public Boolean register(LogIn sp) {
 
-///////////////////////////////////////////////////////////////////////////////////////
-//        sqlModel.register(sp);
-//        return true;
-
         if(modelServe.register(sp)){
             sqlModel.register(sp);
             return true;
@@ -201,6 +206,11 @@ public class Model implements ModelInterface {
     @Override
     public void addPictuerFromServer(SharePictureOrText sp) {
         sqlModel.addPic(sp);
+    }
+
+    @Override
+    public Boolean deleteSharePictureOrText(int sp) {
+        return sqlModel.deleteSharePictureOrText(sp);
     }
 
 

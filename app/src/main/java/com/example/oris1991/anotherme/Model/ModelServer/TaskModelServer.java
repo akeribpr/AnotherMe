@@ -7,6 +7,7 @@ import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelServer.Solution.ServerSolution;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
@@ -255,8 +256,10 @@ public class TaskModelServer {
                 ArrayList<Task> task = new ArrayList<Task>();
                 for (int i = 0;i<myObjects.size();i++){
                     Task t = new Task(1,myObjects.get(i).getTaskText(),myObjects.get(i).getStart().getTime(),myObjects.get(i).getEnd().getTime(),myObjects.get(i).getAddress());
-                    SMSOrPopup sms = new SMSOrPopup(1,"Sms template",null,myObjects.get(i).getWithPerson(),myObjects.get(i).getDateTimeSend().toString(),myObjects.get(i).getSms());
-                    SMSOrPopup popup = new SMSOrPopup(1,"",null,null,null,myObjects.get(i).getPopup());
+                    SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
+                    SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
+                   // SMSOrPopup sms = new SMSOrPopup(1,"Sms template",null,myObjects.get(i).getWithPerson(),myObjects.get(i).getDateTimeSend().toString(),myObjects.get(i).getSms());
+                   // SMSOrPopup popup = new SMSOrPopup(1,"",null,null,null,myObjects.get(i).getPopup());
 
                     t.setSolution(new Solution(1,sms,popup,myObjects.get(i).getWhatToDo()));
                     task.add(t);

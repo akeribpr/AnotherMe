@@ -44,7 +44,8 @@ public class ModelSql implements ModelInterface {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
        return LogInSql.getUser(db);
     }
-    public boolean checkIfUserExist(LogIn logIn){
+    @Override
+    public Boolean checkIfUserExist(LogIn logIn){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return LogInSql.checkUser(db,logIn);
     }
@@ -102,6 +103,12 @@ public class ModelSql implements ModelInterface {
     @Override
     public void addPictuerFromServer(SharePictureOrText sp) {
 
+    }
+
+    @Override
+    public Boolean deleteSharePictureOrText(int sp) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return SharePictureOrTextSql.deleteSharePictureOrText(db,sp);
     }
 
     public void addSmsOrPop(SMSOrPopup sp) {

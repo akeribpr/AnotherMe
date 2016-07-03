@@ -95,7 +95,6 @@ public class CheckUpdateService extends Service {
             // notification(2);
             while(running){
                 makeTasks(modelServer.checkUpdateTask());
-
                 addShare(modelServer.checkUpdateShare());
 
                 try {
@@ -120,8 +119,6 @@ public class CheckUpdateService extends Service {
             Log.d("Task","No Update!!!");
         }
         else{
-           // NotificationUtils.displayNotification(getApplicationContext(),task.get(1).getSolution().getSms());
-
             Log.d("Task"," Update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             for(int i= 0; i<task.size();i++){
                 if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
@@ -137,7 +134,7 @@ public class CheckUpdateService extends Service {
         }
         else{
             for(int i= 0; i<share.size();i++){
-                Model.instance().addPic(share.get(i));
+                Model.instance().addPictuerFromServer(share.get(i));
             }
         }
 
@@ -209,7 +206,7 @@ public class CheckUpdateService extends Service {
 
             public void sendSms(SMSOrPopup s){
 
-                s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
+                //s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
                 final String phoneNo = s.getSendto();
                 final   String msg = s.getText();
                 Thread d = new Thread(new Runnable() {

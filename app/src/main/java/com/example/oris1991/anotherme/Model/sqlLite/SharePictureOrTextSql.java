@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -64,7 +65,11 @@ public class SharePictureOrTextSql {
 
         return list;
     }
+    public static Boolean deleteSharePictureOrText(SQLiteDatabase db, int sp) {
 
+        db.delete(PICTURE_TABLE, ID + " = '" + sp+"'", null);
+        return true;
+    }
     public static void create(SQLiteDatabase db) {
         db.execSQL("create table " +
                 PICTURE_TABLE + " (" +

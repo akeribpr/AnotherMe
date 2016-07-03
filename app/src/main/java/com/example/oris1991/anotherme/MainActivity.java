@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
@@ -33,7 +34,7 @@ import com.example.oris1991.anotherme.Model.Services.GpsService;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
-public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,EditSolutionFragment.Delegate {
+public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,ShareHistoryFragment.ShareFragmentInterface,EditSolutionFragment.Delegate {
 
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     FragmentManager manager;
@@ -515,5 +516,14 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         invalidateOptionsMenu();
         transaction.commit();
 
+    }
+
+    @Override
+    public void upgateShareFragment() {
+        shareHistoryFragment = new ShareHistoryFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.frag_container, shareHistoryFragment);
+        invalidateOptionsMenu();
+        transaction.commit();
     }
 }

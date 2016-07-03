@@ -1,7 +1,9 @@
 package com.example.oris1991.anotherme;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -23,10 +25,12 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
@@ -44,6 +48,11 @@ public class ShareHistoryFragment extends Fragment{
     List<SharePictureOrText> data;
     int idFromList;
     MyAddapter adapter;
+
+    interface ShareFragmentInterface{
+        public void upgateShareFragment();
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -66,8 +75,32 @@ public class ShareHistoryFragment extends Fragment{
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                idFromList = data.get(position).getId();
+                                    int position, final long id) {
+               idFromList = data.get(position).getId();
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                               Log.d("log", "Yes button clicked " + idFromList);
+                                Boolean bool=  Model.instance().deleteSharePictureOrText(idFromList);
+//                                Users user = new Users(idFromList);
+//                                Boolean bool = Model.instance().deleteUser(user);
+                                Toast.makeText(getActivity().getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
+                                ShareFragmentInterface interfaceUpdate = (ShareFragmentInterface) getActivity();
+                                interfaceUpdate.upgateShareFragment();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                Log.d("log", "No button clicked " + idFromList);
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("are you shure you want delete ?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
             }
         });
 
