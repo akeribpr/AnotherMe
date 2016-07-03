@@ -234,8 +234,10 @@ public class PersonModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                Log.d("s",result);
-                PersonModelServer.this.result=result;
+                if (result!=null&&!result.isEmpty()){
+                    Log.d("s",result);
+                    PersonModelServer.this.result=result;
+                }
             }
         }.execute(params);
 

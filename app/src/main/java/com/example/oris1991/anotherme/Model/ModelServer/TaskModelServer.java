@@ -247,7 +247,7 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if (result==null) {
+            if (result.equals("null")) {
                 return null;
             } else {
                 //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
