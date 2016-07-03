@@ -90,6 +90,7 @@ public class CheckUpdateService extends Service {
     class ServiceUpdate extends Thread{
 
         public void run(){
+
            //NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
@@ -143,27 +144,7 @@ public class CheckUpdateService extends Service {
 
     }
 
-    public void sendSms(SMSOrPopup s){
 
-        s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
-        final String phoneNo = s.getSendto();
-        final   String msg = s.getText();
-        Thread d = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo, null,msg, null, null);
-
-                } catch (Exception ex) {
-
-                    ex.printStackTrace();
-                }
-            }
-        });
-        d.start();
-    }
 
 
     public static class NotificationUtils {
@@ -174,8 +155,19 @@ public class CheckUpdateService extends Service {
 
         public static final String SEND = "send";
         public static final String CENCEL = "cencel";
+        public static SMSOrPopup  smss;
+
+        public static SMSOrPopup getSms() {
+            return smss;
+        }
+
+        public static void  setSms(SMSOrPopup sms) {
+            smss = sms;
+        }
 
         public static void displayNotification(Context context,SMSOrPopup popup,SMSOrPopup sms) {
+
+            setSms(sms);
 
             Intent sendIntent = new Intent(context, NotificationActionService.class)
                     .setAction(SEND);
@@ -215,6 +207,27 @@ public class CheckUpdateService extends Service {
                 NotificationActionService.toastFlag = toastFlag;
             }*/
 
+            public void sendSms(SMSOrPopup s){
+
+                s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
+                final String phoneNo = s.getSendto();
+                final   String msg = s.getText();
+                Thread d = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage(phoneNo, null,msg, null, null);
+
+                        } catch (Exception ex) {
+
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                d.start();
+            }
 
             public NotificationActionService() {
                 super(NotificationActionService.class.getSimpleName());
@@ -225,10 +238,10 @@ public class CheckUpdateService extends Service {
                 String action = intent.getAction();
                 if (SEND.equals(action)) {
                     Log.d("tag", "success send");
-
-                    DateFormat df = new SimpleDateFormat("d M yyyy, HH:mm");
+                    sendSms(smss);
+                    DateFormat df = new SimpleDateFormat("d MMM yyyy, HH:mm");
                     String date = df.format(Calendar.getInstance().getTime());
-                    SMSOrPopup sp =new SMSOrPopup(1,"SMS","054","Eldar",date,"bla bla");
+                    SMSOrPopup sp =new SMSOrPopup(1,"SMS",smss.getSendto(),smss.getSendtoName(),date,smss.getText());
                     Model.instance().addHistoryEvent(sp);
                     //toastFlag=true;
                     //Toast.makeText(getBaseContext(), "The passwords don't match", Toast.LENGTH_LONG).show();
@@ -237,7 +250,6 @@ public class CheckUpdateService extends Service {
                     // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
                 if (CENCEL.equals(action)) {
-                    // TODO: handle action 1.
                     Log.d("tag", "success cancel");
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.cancel(NOTIFICATION_ID);

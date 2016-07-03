@@ -21,7 +21,7 @@
                 android:paddingLeft="5dip"
                 android:id="@+id/row_type" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:paddingRight="35dip"

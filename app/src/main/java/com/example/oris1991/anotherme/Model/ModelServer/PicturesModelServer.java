@@ -161,8 +161,10 @@ public class PicturesModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                Log.d("SharePictureOrText", result);
-                PicturesModelServer.this.result = result;
+                if (result!=null) {
+                    Log.d("SharePictureOrText", result);
+                    PicturesModelServer.this.result = result;
+                }
             }
         }.execute(params);
 
@@ -176,7 +178,7 @@ public class PicturesModelServer {
         }
         // 3. Convert received JSON to Article
         try {
-            if (result.equals("null")) {
+            if (result==null) {
                 return null;
             } else {
                 List<ClientShare> myObjects =  mapper.readValue(result, new TypeReference<List<ClientShare>>(){});

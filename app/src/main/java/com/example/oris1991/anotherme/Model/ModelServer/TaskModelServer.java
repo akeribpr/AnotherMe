@@ -228,8 +228,10 @@ public class TaskModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                Log.d("getTasksToDO", result);
-                TaskModelServer.this.result = result;
+                if (result!=null) {
+                    Log.d("getTasksToDO", result);
+                    TaskModelServer.this.result = result;
+                }
             }
         }.execute(params);
 
@@ -245,7 +247,7 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if (result.equals("null")) {
+            if (result==null) {
                 return null;
             } else {
                 //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});

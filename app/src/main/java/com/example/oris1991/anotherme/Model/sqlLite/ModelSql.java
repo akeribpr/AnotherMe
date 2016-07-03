@@ -286,6 +286,7 @@ public class ModelSql implements ModelInterface {
             SharePictureOrTextSql.create(db);
             UsersSql.create(db);
             SolutionSql.create(db);
+            HistorySql.create(db);
 
         }
 
@@ -296,6 +297,7 @@ public class ModelSql implements ModelInterface {
             SharePictureOrTextSql.drop(db);
             UsersSql.drop(db);
             SolutionSql.drop(db);
+            HistorySql.drop(db);
             onCreate(db);
         }
     }
