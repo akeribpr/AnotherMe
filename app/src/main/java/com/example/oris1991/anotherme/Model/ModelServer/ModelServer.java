@@ -217,4 +217,14 @@ else {
     public String getPhoneNumber(String personId) {
         return null;
     }
+
+    public void deleteHistoryById(int id){
+    }
+    public List<SMSOrPopup> getHistory()
+    {
+        return null;
+    }
+    public void addHistoryEvent(SMSOrPopup sp){
+
+    }
 }

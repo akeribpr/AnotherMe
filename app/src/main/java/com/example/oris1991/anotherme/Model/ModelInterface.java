@@ -28,8 +28,6 @@ public interface ModelInterface {
     public SMSOrPopup getSmsOrPopupById(int id);
     public void addTask(Task task);
     public void deleteTask(int id);
-
-
     void addNewGpsLocation(ServerGps gps);
     public Boolean register(LogIn sp);
     public void addPic(SharePictureOrText sp);
@@ -48,6 +46,9 @@ public interface ModelInterface {
     public  void deleteSmsOrPopup(int id);
     public void editTimeBefore(int id, int time);
     public String getPhoneNumber(String personId);
+    public void deleteHistoryById(int id);
+    public List<SMSOrPopup> getHistory();
+    public void addHistoryEvent(SMSOrPopup sp);
 
 
 

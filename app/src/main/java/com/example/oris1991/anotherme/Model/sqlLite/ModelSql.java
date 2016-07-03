@@ -28,6 +28,7 @@ public class ModelSql implements ModelInterface {
     private static final String TASK_TABLE = "Task_Table";
     private static final String SMSPOPUP_TABLE = "sms_popup";
     private static final String  PICTURE_TABLE = "Picture_table";
+    private static final String HISTORY_TABLE = "history_table";
     public ModelSql() {
         dbHelper = new MyDBHelper(MyApplication.getAppContext());
     }
@@ -164,20 +165,20 @@ public class ModelSql implements ModelInterface {
 
         task.setId( numberOfRowe(TASK_TABLE));
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        TaskSql.addTask(db,task);
+        TaskSql.addTask(db, task);
     }
 
     @Override
     public void addPic(SharePictureOrText sp) {
         sp.setId(numberOfRowe(PICTURE_TABLE));
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        SharePictureOrTextSql.addPic(db,sp);
+        SharePictureOrTextSql.addPic(db, sp);
     }
 
     @Override
     public void addUser(Users sp) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        UsersSql.addUser(db,sp);
+        UsersSql.addUser(db, sp);
     }
 
     @Override
@@ -195,14 +196,14 @@ public class ModelSql implements ModelInterface {
     @Override
     public Boolean deleteUser(Users sp) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        return UsersSql.deleteUser(db,sp);
+        return UsersSql.deleteUser(db, sp);
     }
 
     @Override
     public Solution getSolution(int solid) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        return SolutionSql.getSolution(db,solid);
+        return SolutionSql.getSolution(db, solid);
     }
 
     @Override
@@ -227,7 +228,24 @@ public class ModelSql implements ModelInterface {
 
     }
 
-    @Override
+    public void addHistoryEvent(SMSOrPopup sp) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        sp.setId(numberOfRowe(HISTORY_TABLE));
+        HistorySql.add(db, sp);
+    }
+
+    public List<SMSOrPopup> getHistory(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        return HistorySql.getHistory(db);
+    }
+
+    public  void deleteHistoryById( int id) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        HistorySql.deleteHistoryById(db, id);
+    }
+
+
+        @Override
     public List<Task> getTasks() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         return TaskSql.getTasks(db);

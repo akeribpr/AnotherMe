@@ -42,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.PS_listview);
 
-        data = Model.instance().getSmsOrPopups();
+        data = Model.instance().getHistory();
 
         adapter = new MyAddapter();
         list.setAdapter(adapter);
@@ -121,7 +121,7 @@ public class HistoryActivity extends AppCompatActivity {
 
             type.setText(sp.getType());
             time.setText(sp.getTime());
-            sent_to.setText(sp.getSendto());
+            sent_to.setText(sp.getSendto()+" "+sp.getSendtoName());
             text.setText(sp.getText());
 
 

@@ -23,7 +23,7 @@
            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:ems="100"
                 android:id="@+id/EventTitleEditText"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
@@ -149,7 +149,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:ems="100"
             android:id="@+id/EventLocationEditText"
             android:layout_weight="1"
             android:layout_marginLeft="5dp"

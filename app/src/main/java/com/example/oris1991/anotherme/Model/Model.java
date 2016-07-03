@@ -1,5 +1,7 @@
 package com.example.oris1991.anotherme.Model;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
@@ -191,7 +193,7 @@ public class Model implements ModelInterface {
 
     @Override
     public void editTimeBefore(int id, int time) {
-        sqlModel.editTimeBefore(id,time);
+        sqlModel.editTimeBefore(id, time);
     }
 
     @Override
@@ -205,13 +207,24 @@ public class Model implements ModelInterface {
         sqlModel.addTaskWithSolution(task);
        modelServe.addTask(task);
 
-
-
     }
 
     public  int numberOfRow( ){
 
         return sqlModel.numberOfRow();
+    }
+
+    public void addHistoryEvent(SMSOrPopup sp) {
+        sqlModel.addHistoryEvent(sp);
+    }
+
+    public void deleteHistoryById( int id)
+    {
+        sqlModel.deleteHistoryById(id);
+    }
+
+    public List<SMSOrPopup> getHistory(){
+        return sqlModel.getHistory();
     }
 
 

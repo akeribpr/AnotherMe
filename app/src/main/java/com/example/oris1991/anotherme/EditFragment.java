@@ -63,9 +63,15 @@ public class EditFragment extends Fragment {
             Calendar cle = Calendar.getInstance();
             cle.setTimeInMillis(task.getEndTime());
             eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
+            if (cls.get(Calendar.MINUTE)/10==0)
+                eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":0" + cls.get(Calendar.MINUTE));
+            else
+                eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
             eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
-            eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
-            eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
+            if (cle.get(Calendar.MINUTE)/10==0)
+                eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":0" + cle.get(Calendar.MINUTE));
+            else
+                eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));
             eventStartDate.set(cls.get(Calendar.YEAR), Integer.valueOf(cls.get(Calendar.MONTH)) , cls.get(Calendar.DAY_OF_MONTH));
             eventEndDate.set(cle.get(Calendar.YEAR), Integer.valueOf(cle.get(Calendar.MONTH))  ,cle.get(Calendar.DAY_OF_MONTH));
             eventStartTime.set(cls.get(Calendar.HOUR_OF_DAY),cls.get(Calendar.MINUTE));
@@ -81,12 +87,12 @@ public class EditFragment extends Fragment {
             cls.setTimeInMillis(Long.valueOf(Utility.startDateAndTime.get(pos)));
             cle.setTimeInMillis(Long.valueOf(Utility.endDateAndTime.get(pos)));
             eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
-            if (eventStartTime.getMinutes()/10==0)
+            if (cls.get(Calendar.MINUTE)/10==0)
                 eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":0" + cls.get(Calendar.MINUTE));
             else
                 eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
             eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
-            if (eventEndTime.getMinutes()/10==0)
+            if (cle.get(Calendar.MINUTE)/10==0)
                 eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":0" + cle.get(Calendar.MINUTE));
             else
                 eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));

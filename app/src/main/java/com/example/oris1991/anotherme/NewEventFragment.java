@@ -65,12 +65,12 @@ public class NewEventFragment extends Fragment {
             Calendar cle = Calendar.getInstance();
             cle.setTimeInMillis(task.getEndTime());
             eventStartDate.setText(cls.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cls.get(Calendar.MONTH)) + 1) + "/" + cls.get(Calendar.YEAR));
-            if (eventStartTime.getMinutes()/10==0)
+            if (cls.get(Calendar.MINUTE)/10==0)
                 eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":0" + cls.get(Calendar.MINUTE));
             else
                 eventStartTime.setText(cls.get(Calendar.HOUR_OF_DAY) + ":" + cls.get(Calendar.MINUTE));
             eventEndDate.setText(cle.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(Integer.valueOf(cle.get(Calendar.MONTH)) + 1) + "/" + cle.get(Calendar.YEAR));
-            if (eventEndTime.getMinutes()/10==0)
+            if (cle.get(Calendar.MINUTE)/10==0)
                 eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":0" + cle.get(Calendar.MINUTE));
             else
                 eventEndTime.setText(cle.get(Calendar.HOUR_OF_DAY) + ":" + cle.get(Calendar.MINUTE));

@@ -10,9 +10,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Messenger;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,6 +25,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
@@ -30,8 +35,12 @@ import com.example.oris1991.anotherme.NotificationReceiver;
 import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.ReturnFromNotification;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * Created by Itzik on 10/06/2016.
@@ -39,6 +48,11 @@ import java.util.List;
 public class CheckUpdateService extends Service {
     boolean running = true;
     ModelServer modelServer;
+    private GpsService mBoundService;
+    protected LocationManager locManager;
+
+
+
     public CheckUpdateService() {
         modelServer = new ModelServer();
     }
@@ -74,17 +88,24 @@ public class CheckUpdateService extends Service {
     }
 
     class ServiceUpdate extends Thread{
+
         public void run(){
             NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
-             //  makeTasks(modelServer.checkUpdateTask());
-                //addShare(modelServer.checkUpdateShare());
 
                 try {
+
                     sleep(6000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                }
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                boolean checkGpsEnabeled = sharedPref.getBoolean("pref_gps", true);
+                if (checkGpsEnabeled) {
+                    Intent intent = new Intent(getApplicationContext(), GpsService.class);
+                    startService(intent);
                 }
             }
         }
@@ -166,6 +187,9 @@ public class CheckUpdateService extends Service {
     }*/
 
     public static class NotificationUtils {
+
+
+
         public static final int NOTIFICATION_ID = 1;
 
         public static final String ACTION_1 = "action_1";
@@ -204,6 +228,13 @@ public class CheckUpdateService extends Service {
         }
 
         public static class NotificationActionService extends IntentService {
+
+            //static boolean  toastFlag=false;
+
+            /*public static void setToastFlag(boolean toastFlag) {
+                NotificationActionService.toastFlag = toastFlag;
+            }*/
+
             public NotificationActionService() {
                 super(NotificationActionService.class.getSimpleName());
             }
@@ -213,14 +244,20 @@ public class CheckUpdateService extends Service {
                 String action = intent.getAction();
                 if (ACTION_1.equals(action)) {
                     // TODO: handle action 1.
-                    Log.d("tag","success send");
+                    Log.d("tag", "success send");
+                    DateFormat df = new SimpleDateFormat("d M yyyy, HH:mm");
+                    String date = df.format(Calendar.getInstance().getTime());
+                    SMSOrPopup sp =new SMSOrPopup(1,"SMS","054","Eldar",date,"bla bla");
+                    Model.instance().addHistoryEvent(sp);
+                    //toastFlag=true;
+                    //Toast.makeText(getBaseContext(), "The passwords don't match", Toast.LENGTH_LONG).show();
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.cancel(NOTIFICATION_ID);
                     // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
                 if (ACTION_2.equals(action)) {
                     // TODO: handle action 1.
-                    Log.d("tag","success cancel");
+                    Log.d("tag", "success cancel");
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.cancel(NOTIFICATION_ID);
                     // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);

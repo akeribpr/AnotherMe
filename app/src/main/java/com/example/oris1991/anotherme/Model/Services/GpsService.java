@@ -27,7 +27,7 @@ import java.util.Date;
  * Created by Itzik on 10/06/2016.
  */
 
-    public class GpsService extends Service implements LocationListener {
+    public  class GpsService extends Service implements LocationListener {
     protected LocationManager locManager;
     SharedPreferences sharedPreferencesGet;
     LocationListener locationListener;
