@@ -2,6 +2,7 @@ package com.example.oris1991.anotherme.Model.ModelServer;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
@@ -14,6 +15,7 @@ import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
 import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
 import com.example.oris1991.anotherme.Model.ModelServer.sms.ServerSMS;
+import com.example.oris1991.anotherme.MyApplication;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -43,6 +45,7 @@ public class TaskModelServer {
     private String urlGetTask = "/GetTask";
     private String urlAddSms = "/AddSms";
     private String urlAddPopUp = "/AddPopUp";
+    Boolean checkConnection=false;
 
     String result;
 
@@ -94,7 +97,10 @@ public class TaskModelServer {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.d("Log", "dasd");
+                if(checkConnection==false)
+                    Toast.makeText( MyApplication.getAppContext(), "Event has successfully sync on server", Toast.LENGTH_SHORT).show();
+                else
+                    checkConnection=false;
 
             }
         };
@@ -248,28 +254,44 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if (result.equals("null")) {
+            if (result==null) {
                 return null;
-            } else {
-                //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
-                List<ClientTask> myObjects =  mapper.readValue(result, new TypeReference<List<ClientTask>>(){});
-                ArrayList<Task> task = new ArrayList<Task>();
-                for (int i = 0;i<myObjects.size();i++){
-                    Task t = new Task(1,myObjects.get(i).getTaskText(),myObjects.get(i).getStart().getTime(),myObjects.get(i).getEnd().getTime(),myObjects.get(i).getAddress());
-                    SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
-                    SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
-                   // SMSOrPopup sms = new SMSOrPopup(1,"Sms template",null,myObjects.get(i).getWithPerson(),myObjects.get(i).getDateTimeSend().toString(),myObjects.get(i).getSms());
-                   // SMSOrPopup popup = new SMSOrPopup(1,"",null,null,null,myObjects.get(i).getPopup());
-
-                    t.setSolution(new Solution(1,sms,popup,myObjects.get(i).getWhatToDo()));
-                    task.add(t);
-                }
-
-                Log.d("Get", "Array list");
-                return task;
-//                return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
-
             }
+            else
+                if (!result.equals("null")) {
+                    //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
+                    List<ClientTask> myObjects = mapper.readValue(result, new TypeReference<List<ClientTask>>() {
+                    });
+                    ArrayList<Task> task = new ArrayList<Task>();
+                    for (int i = 0; i < myObjects.size(); i++) {
+                        Task t = new Task(1, myObjects.get(i).getTaskText(), myObjects.get(i).getStart().getTime(), myObjects.get(i).getEnd().getTime(), myObjects.get(i).getAddress());
+                        SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
+                        SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
+                        t.setSolution(new Solution(1, sms, popup, myObjects.get(i).getWhatToDo()));
+                       task.add(t);
+          }
+// else {
+//                //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
+//                List<ClientTask> myObjects =  mapper.readValue(result, new TypeReference<List<ClientTask>>(){});
+//                ArrayList<Task> task = new ArrayList<Task>();
+//                for (int i = 0;i<myObjects.size();i++){
+//                    Task t = new Task(1,myObjects.get(i).getTaskText(),myObjects.get(i).getStart().getTime(),myObjects.get(i).getEnd().getTime(),myObjects.get(i).getAddress());
+//                    SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
+//                    SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
+//                   // SMSOrPopup sms = new SMSOrPopup(1,"Sms template",null,myObjects.get(i).getWithPerson(),myObjects.get(i).getDateTimeSend().toString(),myObjects.get(i).getSms());
+//                   // SMSOrPopup popup = new SMSOrPopup(1,"",null,null,null,myObjects.get(i).getPopup());
+//
+//                        t.setSolution(new Solution(1, sms, popup, myObjects.get(i).getWhatToDo()));
+//                        task.add(t);
+//                    }
+
+                    Log.d("Get", "Array list");
+                    return task;
+//                return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+                }
+            else
+                return null;
+
         } catch (IOException e) {
             e.printStackTrace();
         }

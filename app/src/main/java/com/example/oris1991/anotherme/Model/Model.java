@@ -36,14 +36,14 @@ public class Model implements ModelInterface {
     @Override
     public Boolean checkIfUserExist(LogIn logIn){
 
-        if(sqlModel.checkIfUserExist(logIn)&&modelServe.checkIfUserExist(logIn)){
+    /*    if(sqlModel.checkIfUserExist(logIn)&&modelServe.checkIfUserExist(logIn)){
             return true;
         }
         else {
             return false;
-        }
+        }*/
 
-       // return sqlModel.checkIfUserExist(logIn);
+        return sqlModel.checkIfUserExist(logIn);
 
     }
 

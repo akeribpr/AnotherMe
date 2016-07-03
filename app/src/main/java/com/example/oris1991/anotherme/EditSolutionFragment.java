@@ -52,7 +52,6 @@ public class EditSolutionFragment extends Fragment{
     TextView phoneChoose;
     TextView timeBeforeMissionStart;
     Spinner spinnerActions ;
-    NumberPicker np;
     String smsNotification,popupData;
     int timeBefore;
     Task task;
@@ -88,12 +87,7 @@ public class EditSolutionFragment extends Fragment{
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
         popupTemplateChoose = (TextView) view.findViewById(R.id.popup_text);
-        np = (NumberPicker) view.findViewById(R.id.time_before_picker);
         spinnerActions = (Spinner) view.findViewById(R.id.spinner_actions);
-
-        np.setMinValue(0);
-        np.setMaxValue(60);
-        np.setWrapSelectorWheel(false);
 
         if (old!=null)
         {
@@ -121,7 +115,7 @@ public class EditSolutionFragment extends Fragment{
             }
 
             spinnerActions.setSelection(old.getWhatToDo());
-            np.setValue(timeBefore);
+
         }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
@@ -160,23 +154,28 @@ public class EditSolutionFragment extends Fragment{
         });
 
 
-
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                timeBefore=newVal;
-
-            }
-        });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
+                if(smsId==0||popupid==0) {
+                    Toast.makeText(MyApplication.getAppContext(), "please enter SMS and popup first", Toast.LENGTH_LONG).show();
+                }
+                else{
+
+
+                    solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
+                    //   delegate.SaveSolutionEdit(sol,task);
+
+                    // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
+                    // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
+                    //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
+                    task.setSolution(solutionAfterEditSolution);
+                    delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
+                }
+
+                /*solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 //   delegate.SaveSolutionEdit(sol,task);
 
                 // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
@@ -184,7 +183,7 @@ public class EditSolutionFragment extends Fragment{
                 //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
                 task.setSolution(solutionAfterEditSolution);
                 delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
-                // delegate.showNot(smsNotification);
+                // delegate.showNot(smsNotification);*/
             }
         });
 

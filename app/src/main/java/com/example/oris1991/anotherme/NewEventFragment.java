@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.Model.ModelServer.TaskModelServer;
 
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -117,6 +118,8 @@ public class NewEventFragment extends Fragment {
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
                 if (sol !=null)
                     newTask.setSolution(sol);
+                TaskModelServer t = new TaskModelServer();
+             //   t.addNewTask(null,null,null,null,null,1,null,null,null,1);
                 Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentTask();

@@ -116,20 +116,6 @@
     </LinearLayout>
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=" בחר זמן לפני תחילת המשימה בדקות"
-            android:gravity="center"
-            android:layout_marginTop="25dp"
-    />
-
-        <NumberPicker
-            android:id="@+id/time_before_picker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"  />
 
     <LinearLayout
         android:orientation="horizontal"

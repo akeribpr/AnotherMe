@@ -35,9 +35,9 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
     Delegate delegate;
 
     interface Delegate{
-        public void startRegister();
-        public void finishFra();
-    }
+    public void startRegister();
+    public void finishFra();
+}
 
 
     @Override

@@ -58,7 +58,6 @@ public class SoluttionFragment  extends Fragment{
     TextView phoneChoose;
     TextView timeBeforeMissionStart;
     Spinner spinnerActions ;
-    NumberPicker np;
     String smsNotification,popupData;
     int timeBefore;
     Task task;
@@ -94,13 +93,8 @@ public class SoluttionFragment  extends Fragment{
         phoneChoose = (TextView) view.findViewById(R.id.phone_text);
         smsTemplateChoose = (TextView) view.findViewById(R.id.sms_text);
         popupTemplateChoose = (TextView) view.findViewById(R.id.popup_text);
-        np = (NumberPicker) view.findViewById(R.id.time_before_picker);
         spinnerActions = (Spinner) view.findViewById(R.id.spinner_actions);
 
-        np.setMinValue(0);
-        np.setMinValue(0);
-        np.setMaxValue(60);
-        np.setWrapSelectorWheel(false);
 
         if (sol!=null)
         {
@@ -121,7 +115,6 @@ public class SoluttionFragment  extends Fragment{
                 popupTemplateChoose.setText(sol.getPopUp().getText());
             }
             spinnerActions.setSelection(sol.getWhatToDo());
-            np.setValue(timeBefore);
         }
 
         Button doWith= (Button) view.findViewById(R.id.doWithB);
@@ -162,16 +155,6 @@ public class SoluttionFragment  extends Fragment{
         });
 
 
-        np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
-                timeBefore=newVal;
-
-            }
-        });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +162,7 @@ public class SoluttionFragment  extends Fragment{
                 //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
                 // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 if(smsId==0||popupid==0) {
-                 Toast.makeText(view.getContext(), "user already exists. please choose a different username", Toast.LENGTH_LONG).show();
+                 Toast.makeText(view.getContext(), "please enter SMS and popup first", Toast.LENGTH_LONG).show();
                 }
                 else{
 

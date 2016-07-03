@@ -178,18 +178,24 @@ public class PicturesModelServer {
         }
         // 3. Convert received JSON to Article
         try {
-            if (result.equals("null")) {
+            if (result==null) {
                 return null;
-            } else {
-                List<ClientShare> myObjects =  mapper.readValue(result, new TypeReference<List<ClientShare>>(){});
-                ArrayList<SharePictureOrText> share = new ArrayList<SharePictureOrText>();
-                for (int i = 0;i<myObjects.size();i++){
-                 SharePictureOrText s = new SharePictureOrText(1,myObjects.get(i).pictureName,myObjects.get(i).getWithPerson(),myObjects.get(i).getTxt(),true);
-                    share.add(s);
-                }
+            }
+            else {
+                if (!result.equals("null"))
+                {
+                    List<ClientShare> myObjects = mapper.readValue(result, new TypeReference<List<ClientShare>>() {
+                    });
+                    ArrayList<SharePictureOrText> share = new ArrayList<SharePictureOrText>();
+                    for (int i = 0; i < myObjects.size(); i++) {
+                        SharePictureOrText s = new SharePictureOrText(1, myObjects.get(i).pictureName, myObjects.get(i).getWithPerson(), myObjects.get(i).getTxt(), true);
+                        share.add(s);
+                    }
 
-                Log.d("Get", "Array list");
-                return share;
+                    Log.d("Get", "Array list");
+                    return share;
+              }
+                else return null;
             }
         } catch (IOException e) {
             e.printStackTrace();
