@@ -12,7 +12,7 @@
     <string name="action_notification">Notification</string>
     <string-array name="action_array">
         <item>שום דבר</item>
-        <item>לשאול</item>
+        <item>להשתמש באלגוריתם</item>
         <item>פופ אפ</item>
         <item>סמס</item>
         <item>כרטיסים</item>
