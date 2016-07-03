@@ -143,8 +143,6 @@ public class Model implements ModelInterface {
         else {
             return false;
         }
-
-
     }
 
     @Override
@@ -152,7 +150,6 @@ public class Model implements ModelInterface {
         sqlModel.addPic(sp);
         modelServe.addPic(sp);
     }
-
     @Override
     public void addUser(Users sp) {
         sqlModel.addUser(sp);
@@ -199,6 +196,11 @@ public class Model implements ModelInterface {
     @Override
     public String getPhoneNumber(String personId) {
         return null;
+    }
+
+    @Override
+    public void addPictuerFromServer(SharePictureOrText sp) {
+        sqlModel.addPic(sp);
     }
 
 

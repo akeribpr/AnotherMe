@@ -99,6 +99,11 @@ public class ModelSql implements ModelInterface {
         return  SmsOrPopupSql.getPhoneNumber(db,personId);
     }
 
+    @Override
+    public void addPictuerFromServer(SharePictureOrText sp) {
+
+    }
+
     public void addSmsOrPop(SMSOrPopup sp) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         sp.setId(numberOfRowe(SMSPOPUP_TABLE));

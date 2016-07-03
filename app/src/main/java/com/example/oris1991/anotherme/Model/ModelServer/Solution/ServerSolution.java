@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class ServerSolution implements Serializable {
+public  class ServerSolution implements Serializable {
 
 	/**
 	 * 

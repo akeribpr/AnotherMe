@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Itzik on 27/06/2016.
  */
 
-public class ServerPopUp {
+public  class ServerPopUp {
 
     Double idPopUp;
     String text;

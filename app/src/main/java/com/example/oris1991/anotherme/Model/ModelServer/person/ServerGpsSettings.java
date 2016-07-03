@@ -3,7 +3,7 @@ package com.example.oris1991.anotherme.Model.ModelServer.person;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ServerGpsSettings implements Serializable {
+public  class ServerGpsSettings implements Serializable {
 	/**
 	 * 
 	 */

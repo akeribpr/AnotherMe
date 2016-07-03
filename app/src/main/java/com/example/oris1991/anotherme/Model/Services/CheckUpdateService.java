@@ -90,9 +90,12 @@ public class CheckUpdateService extends Service {
     class ServiceUpdate extends Thread{
 
         public void run(){
-            NotificationUtils.displayNotification(getApplicationContext());
+           //NotificationUtils.displayNotification(getApplicationContext());
             // notification(2);
             while(running){
+                makeTasks(modelServer.checkUpdateTask());
+
+                addShare(modelServer.checkUpdateShare());
 
                 try {
 
@@ -116,75 +119,52 @@ public class CheckUpdateService extends Service {
             Log.d("Task","No Update!!!");
         }
         else{
+           // NotificationUtils.displayNotification(getApplicationContext(),task.get(1).getSolution().getSms());
 
             Log.d("Task"," Update!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//            for(int i= 0; i<task.size();i++){
-//                if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
-//                    notification(task.get(i).getSolution().getIdSolution());
-//                }
-//            }
+            for(int i= 0; i<task.size();i++){
+                if(task.get(i).getSolution().getPopUp()!=null &&task.get(i).getSolution().getSms()!=null){
+                    NotificationUtils.displayNotification(getApplicationContext(),task.get(i).getSolution().getPopUp(),task.get(i).getSolution().getSms());
+                }
+            }
         }
 
     }
     public void addShare(List<SharePictureOrText> share){
-        for(int i= 0; i<share.size();i++){
-
-            Model.instance().addPic(share.get(i));
+        if(share==null){
+            Log.d("Pic","no picture!!!!");
         }
+        else{
+            for(int i= 0; i<share.size();i++){
+                Model.instance().addPic(share.get(i));
+            }
+        }
+
 
     }
 
-  /*  public void notification(int solutionId){
-        String s = "itzik";
-//        Solution solution = Model.instance().getSolution(solutionId);
-//        if(solution.getPopUp()!=null){
-//            s = solution.getPopUp().getText();
-//        }
-//        else{
-//            s = "need to do!";
-//        }
+    public void sendSms(SMSOrPopup s){
 
-        Intent resultIntent = new Intent(this, ReturnFromNotification.class);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.a_m_icon)
-                .setContentTitle(s)
-                .setContentText("send sms?")
-                .setAutoCancel(true)
-                .addAction(0, "send to",resultPendingIntent);
-
-
-        int mNotificationId = 001;
-        NotificationManager mNotifyMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        //  Log.d("Log","notification");
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
-
-
-        BroadcastReceiver call_method = new BroadcastReceiver() {
+        s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
+        final String phoneNo = s.getSendto();
+        final   String msg = s.getText();
+        Thread d = new Thread(new Runnable() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                String action_name = intent.getAction();
-                if (action_name.equals("send to")) {
-                    Log.d("Log","notification");
+            public void run() {
+                try {
+
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(phoneNo, null,msg, null, null);
+
+                } catch (Exception ex) {
+
+                    ex.printStackTrace();
                 }
-            };
-        };
-        registerReceiver(call_method, new IntentFilter("call_method"));
+            }
+        });
+        d.start();
+    }
 
-
-
-        // .addAction(0, "send to "+solution.getSms().getSendtoName(),resultPendingIntent);
-
-//        Intent dialogIntent = new Intent(this, NotificationReceiver.class);
-//        Bundle b = new Bundle();
-//        b.putInt("key", solution); //Your id
-//        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        dialogIntent.putExtras(b); //Put your id to your next Intent
-//        startActivity(dialogIntent);
-
-    }*/
 
     public static class NotificationUtils {
 
@@ -192,16 +172,16 @@ public class CheckUpdateService extends Service {
 
         public static final int NOTIFICATION_ID = 1;
 
-        public static final String ACTION_1 = "action_1";
-        public static final String ACTION_2 = "action_2";
+        public static final String SEND = "send";
+        public static final String CENCEL = "cencel";
 
-        public static void displayNotification(Context context) {
+        public static void displayNotification(Context context,SMSOrPopup popup,SMSOrPopup sms) {
 
             Intent sendIntent = new Intent(context, NotificationActionService.class)
-                    .setAction(ACTION_1);
+                    .setAction(SEND);
 
             Intent cancelIntent = new Intent(context, NotificationActionService.class)
-                    .setAction(ACTION_2);
+                    .setAction(CENCEL);
 
             PendingIntent sendPendingIntent = PendingIntent.getService(context, 0,
                     sendIntent, PendingIntent.FLAG_ONE_SHOT);
@@ -213,8 +193,8 @@ public class CheckUpdateService extends Service {
                     new NotificationCompat.Builder(context)
                             .setSmallIcon(R.drawable.a_m_icon)
                             .setAutoCancel(true)
-                            .setContentTitle("Sample Notification")
-                            .setContentText("Send sms?")
+                            .setContentTitle(popup.getText())
+                            .setContentText(sms.getSendtoName())
                            /* .setContentIntent(PendingIntent.getActivity(, 0, new Intent(), 0))*/
                             .addAction(new NotificationCompat.Action(R.drawable.send_icon,
                                     "send ", sendPendingIntent))
@@ -235,6 +215,7 @@ public class CheckUpdateService extends Service {
                 NotificationActionService.toastFlag = toastFlag;
             }*/
 
+
             public NotificationActionService() {
                 super(NotificationActionService.class.getSimpleName());
             }
@@ -242,9 +223,9 @@ public class CheckUpdateService extends Service {
             @Override
             protected void onHandleIntent(Intent intent) {
                 String action = intent.getAction();
-                if (ACTION_1.equals(action)) {
-                    // TODO: handle action 1.
+                if (SEND.equals(action)) {
                     Log.d("tag", "success send");
+
                     DateFormat df = new SimpleDateFormat("d M yyyy, HH:mm");
                     String date = df.format(Calendar.getInstance().getTime());
                     SMSOrPopup sp =new SMSOrPopup(1,"SMS","054","Eldar",date,"bla bla");
@@ -255,7 +236,7 @@ public class CheckUpdateService extends Service {
                     manager.cancel(NOTIFICATION_ID);
                     // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
-                if (ACTION_2.equals(action)) {
+                if (CENCEL.equals(action)) {
                     // TODO: handle action 1.
                     Log.d("tag", "success cancel");
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -265,15 +246,5 @@ public class CheckUpdateService extends Service {
             }
         }
     }
-//    String phoneNo = "0525541676";
-//    String msg = "massage";
-//    try {
-//
-//        SmsManager smsManager = SmsManager.getDefault();
-//        smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-//
-//    } catch (Exception ex) {
-//
-//        ex.printStackTrace();
-//    }
+
 }

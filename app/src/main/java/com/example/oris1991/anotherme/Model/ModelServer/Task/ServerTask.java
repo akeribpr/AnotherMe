@@ -9,9 +9,9 @@ import java.util.Date;
 
 
 
-public class ServerTask implements Serializable {
+public  class ServerTask implements Serializable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +40,7 @@ public class ServerTask implements Serializable {
 
 	ServerPerson withServerPerson;
 	ServerSolution serverSolution;
+
 
 	public ServerTask(Double idTask, ServerPerson serverPerson, String taskText, Date start,
 					  Date end, String address, int whatToDo, int platform) {

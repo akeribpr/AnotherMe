@@ -49,6 +49,7 @@ public interface ModelInterface {
     public void deleteHistoryById(int id);
     public List<SMSOrPopup> getHistory();
     public void addHistoryEvent(SMSOrPopup sp);
+    public void addPictuerFromServer(SharePictureOrText sp);
 
 
 

@@ -5,14 +5,26 @@ import android.util.Log;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
+import com.example.oris1991.anotherme.Model.Entities.Task;
+import com.example.oris1991.anotherme.Model.ModelServer.Solution.ServerSolution;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
 import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
 import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
 import com.example.oris1991.anotherme.Model.ModelServer.sms.ServerSMS;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -34,12 +46,12 @@ public class TaskModelServer {
     String result;
 
     public void addNewTask(String personId, String taskText,
-          Date start, Date end, String address, int platform, String withPerson, Double popUp, Double sms, int action) {
+                           Date start, Date end, String address, int platform, String withPerson, Double popUp, Double sms, int action) {
 
-        String[] params = new String[]{ModelServer.url+urlTask, personId, taskText,
-               String.valueOf(start.getTime()), String.valueOf(end.getTime()), address, String.valueOf(platform), withPerson, String.valueOf(popUp), String.valueOf(sms)
+        String[] params = new String[]{ModelServer.url + urlTask, personId, taskText,
+                String.valueOf(start.getTime()), String.valueOf(end.getTime()), address, String.valueOf(platform), withPerson, String.valueOf(popUp), String.valueOf(sms)
                 , String.valueOf(action)};
-        AsyncTask t=new AsyncTask<String, Void, String>() {
+        AsyncTask t = new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -65,24 +77,23 @@ public class TaskModelServer {
 
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
-                    }
-                    else
+                    } else
                         result = "Did not work!(add task)";
 
                     con.disconnect();
                 } catch (Throwable t) {
                     t.printStackTrace();
                 }
-                Log.d("Log","success");
+                Log.d("Log", "success");
                 return null;
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.d("Log","dasd");
+                Log.d("Log", "dasd");
 
             }
         };
@@ -90,8 +101,9 @@ public class TaskModelServer {
 
 
     }
-    public void addPopUp(String text, boolean popUpTamplates, String senderId,String personId){
-        String[] params = new String[]{ModelServer.url+urlAddPopUp, text, String.valueOf(popUpTamplates),
+
+    public void addPopUp(String text, boolean popUpTamplates, String senderId, String personId) {
+        String[] params = new String[]{ModelServer.url + urlAddPopUp, text, String.valueOf(popUpTamplates),
                 senderId, personId};
         new AsyncTask<String, Void, String>() {
 
@@ -127,8 +139,8 @@ public class TaskModelServer {
 
     public void addSms(boolean SmsTamplates, String txt,
                        String personId, String senderId) {
-        String[] params = new String[]{ModelServer.url+urlAddSms, personId,txt, senderId};
-        AsyncTask t=new AsyncTask<String, Void, String>() {
+        String[] params = new String[]{ModelServer.url + urlAddSms, personId, txt, senderId};
+        AsyncTask t = new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
@@ -148,10 +160,9 @@ public class TaskModelServer {
 
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
-                    }
-                    else
+                    } else
                         result = "Did not work!(add Sms)";
 
                     con.disconnect();
@@ -165,7 +176,7 @@ public class TaskModelServer {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                Log.d("Log","dasd");
+                Log.d("Log", "dasd");
 
             }
         };
@@ -174,8 +185,8 @@ public class TaskModelServer {
 
     }
 
-    public List<ServerTask> getTasksToDO(String personId)  {
-        String[] params = new String[]{ModelServer.url+urlTasksToDo, personId};
+    public List<Task> getTasksToDO(String personId) {
+        String[] params = new String[]{ModelServer.url + urlTasksToDo, personId};
         new AsyncTask<String, Void, String>() {
 
             @Override
@@ -193,19 +204,15 @@ public class TaskModelServer {
 
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
                     if (br != null) {
 
-
                         StringBuilder sb = new StringBuilder();
-
                         String line;
-
                         while ((line = br.readLine()) != null) {
                             sb.append(line);
                         }
-
                         result = sb.toString();
-                        //result = br.readLine();
                     } else
                         result = "Did not work!";
                     con.disconnect();
@@ -238,19 +245,24 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if(result==null){
+            if (result.equals("null")) {
                 return null;
-            }            else{
+            } else {
+                //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
+                List<ClientTask> myObjects =  mapper.readValue(result, new TypeReference<List<ClientTask>>(){});
+                ArrayList<Task> task = new ArrayList<Task>();
+                for (int i = 0;i<myObjects.size();i++){
+                    Task t = new Task(1,myObjects.get(i).getTaskText(),myObjects.get(i).getStart().getTime(),myObjects.get(i).getEnd().getTime(),myObjects.get(i).getAddress());
+                    SMSOrPopup sms = new SMSOrPopup(1,"Sms template",null,myObjects.get(i).getWithPerson(),myObjects.get(i).getDateTimeSend().toString(),myObjects.get(i).getSms());
+                    SMSOrPopup popup = new SMSOrPopup(1,"",null,null,null,myObjects.get(i).getPopup());
 
-                List<ServerTask> taskServer =  mapper.readValue(result, new ArrayList<ServerTask>().getClass());
-               // List<ServerTask> myObjects = mapper.readValue(result, new TypeReference<List<ServerTask>>(){});
-          //      ServerTask[] myObjects = mapper.readValue(result, ServerTask[].class);
+                    t.setSolution(new Solution(1,sms,popup,myObjects.get(i).getWhatToDo()));
+                    task.add(t);
+                }
 
-                Log.d("Get","Array list");
-
-             //   List<ServerTask> myObjects = mapper.readValue(result, mapper.getTypeFactory().constructCollectionType(List.class, ServerTask.class));
-                return null;
-              //  return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
+                Log.d("Get", "Array list");
+                return task;
+//                return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
 
             }
         } catch (IOException e) {
@@ -258,8 +270,144 @@ public class TaskModelServer {
         }
         return null;
 
+    }
 
-//        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
+
+  public static class   itzik{
+
+      public String it;
+      public String cc;
+      public n tt;
+      public n getTt() {
+          return tt;
+      }
+
+      public void setTt(n tt) {
+          this.tt = tt;
+      }
+
+
+      public    itzik(){}
+        public String getIt() {
+            return it;
+        }
+        public void setIt(String it) {
+            this.it = it;
+        }
+        public String getCc() {
+            return cc;
+        }
+        public void setCc(String cc) {
+            this.cc = cc;
+        }
+    }
+    public static class   n{
+
+
+        public String it;
+        public String cc;
+
+        public   n(){}
+        public String getIt() {
+            return it;
+        }
+        public void setIt(String it) {
+            this.it = it;
+        }
+        public String getCc() {
+            return cc;
+        }
+        public void setCc(String cc) {
+            this.cc = cc;
+        }
+    }
+
+    //getter and setter methods needed
+
+    public  static class  ClientTask{
+        public  String taskText;
+        public  Date start;
+        public Date end;
+        public  String address;
+        public int whatToDo;
+        public String withPerson;
+        public  int timeToArriving;
+        public String Sms;
+        public Date DateTimeSend;// if it send if not ->null
+        public String Popup;
+        public Date DateTimeShow; // if it show if not ->null
+
+        public ClientTask() {
+            // TODO Auto-generated constructor stub
+        }
+        public String getTaskText() {
+            return taskText;
+        }
+        public void setTaskText(String taskText) {
+            this.taskText = taskText;
+        }
+        public Date getStart() {
+            return start;
+        }
+        public void setStart(Date start) {
+            this.start = start;
+        }
+        public Date getEnd() {
+            return end;
+        }
+        public void setEnd(Date end) {
+            this.end = end;
+        }
+        public String getAddress() {
+            return address;
+        }
+        public void setAddress(String address) {
+            this.address = address;
+        }
+        public int getWhatToDo() {
+            return whatToDo;
+        }
+        public void setWhatToDo(int whatToDo) {
+            this.whatToDo = whatToDo;
+        }
+        public String getWithPerson() {
+            return withPerson;
+        }
+        public void setWithPerson(String withPerson) {
+            this.withPerson = withPerson;
+        }
+
+        public int getTimeToArriving() {
+            return timeToArriving;
+        }
+        public void setTimeToArriving(int timeToArriving) {
+            this.timeToArriving = timeToArriving;
+        }
+        public String getSms() {
+            return Sms;
+        }
+        public void setSms(String sms) {
+            Sms = sms;
+        }
+        public Date getDateTimeSend() {
+            return DateTimeSend;
+        }
+        public void setDateTimeSend(Date dateTimeSend) {
+            DateTimeSend = dateTimeSend;
+        }
+        public String getPopup() {
+            return Popup;
+        }
+        public void setPopup(String popup) {
+            Popup = popup;
+        }
+        public Date getDateTimeShow() {
+            return DateTimeShow;
+        }
+        public void setDateTimeShow(Date dateTimeShow) {
+            DateTimeShow = dateTimeShow;
+        }
+
     }
 
 

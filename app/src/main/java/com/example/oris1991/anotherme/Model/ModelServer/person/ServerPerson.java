@@ -11,7 +11,7 @@ import java.util.List;
 
 
 
-public class ServerPerson implements Serializable {
+public  class ServerPerson implements Serializable {
 	/**
 	 * 
 	 */

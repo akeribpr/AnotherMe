@@ -18,13 +18,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
  * Created by itzik on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.43.35:8080/Another-Me";
+    public static final String url= "http://192.168.1.5:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
      GpsModelServer gpsModelServer;
@@ -161,7 +162,14 @@ else {
 
     @Override
     public List<SharePictureOrText> checkUpdateShare() {
-        return null;
+     List<SharePictureOrText> share = picturesModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
+
+        if(share==null){
+            return null;
+        }
+        else{
+            return share;
+        }
     }
 
     @Override
@@ -176,19 +184,25 @@ else {
 
     @Override
     public List<Task> checkUpdateTask() {
-        List<ServerTask> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+//      List<ServerTask> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+        List<Task> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+
         if(taskServer==null){
             return null;
         }
         else{
-            List<Task> tasks = new ArrayList<Task>();
-            for (int i= 0;i<taskServer.size();i++){
+            return taskServer;
+//            List<Task> tasks = new ArrayList<Task>();
+//            for (int i= 0;i<taskServer.size();i++){
+//
+////                public Task(int id,String title, long startTime, long endTime, String location) {
+//
+//                    Task t = new Task(1,taskServer.get(i).getTaskText(),taskServer.get(i).getStart().getTime(),taskServer.get(i).getEnd().getTime(),taskServer.get(i).getAddress());
+//              //  ServerTask s = taskServer.get(i);
+//      //          Task t = taskServer.get(i).convertServerTask();
+//            //    tasks.add(t);
+//            }
 
-                ServerTask s = taskServer.get(i);
-      //          Task t = taskServer.get(i).convertServerTask();
-            //    tasks.add(t);
-            }
-            return tasks;
         }
 
     }
@@ -216,6 +230,11 @@ else {
     @Override
     public String getPhoneNumber(String personId) {
         return null;
+    }
+
+    @Override
+    public void addPictuerFromServer(SharePictureOrText sp) {
+
     }
 
     public void deleteHistoryById(int id){

@@ -3,7 +3,7 @@ package com.example.oris1991.anotherme.Model.Entities;
 /**
  * Created by Itzik on 29/05/2016.
  */
-public class Solution {
+public  class Solution {
 
     int idSolution;
     SMSOrPopup sms;
