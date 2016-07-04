@@ -65,7 +65,7 @@ public class EditSolutionFragment extends Fragment{
 
         public void SaveSolutionEdit(Solution sol,Task task);
         public void CancelSolutionEdit(Task task);
-        public void showNot(String smsNote);
+
 
     }
 
@@ -91,6 +91,7 @@ public class EditSolutionFragment extends Fragment{
 
         if (old!=null)
         {
+            //check if user put sms
             if(old.getSms()!=null){
 
                 smsId=old.getSms().getId();
@@ -108,6 +109,7 @@ public class EditSolutionFragment extends Fragment{
                     smsTemplateChoose.setText(old.getSms().getText());
                 }
             }
+            //check if user put popup
             if(old.getPopUp()!=null){
                 popupid=old.getPopUp().getId();
                 popupData=old.getPopUp().getText();
@@ -163,27 +165,10 @@ public class EditSolutionFragment extends Fragment{
                     Toast.makeText(MyApplication.getAppContext(), "please enter SMS and popup first", Toast.LENGTH_LONG).show();
                 }
                 else{
-
-
                     solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
-                    //   delegate.SaveSolutionEdit(sol,task);
-
-                    // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
-                    // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
-                    //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
                     task.setSolution(solutionAfterEditSolution);
                     delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
                 }
-
-                /*solutionAfterEditSolution = new Solution(task.getId(),Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
-                //   delegate.SaveSolutionEdit(sol,task);
-
-                // SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
-                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
-                //sol = new Solution(1,sms,popup,spinnerActions.getSelectedItemPosition());
-                task.setSolution(solutionAfterEditSolution);
-                delegate.SaveSolutionEdit(solutionAfterEditSolution, task);
-                // delegate.showNot(smsNotification);*/
             }
         });
 
@@ -317,8 +302,6 @@ public class EditSolutionFragment extends Fragment{
 
         listPopup = (ListView) myDialog.findViewById(R.id.popup_dialog_list);
         dataPopup = Model.instance().getPopupsTemplates();
-//        SMSOrPopup np = new SMSOrPopup("Popup template",null,null,"nothing");
-//        dataPopup.add(np);
         adapterPopup = new AdapterPopupList();
 
         listPopup.setAdapter(adapterPopup);

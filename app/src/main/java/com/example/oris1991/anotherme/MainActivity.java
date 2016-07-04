@@ -36,7 +36,7 @@ import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
 public class MainActivity extends AppCompatActivity implements NewEventFragment.Delegate,SoluttionFragment.Delegate,CalendarViewFragment.Delegate, EditFragment.Delegate,UsersFragment.UsersFragmentInterface,ShareHistoryFragment.ShareFragmentInterface,EditSolutionFragment.Delegate {
 
-    int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+
     FragmentManager manager;
     CalendarViewFragment calendarFra;
     NewEventFragment newEventFra;
@@ -44,12 +44,8 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     SoluttionFragment solFra;
     EditFragment editFra;
     EditSolutionFragment editSolFra;
-    protected LocationManager  mlocManager;
-    SharedPreferences sharedPreferencesPut;
-    SharedPreferences sharedPreferencesGet;
     ShareHistoryFragment shareHistoryFragment;
     UsersFragment userFrag;
-    Task task;
     protected LocationManager locManager;
 
     @Override
@@ -81,9 +77,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra=new CalendarViewFragment();
         manager = getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
-        //getFragmentManager().beginTransaction();
         transaction.add(R.id.frag_container, calendarFra);
-        //transaction.show(calendarFra);
         transaction.commit();
 
     }
@@ -129,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Fragment currentFragment = manager.findFragmentById(R.id.frag_container);
+
             settingsFra=new SettingsFragment();
             manager = getFragmentManager();
             FragmentTransaction transaction=manager.beginTransaction();
@@ -158,9 +152,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             newEventFra = new NewEventFragment();
             newEventFra.setDate(day,month,year);
             FragmentTransaction transaction = manager.beginTransaction();
-            //getFragmentManager().beginTransaction();
-           /* transaction.remove(calendarFra);
-            transaction.add(R.id.frag_container, newEventFra);*/
             transaction.replace(R.id.frag_container,newEventFra);
             transaction.addToBackStack(null);
             invalidateOptionsMenu();
@@ -196,41 +187,11 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    public void showNotification(String smsNote){
 
-        // define sound URI, the sound to be played when there's a notification
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        // intent triggered, you can add other intent for other actions
-        Intent intent = new Intent(MainActivity.this, NotificationReceiver.class);
-        PendingIntent pIntent = PendingIntent.getActivity(MainActivity.this, 0, intent, 0);
-
-        // this is it, we'll build the notification!
-        // in the addAction method, if you don't want any icon, just set the first param to 0
-        Notification mNotification = new Notification.Builder(this)
-
-                .setContentTitle("New Post!")
-                .setContentText("send sms "+smsNote+" ?")
-                .setSmallIcon(R.drawable.ninja)
-                .setContentIntent(pIntent)
-                .setSound(soundUri)
-
-                .addAction(R.drawable.ninja, "View", pIntent)
-                .addAction(0, "Remind", pIntent)
-
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        // If you want to hide the notification after it was selected, do the code below
-        // myNotification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        notificationManager.notify(0, mNotification);
-    }
     private void selectImage() {
 
         final CharSequence[] items = { "Add User","Add Share", "Get History of Shard", "Cancel" };
-        //  boolean result=Utility.checkPermission(MainActivity.this);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Share");
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -286,29 +247,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
     }
 
 
-    public void endFragment(int code) {
-
-        if (code==1)
-        {
-            calendarFra = new CalendarViewFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frag_container,calendarFra);
-            //transaction.add(R.id.frag_container, calendarFra);
-            //transaction.hide(newEventFra);
-            //transaction.show(calendarFra);
-            transaction.commit();
-        }
-        else
-        {
-            solFra=new SoluttionFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.frag_container,solFra);
-            transaction.commit();
-
-        }
-    }
-
-
     @Override
     public void SaveSolution(Solution sol,Task task) {
 
@@ -316,9 +254,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,newEventFra);
-       // transaction.remove(solFra);
-       // transaction.add(R.id.frag_container, newEventFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         newEventFra.setSolution(sol);
         newEventFra.setTask(task);
@@ -332,10 +267,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,editFra);
-
-       // transaction.remove(editSolFra);
-        //transaction.add(R.id.frag_container, editFra);
-        //transaction.addToBackStack(null);
         invalidateOptionsMenu();
         editFra.setSolution(solutionAfterEditSolution);
         editFra.setTask(task);
@@ -366,12 +297,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         newEventFra.setTask(task);
         transaction.commit();
     }
-
-    @Override
-    public void showNot(String smsNote) {
-        showNotification(smsNote);
-    }
-
 
 
     @Override
@@ -407,10 +332,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,calendarFra);
-
-       // transaction.remove(editFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -420,10 +341,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
         calendarFra = new CalendarViewFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.frag_container,calendarFra);
-
-       // transaction.remove(newEventFra);
-       // transaction.add(R.id.frag_container, calendarFra);
-       // transaction.addToBackStack(null);
         invalidateOptionsMenu();
         transaction.commit();
     }
@@ -442,28 +359,24 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            // invalidateOptionsMenu();
             transaction.commit();
         }
         else  if(currentFragment instanceof UsersFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            // invalidateOptionsMenu();
             transaction.commit();
         }
         else if(currentFragment instanceof SettingsFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            //invalidateOptionsMenu();
             transaction.commit();
         }
         else  if(currentFragment instanceof ShareHistoryFragment){
             calendarFra = new CalendarViewFragment();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.frag_container,calendarFra);
-            // invalidateOptionsMenu();
             transaction.commit();
         }
         else if(currentFragment instanceof SoluttionFragment){
@@ -498,7 +411,6 @@ public class MainActivity extends AppCompatActivity implements NewEventFragment.
 
         editFra = new EditFragment();
         FragmentTransaction transaction = manager.beginTransaction();
-        //  transaction.replace(R.id.frag_container,editFra);
         transaction.remove(calendarFra);
         transaction.add(R.id.frag_container,editFra);
         transaction.addToBackStack(null);

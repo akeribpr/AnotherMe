@@ -71,7 +71,7 @@ public class SoluttionFragment  extends Fragment{
 
         public void SaveSolution(Solution sol,Task task);
         public void CancelSolution(Task task);
-        public void showNot(String smsNote);
+
 
     }
 

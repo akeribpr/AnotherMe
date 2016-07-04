@@ -26,6 +26,9 @@ public class SettingsFragment extends PreferenceFragment {
         final SharedPreferences mSharedPreference= PreferenceManager.getDefaultSharedPreferences(getActivity());
         String timeReg=(mSharedPreference.getString("regTime", "1.1.2016"));
 
+        EditTextPreference namePref = (EditTextPreference) findPreference("pref_name");
+        namePref.setSummary(namePref.getText());
+
         Preference timeRg = (Preference) findPreference("pref_register_time");
         timeRg.setSummary(timeReg);
 
@@ -50,33 +53,6 @@ public class SettingsFragment extends PreferenceFragment {
         else
             prefAge.setSummary(prefTelephone.getText());
 
-        final CheckBoxPreference SMS = (CheckBoxPreference) findPreference("pref_SMS");
-        final CheckBoxPreference popups = (CheckBoxPreference) findPreference("pref_popups");
-        final CheckBoxPreference solution = (CheckBoxPreference) findPreference("pref_solution");
-        solution.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (!solution.isChecked()) {
-                    popups.setEnabled(false);
-                    SMS.setEnabled(false);
-                }
-                else {
-                    popups.setEnabled(true);
-                    SMS.setEnabled(true);
-                }
-                return true;
-            }
-        });
-        popups.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (!popups.isChecked())
-                    SMS.setEnabled(false);
-                else
-                    SMS.setEnabled(true);
-                return true;
-            }
-        });
 
     }
 }

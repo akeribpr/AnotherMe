@@ -80,8 +80,6 @@ public class UsersFragment extends Fragment {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                 Log.d("log", "Yes button clicked " + idFromList);
-                                Users user = new Users(idFromList);
-                                Boolean bool = Model.instance().deleteUser(user);
                                 Toast.makeText(getActivity().getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
                                 UsersFragmentInterface interfaceUpdate = (UsersFragmentInterface) getActivity();
                                 interfaceUpdate.upgateUsersFragment();

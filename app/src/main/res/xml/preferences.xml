@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     >
+
+
     <EditTextPreference
         android:key="pref_name"
-        android:summary="אלדר יעקובי"
+        android:defaultValue="הזן שם"
         android:title="שם"/>
     <EditTextPreference
         android:key="pref_telephone"
@@ -23,15 +25,6 @@
         android:title="גיל"
         android:defaultValue="false"
         />
-    <CheckBoxPreference android:title="SMS"
-        android:defaultValue="true"
-        android:key="pref_SMS" />
-    <CheckBoxPreference android:title="popups"
-        android:defaultValue="true"
-        android:key="pref_popups" />
-    <CheckBoxPreference android:title="solution"
-        android:defaultValue="true"
-        android:key="pref_solution" />
     <CheckBoxPreference android:title="GPS"
         android:defaultValue="true"
         android:key="pref_gps" />

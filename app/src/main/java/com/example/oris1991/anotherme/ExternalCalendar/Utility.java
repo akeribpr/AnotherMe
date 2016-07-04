@@ -79,10 +79,8 @@ public class Utility {
 			nameOfEvent.add(cursor.getString(1));//text
 			locations.add(cursor.getString(5));
 			startDates.add(getDate(Long.parseLong(cursor.getString(3))));//start date
-			//endDates.add(getDate(Long.parseLong(cursor.getString(4))));
 			CNames[i] = cursor.getString(1);
 			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
-//			endTime.add(format.format(new Date(Long.parseLong(cursor.getString(4)))));
 			startDateAndTime.add(cursor.getString(3));
 			endDateAndTime.add(cursor.getString(4));
 			eventId.add("0");
@@ -119,38 +117,6 @@ public class Utility {
 
 
 		Uri calendarUri =context.getContentResolver().insert(Uri.parse("content://com.android.calendar/events"), values);
-
-	}
-
-	public static void deleteCalendarEvent(Context context,int numberOfEvent) {
-
-
-		//Log.d("Tag",eventId.get(numberOfEvent));
-	/*	long calID = 1;
-
-		ContentValues values = new ContentValues();
-
-		values.put("calendar_id", calID);
-		values.put("title",newEvent.getTitle());
-		values.put("description", newEvent.getDescription());
-		values.put("dtstart", newEvent.getStartTime());
-		values.put("dtend",newEvent.getEndTime());
-		values.put("eventLocation", newEvent.getLocation());
-		values.put("eventTimezone", TimeZone.getDefault().getID());*/
-
-
-		//Uri calendarUri =context.getContentResolver().delete(Uri.parse("content://com.android.calendar/events"),"");
-
-		String[] selectionsArgs = new String[] {nameOfEvent.get(numberOfEvent),startDateAndTime.get(numberOfEvent)};
-		int calendarUri =context.getContentResolver().delete(Uri.parse(String.valueOf(CalendarContract.Events.CONTENT_URI)), "title=? and  dtstart=?  ",
-				selectionsArgs);
-		/*String[] selectionsArgs = new String[] {String.valueOf(numberOfEvent)};
-		int calendarUri =context.getContentResolver().delete(Uri.parse(String.valueOf(CalendarContract.Events.CONTENT_URI)), CalendarContract.Events._ID+"=?",
-				selectionsArgs);*/
-	//	Log.d("Tag",String.valueOf(calendarUri));
-
-
-
 
 	}
 

@@ -103,7 +103,7 @@ public class NewEventFragment extends Fragment {
                 Matcher s = u.matcher(eventTitle.getText().toString());
                 if (s.find())
                     Toast.makeText(context, "you entered english text- algorithm won't work ", Toast.LENGTH_LONG).show();
-                // is English
+                // is English input
 
 
                 long startMillis = 0;
@@ -118,8 +118,7 @@ public class NewEventFragment extends Fragment {
                 final Task newTask = new Task(1,eventTitle.getText().toString(),startMillis,endMillis,eventLocation.getText().toString());
                 if (sol !=null)
                     newTask.setSolution(sol);
-                TaskModelServer t = new TaskModelServer();
-             //   t.addNewTask(null,null,null,null,null,1,null,null,null,1);
+
                 Model.instance().addTaskWithSolution(newTask);
 
                 delegate.endFragmentTask();

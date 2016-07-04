@@ -50,8 +50,6 @@ public class ShareActivity extends AppCompatActivity{
         final EditText share = (EditText) findViewById(R.id.with);
         List<Users> listUser = Model.instance().getUsers();
         List<String> listUserString = convertToString(listUser);
-                //Model.instance().getUsers().toArray(new CharSequence[Model.instance().getUsers().size()]);
-      //  final CharSequence[] items={"One","two","three"};
         final CharSequence[] items= listUserString.toArray(new CharSequence[listUserString.size()]);
 
         share.setOnClickListener(new View.OnClickListener(){
@@ -61,7 +59,6 @@ public class ShareActivity extends AppCompatActivity{
                 builder3.setTitle("Enter Name").setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Toast.makeText(getApplicationContext(), "U clicked "+items[which], Toast.LENGTH_LONG).show();
                         share.setText(items[which]);
                     }
                 });

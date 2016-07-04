@@ -52,7 +52,6 @@ public class RegisterFragment extends Fragment {
         mcontext = getActivity().getApplicationContext();
 
 
-        //model = ModelMain.instance();
         Button submit= (Button) view.findViewById(R.id.submitB);
         Button exit= (Button) view.findViewById(R.id.exitB);
         progressBar.setVisibility(View.INVISIBLE);
@@ -78,7 +77,7 @@ public class RegisterFragment extends Fragment {
                     {
 
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
-                       // progressBar.setVisibility(View.INVISIBLE);
+
                     }
 
                     else
@@ -94,13 +93,10 @@ public class RegisterFragment extends Fragment {
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                             SharedPreferences.Editor registerTime = prefs.edit();
 
-                            /*SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                            SharedPreferences.Editor registerTime = sharedPref.edit();*/
-
                             registerTime.putString("regTime",date);
                             registerTime.commit();
 
-                           // progressBar.setVisibility(View.INVISIBLE);
+
                             Intent intent = new Intent(getActivity(),
                                     MainActivity.class);
 

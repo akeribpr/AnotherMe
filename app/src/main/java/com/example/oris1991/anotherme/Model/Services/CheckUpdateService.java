@@ -1,46 +1,33 @@
 package com.example.oris1991.anotherme.Model.Services;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.bluetooth.le.AdvertiseData;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Looper;
-import android.os.Messenger;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.oris1991.anotherme.MainActivity;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
-import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelServer.ModelServer;
-import com.example.oris1991.anotherme.NotificationReceiver;
 import com.example.oris1991.anotherme.R;
-import com.example.oris1991.anotherme.ReturnFromNotification;
+
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * Created by Itzik on 10/06/2016.
@@ -48,8 +35,6 @@ import java.util.logging.Handler;
 public class CheckUpdateService extends Service {
     boolean running = true;
     ModelServer modelServer;
-    private GpsService mBoundService;
-    protected LocationManager locManager;
 
 
 
@@ -59,7 +44,7 @@ public class CheckUpdateService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Log.d("TAG","service on create");
+
     }
 
 
@@ -68,12 +53,12 @@ public class CheckUpdateService extends Service {
 
         super.onDestroy();
         running = false;
-        //Log.d("TAG","service on destroy");
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Log.d("TAG","service onStartCommand");
+
         super.onStartCommand(intent, flags, startId);
         ServiceUpdate serviceUpdate = new ServiceUpdate();
         serviceUpdate.start();
@@ -91,8 +76,6 @@ public class CheckUpdateService extends Service {
 
         public void run(){
 
-           //NotificationUtils.displayNotification(getApplicationContext());
-            // notification(2);
             while(running){
                 makeTasks(modelServer.checkUpdateTask());
                 addShare(modelServer.checkUpdateShare());
@@ -184,7 +167,6 @@ public class CheckUpdateService extends Service {
                             .setAutoCancel(true)
                             .setContentTitle(popup.getText())
                             .setContentText(sms.getSendtoName())
-                           /* .setContentIntent(PendingIntent.getActivity(, 0, new Intent(), 0))*/
                             .addAction(new NotificationCompat.Action(R.drawable.send_icon,
                                     "send ", sendPendingIntent))
                             .addAction(new NotificationCompat.Action(R.drawable.cancel,
@@ -198,15 +180,9 @@ public class CheckUpdateService extends Service {
 
         public static class NotificationActionService extends IntentService {
 
-            //static boolean  toastFlag=false;
-
-            /*public static void setToastFlag(boolean toastFlag) {
-                NotificationActionService.toastFlag = toastFlag;
-            }*/
 
             public void sendSms(SMSOrPopup s){
 
-                //s.setSendto(Model.instance().getPhoneNumber(s.getSendtoName()));
                 final String phoneNo = s.getSendto();
                 final   String msg = s.getText();
                 Thread d = new Thread(new Runnable() {
@@ -240,17 +216,14 @@ public class CheckUpdateService extends Service {
                     String date = df.format(Calendar.getInstance().getTime());
                     SMSOrPopup sp =new SMSOrPopup(1,"SMS",smss.getSendto(),smss.getSendtoName(),date,smss.getText());
                     Model.instance().addHistoryEvent(sp);
-                    //toastFlag=true;
-                    //Toast.makeText(getBaseContext(), "The passwords don't match", Toast.LENGTH_LONG).show();
+
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.cancel(NOTIFICATION_ID);
-                    // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
                 if (CENCEL.equals(action)) {
                     Log.d("tag", "success cancel");
                     NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                     manager.cancel(NOTIFICATION_ID);
-                    // If you want to cancel the notification: NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
                 }
             }
         }

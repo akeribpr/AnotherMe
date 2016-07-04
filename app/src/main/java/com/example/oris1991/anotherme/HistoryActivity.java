@@ -158,7 +158,6 @@ public class HistoryActivity extends AppCompatActivity {
             TextView text = (TextView) convertView.findViewById(R.id.row_text);
 
             SMSOrPopup sp = data.get(position);
-            //checkBox.setTag(new Integer(position));
 
             type.setText(sp.getType());
             time.setText(sp.getTime());
