@@ -37,7 +37,6 @@ public class ModelServer implements ModelInterface {
         picturesModelServer=new PicturesModelServer();
     }
 
-//    String personId = Model.instance().getUser().getServerPersonId();
     public Boolean register(LogIn login){
         Boolean bool = false;
         try {
@@ -110,14 +109,10 @@ public class ModelServer implements ModelInterface {
         }
 
 else {
-//            taskModelServer.addNewTask(Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getSolution().getSms().getSendtoName(),7,String.valueOf(task.getSolution().getIdSolution()),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),2);
             taskModelServer.addNewTask(Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getLocation(),7,task.getSolution().getSms().getSendtoName(),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),task.getSolution().getWhatToDo());
 
         }
 
-
-//        taskModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
-//        taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
     }
 
     @Override
@@ -189,7 +184,7 @@ else {
 
     @Override
     public List<Task> checkUpdateTask() {
-//      List<ServerTask> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
+
         List<Task> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
 
         if(taskServer==null){
@@ -197,17 +192,6 @@ else {
         }
         else{
             return taskServer;
-//            List<Task> tasks = new ArrayList<Task>();
-//            for (int i= 0;i<taskServer.size();i++){
-//
-////                public Task(int id,String title, long startTime, long endTime, String location) {
-//
-//                    Task t = new Task(1,taskServer.get(i).getTaskText(),taskServer.get(i).getStart().getTime(),taskServer.get(i).getEnd().getTime(),taskServer.get(i).getAddress());
-//              //  ServerTask s = taskServer.get(i);
-//      //          Task t = taskServer.get(i).convertServerTask();
-//            //    tasks.add(t);
-//            }
-
         }
 
     }

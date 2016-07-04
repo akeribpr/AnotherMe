@@ -127,13 +127,6 @@ public class TimeEditText extends EditText {
                     Log.d("TA", "date set" + hourOfDay + ":" + minute);
                 } }, hour, minutes,false);
 
-      /*          @Override
-                public void onTimeSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    Log.d("TA", "date set" + year + "/" + monthOfYear + "/" + dayOfMonth);
-                listener.done(year, monthOfYear, dayOfMonth);
-                }
-            }, year, month, day);*/
-
             return dialog;
         }
     }

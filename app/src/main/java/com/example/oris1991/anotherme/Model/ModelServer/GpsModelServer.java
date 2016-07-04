@@ -29,7 +29,6 @@ public class GpsModelServer {
             protected String doInBackground(String... params) {
                 StringBuffer buffer = new StringBuffer();
                 try {
-                    //System.out.println("URL ["+url+"] - Name ["+name+"]");
 
                     HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
                     con.setRequestProperty("connection", "close");
@@ -53,12 +52,6 @@ public class GpsModelServer {
                     }
                     else
                         result = "return nothing";
-
-                    //InputStream is = con.getInputStream();
-//                  byte[] b = new byte[1024];
-//
-//                 while (is.read(b) != -1)
-//                buffer.append(new String(b));
 
                     con.disconnect();
                 }

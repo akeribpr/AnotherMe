@@ -30,7 +30,6 @@ import java.util.Date;
     public  class GpsService extends Service implements LocationListener {
     protected LocationManager locManager;
     SharedPreferences sharedPreferencesGet;
-    LocationListener locationListener;
 
     @Override
     public void onCreate() {
@@ -42,13 +41,6 @@ import java.util.Date;
             onDestroy();
         }
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
 
         }
 
@@ -117,22 +109,7 @@ import java.util.Date;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-//            locManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-//           boolean enabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//            if(!enabled) {
-//                onDestroy();
-//            }
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//
-//            }
-//            locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,30000, 0, this);
+
         Log.d("TAG", "service gps onStartCommand");
 
         return START_STICKY;

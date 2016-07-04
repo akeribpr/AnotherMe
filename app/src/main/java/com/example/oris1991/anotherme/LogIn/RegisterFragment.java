@@ -72,7 +72,7 @@ public class RegisterFragment extends Fragment {
                 }
                 else
                 {
-                    progressBar.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);// check length of password
                     if (pass1.length()<1)
                     {
 

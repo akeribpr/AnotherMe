@@ -36,13 +36,6 @@ public class Model implements ModelInterface {
     @Override
     public Boolean checkIfUserExist(LogIn logIn){
 
-    /*    if(sqlModel.checkIfUserExist(logIn)&&modelServe.checkIfUserExist(logIn)){
-            return true;
-        }
-        else {
-            return false;
-        }*/
-
         return sqlModel.checkIfUserExist(logIn);
 
     }
@@ -52,16 +45,6 @@ public class Model implements ModelInterface {
         modelServe.addSmsOrPop(sp);
     }
 
-    public void loginUser(LogIn logIn) {
-        sqlModel.register(logIn);
-    }
-
-//    public  void register(LogIn login){
-//        sqlModel.register(login);
-//        modelServe.register(login);
-//     //   modelServe.register(login);
-//
-//    }
 
     public LogIn getUser(){
       return  sqlModel.getUser();
@@ -240,11 +223,4 @@ public class Model implements ModelInterface {
     }
 
 
-   /* public void delete(Student st) {
-        sqlModel.delete(st);
-    }*/
-
-    /*public void edit(String stId , Student st) {
-        sqlModel.edit(stId,st);
-    }*/
 }

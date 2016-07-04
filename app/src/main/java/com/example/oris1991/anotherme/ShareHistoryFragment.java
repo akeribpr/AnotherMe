@@ -84,9 +84,6 @@ public class ShareHistoryFragment extends Fragment{
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
                                Log.d("log", "Yes button clicked " + idFromList);
-                                Boolean bool=  Model.instance().deleteSharePictureOrText(idFromList);
-//                                Users user = new Users(idFromList);
-//                                Boolean bool = Model.instance().deleteUser(user);
                                 Toast.makeText(getActivity().getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
                                 ShareFragmentInterface interfaceUpdate = (ShareFragmentInterface) getActivity();
                                 interfaceUpdate.upgateShareFragment();

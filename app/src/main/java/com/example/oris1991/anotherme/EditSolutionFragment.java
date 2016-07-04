@@ -398,13 +398,8 @@ public class EditSolutionFragment extends Fragment{
 
             SMSOrPopup sp = dataPopup.get(position);
 
-          //  if(sp.getTime().equals("Template")){
-          //      text.setText(sp.getText()+"   Template");
-           // }
-           // else {
-                text.setText(sp.getText());
-          //  }
 
+                text.setText(sp.getText());
 
             return convertView;
         }

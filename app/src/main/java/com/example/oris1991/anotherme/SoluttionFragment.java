@@ -123,9 +123,6 @@ public class SoluttionFragment  extends Fragment{
         Button save= (Button) view.findViewById(R.id.solution_save);
         Button cancel= (Button) view.findViewById(R.id.solution_cancel);
 
-
-
-        //    int i = spinnerActions.getSelectedItemPosition();
         doWith.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,8 +156,6 @@ public class SoluttionFragment  extends Fragment{
             @Override
             public void onClick(View v) {
 
-                //SMSOrPopup sms = new SMSOrPopup(0,"SMS",phoneNumber,phoneName,String.valueOf(timeBefore),smsNotification);
-                // SMSOrPopup popup= new SMSOrPopup (0,"Popup",null,null,String.valueOf(timeBefore),popupData);
                 if(smsId==0||popupid==0) {
                  Toast.makeText(view.getContext(), "please enter SMS and popup first", Toast.LENGTH_LONG).show();
                 }
@@ -171,7 +166,7 @@ public class SoluttionFragment  extends Fragment{
                     Model.instance().editTimeBefore(smsId,timeBefore);
                 sol = new Solution(1,Model.instance().getSmsOrPopupById(smsId),Model.instance().getSmsOrPopupById(popupid),spinnerActions.getSelectedItemPosition());
                 delegate.SaveSolution(sol,task);
-                //  delegate.showNot(smsNotification);
+
                 }
             }
         });
@@ -253,11 +248,9 @@ public class SoluttionFragment  extends Fragment{
         Button cancel= (Button) myDialog.findViewById(R.id.sms_dialog_cancel);
         listSms = (ListView) myDialog.findViewById(R.id.sms_dialog_list);
         if((phoneNumber!=null)&&(Model.instance().getSmsForPerson(phoneNumber).size()!=0)){
-//            if(){
 
                 dataSms = (Model.instance().getSmsForPerson(phoneNumber));
                 dataSms.addAll(Model.instance().getSmsTemplatesWithoutPerson());
-           // }
 
         }
         else{
@@ -310,8 +303,6 @@ public class SoluttionFragment  extends Fragment{
 
         listPopup = (ListView) myDialogg.findViewById(R.id.popup_dialog_list);
         dataPopup = Model.instance().getPopupsTemplates();
-//        SMSOrPopup np = new SMSOrPopup("Popup template",null,null,"nothing");
-//        dataPopup.add(np);
         adapterPopup = new AdapterPopupList();
 
         listPopup.setAdapter(adapterPopup);
@@ -323,7 +314,6 @@ public class SoluttionFragment  extends Fragment{
                 popupTemplateChoose.setText(dataPopup.get(position).getText().toString());
                 popupData=dataPopup.get(position).getText().toString();
                 popupid= dataPopup.get(position).getId();
-                // SMSOrPopup s = Model.instance().getSmsOrPopupById(popupid);
                 myDialogg.dismiss();
             }
         });
@@ -368,13 +358,7 @@ public class SoluttionFragment  extends Fragment{
             TextView text = (TextView) convertView.findViewById(R.id.smsName);
 
             SMSOrPopup sp = dataSms.get(position);
-
-//            if(sp.getTime().equals("Template")){
-//                text.setText(sp.getText()+"   Template");
-//            }
-//            else {
                 text.setText(sp.getText());
-          //  }
 
 
 

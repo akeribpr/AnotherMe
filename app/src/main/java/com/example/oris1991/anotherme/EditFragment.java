@@ -183,8 +183,7 @@ public class EditFragment extends Fragment {
         toDo.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //if null to do
-
+                //if has task from before
                 if(task!=null){
                     long startMillis = 0;
                     long endMillis = 0;

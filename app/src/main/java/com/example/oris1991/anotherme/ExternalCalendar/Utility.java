@@ -102,23 +102,6 @@ public class Utility {
 		return nameOfEvent;
 	}
 
-	public static void insertCalendarEvent(Context context,Task newTask) {
-
-		long calID = 1;
-
-		ContentValues values = new ContentValues();
-
-		values.put("calendar_id", calID);
-		values.put("title", newTask.getTitle());
-		values.put("dtstart", newTask.getStartTime());
-		values.put("dtend", newTask.getEndTime());
-		values.put("eventLocation", newTask.getLocation());
-		values.put("eventTimezone", TimeZone.getDefault().getID());
-
-
-		Uri calendarUri =context.getContentResolver().insert(Uri.parse("content://com.android.calendar/events"), values);
-
-	}
 
 	public static String getDate(long milliSeconds) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
