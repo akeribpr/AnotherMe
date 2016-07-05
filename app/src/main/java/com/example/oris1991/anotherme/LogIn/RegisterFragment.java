@@ -68,8 +68,8 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(mcontext, "The passwords don't match", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.INVISIBLE);
                 } else {
-                    progressBar.setVisibility(View.VISIBLE);// check length of password
-                    if (pass1.length() < 1) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    if (pass1.length() < 6) {
 
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
 
@@ -86,7 +86,7 @@ public class RegisterFragment extends Fragment {
                             SharedPreferences.Editor registerTime = prefs.edit();
 
                             registerTime.putString("regTime", date);
-                            registerTime.putString("username",user);
+                            registerTime.putString("username", user);
                             registerTime.commit();
 
 
