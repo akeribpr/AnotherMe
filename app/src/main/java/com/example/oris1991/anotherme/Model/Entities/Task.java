@@ -12,8 +12,8 @@ public class Task {
     String location;
     Solution solution;
 
-    public Task(int id,String title, long startTime, long endTime, String location) {
-        this.id=id;
+    public Task(int id, String title, long startTime, long endTime, String location) {
+        this.id = id;
         this.Title = title;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -52,6 +52,7 @@ public class Task {
 
         return startTime;
     }
+
     public Solution getSolution() {
         return solution;
     }
@@ -61,10 +62,10 @@ public class Task {
     }
 
 
-
     public void setStartTime(long startTime) {
         this.startTime = startTime;
     }
+
     public int getId() {
         return id;
     }

@@ -1,7 +1,5 @@
 package com.example.oris1991.anotherme.Model.Entities;
 
-import java.util.Date;
-
 /**
  * Created by Itzik on 29/05/2016.
  */
@@ -19,19 +17,20 @@ public class Settings {
     Boolean gps = true;
 
     public Settings(String personId, String fullName, String phoneNumber, int age, String password, String DateTimeRegister, String mail, Boolean PopUps, Boolean Sms,
-                    Boolean Solution,Boolean gps) {
-        this.personId=personId;
-        this.fullName=fullName;
-        this.phoneNumber=phoneNumber;
-        this.age=age;
-        this.password=password;
+                    Boolean Solution, Boolean gps) {
+        this.personId = personId;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.age = age;
+        this.password = password;
         this.DateTimeRegister = DateTimeRegister;
-        this.mail=mail;
-        this.PopUps=PopUps;
+        this.mail = mail;
+        this.PopUps = PopUps;
         this.Sms = Sms;
-        this.Solution=Solution;
+        this.Solution = Solution;
         this.gps = gps;
     }
+
     public String getPersonId() {
         return personId;
     }

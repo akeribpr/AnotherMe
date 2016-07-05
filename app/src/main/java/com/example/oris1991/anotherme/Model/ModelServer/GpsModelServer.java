@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 
 /**
  * Created by itzik on 11/06/2016.
@@ -21,41 +20,39 @@ public class GpsModelServer {
 
 
     public void addNewGpsLocation(ServerGps gps) {
-        String[] params = new String[]{ModelServer.url+urlGps,  String.valueOf(gps.getX()), String.valueOf(gps.getY()),
-                gps.getGpsDate().toString(),  gps.getPerson().getPersonId()};
-        new AsyncTask<String, Void, String>(){
+        String[] params = new String[]{ModelServer.url + urlGps, String.valueOf(gps.getX()), String.valueOf(gps.getY()),
+                gps.getGpsDate().toString(), gps.getPerson().getPersonId()};
+        new AsyncTask<String, Void, String>() {
 
             @Override
             protected String doInBackground(String... params) {
                 StringBuffer buffer = new StringBuffer();
                 try {
 
-                    HttpURLConnection con = (HttpURLConnection) ( new URL(params[0])).openConnection();
+                    HttpURLConnection con = (HttpURLConnection) (new URL(params[0])).openConnection();
                     con.setRequestProperty("connection", "close");
                     con.setRequestMethod("POST");
                     con.setDoInput(true);
                     con.setDoOutput(true);
                     con.connect();
 
-                    OutputStream os= con.getOutputStream();
-                    os.write( ("X=" + params[1]).getBytes("UTF-8"));
-                    os.write( ("&Y=" + params[2]).getBytes("UTF-8"));
-                    os.write( ("&gpsDate=" + params[3]).getBytes("UTF-8"));
-                    os.write( ("&personId=" + params[4]).getBytes("UTF-8"));
+                    OutputStream os = con.getOutputStream();
+                    os.write(("X=" + params[1]).getBytes("UTF-8"));
+                    os.write(("&Y=" + params[2]).getBytes("UTF-8"));
+                    os.write(("&gpsDate=" + params[3]).getBytes("UTF-8"));
+                    os.write(("&personId=" + params[4]).getBytes("UTF-8"));
                     os.flush();
                     os.close();
                     // 1. get received JSON data from request
                     BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    if(br != null){
+                    if (br != null) {
                         result = br.readLine();
 
-                    }
-                    else
+                    } else
                         result = "return nothing";
 
                     con.disconnect();
-                }
-                catch(Throwable t) {
+                } catch (Throwable t) {
                     t.printStackTrace();
                 }
 
@@ -69,7 +66,6 @@ public class GpsModelServer {
         // ObjectMapper mapper = new ObjectMapper();
         // 3. Convert received JSON to Article
         // System.out.println(mapper.readValue(result, Boolean.class));
-
 
 
     }

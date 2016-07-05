@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/summer">
-
+    android:background="@color/summer"
+    android:orientation="vertical">
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       >
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/doWithB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Do with"
-            android:id="@+id/doWithB"
             android:background="@color/colorPrimary"
-            android:textColor="@color/text"
-             />
+            android:text="Do with"
+            android:textColor="@color/text" />
 
         >
+
         <TextView
             android:id="@+id/phone_text"
             android:layout_width="wrap_content"
@@ -33,28 +32,28 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="horizontal">
 
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SMS"
             android:id="@+id/smsB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimary"
-            android:textColor="@color/text"/>
+            android:text="SMS"
+            android:textColor="@color/text" />
 
         >
+
         <TextView
+            android:id="@+id/sms_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/sms_text"
 
             />
 
@@ -62,28 +61,28 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        >
+        android:orientation="horizontal">
 
 
         <Button
+            android:id="@+id/popupB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="popup"
-            android:id="@+id/popupB"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorPrimary"
-            android:textColor="@color/text"/>
+            android:text="popup"
+            android:textColor="@color/text" />
 
         >
+
         <TextView
+            android:id="@+id/popup_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/popup_text"
 
             />
 
@@ -91,24 +90,22 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        >
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/spinner_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/action_array"
-           />
+            android:entries="@array/action_array" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="בחר משימה"
+            android:textAppearance="?android:attr/textAppearanceLarge"
 
             />
 
@@ -116,36 +113,33 @@
     </LinearLayout>
 
 
-
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        >
+        android:orientation="horizontal">
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
             android:id="@+id/solution_cancel"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/text"
-            />
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:id="@+id/solution_save"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:textColor="@color/text"
-            />
+            android:text="Cancel"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/solution_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Save"
+            android:textColor="@color/text" />
 
 
-        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

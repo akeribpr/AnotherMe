@@ -1,6 +1,12 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
 
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,13 +14,6 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
-
-
-import android.os.AsyncTask;
-import android.util.Log;
-
-import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Created by itzik on 31/05/2016.

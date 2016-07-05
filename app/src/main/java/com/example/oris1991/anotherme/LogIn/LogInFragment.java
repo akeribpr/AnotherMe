@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
-import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.R;
 
 
 /**
@@ -25,19 +25,20 @@ import com.example.oris1991.anotherme.Model.Model;
  */
 public class LogInFragment extends Fragment implements View.OnClickListener {
 
-    private String username,password;
+    private String username, password;
     private Button ok;
-    private EditText editTextUsername,editTextPassword;
+    private EditText editTextUsername, editTextPassword;
     private CheckBox saveLoginCheckBox;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private Boolean saveLogin;
     Delegate delegate;
 
-    interface Delegate{
-    public void startRegister();
-    public void finishFra();
-}
+    interface Delegate {
+        public void startRegister();
+
+        public void finishFra();
+    }
 
 
     @Override
@@ -46,21 +47,21 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         delegate = (Delegate) getActivity();
 
-        Button register= (Button) view.findViewById(R.id.buttonRegistar);
-        ok = (Button)view.findViewById(R.id.buttonLogin);
+        Button register = (Button) view.findViewById(R.id.buttonRegistar);
+        ok = (Button) view.findViewById(R.id.buttonLogin);
         ok.setOnClickListener(this);
-        editTextUsername = (EditText)view.findViewById(R.id.editTextUsername);
-        editTextPassword = (EditText)view.findViewById(R.id.editTextPassword);
-        saveLoginCheckBox = (CheckBox)view.findViewById(R.id.saveLoginCheckBox);
-        loginPreferences = getActivity().getSharedPreferences("loginPrefs",  Context.MODE_PRIVATE);
+        editTextUsername = (EditText) view.findViewById(R.id.editTextUsername);
+        editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
+        saveLoginCheckBox = (CheckBox) view.findViewById(R.id.saveLoginCheckBox);
+        loginPreferences = getActivity().getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
         loginPrefsEditor = loginPreferences.edit();
         saveLogin = loginPreferences.getBoolean("saveLogin", false);
         if (saveLogin == true) {
             editTextUsername.setText(Model.instance().getUser().getPersonId());
             editTextPassword.setText(Model.instance().getUser().getPassword());
             saveLoginCheckBox.setChecked(true);
-            LogIn logIn = new LogIn(editTextUsername.getText().toString(),editTextPassword.getText().toString());
-            if(Model.instance().checkIfUserExist(logIn)){
+            LogIn logIn = new LogIn(editTextUsername.getText().toString(), editTextPassword.getText().toString());
+            if (Model.instance().checkIfUserExist(logIn)) {
                 startActivity();
             }
         }
@@ -77,32 +78,30 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
         if (view == ok) {
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editTextUsername.getWindowToken(), 0);
 
             username = editTextUsername.getText().toString();
             password = editTextPassword.getText().toString();
-            LogIn logIn = new LogIn(username,password);
-            if(Model.instance().checkIfUserExist(logIn)){
-            if (saveLoginCheckBox.isChecked()) {
-                loginPrefsEditor.putBoolean("saveLogin", true);
-                loginPrefsEditor.commit();
+            LogIn logIn = new LogIn(username, password);
+            if (Model.instance().checkIfUserExist(logIn)) {
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
+                startActivity();
             } else {
-                loginPrefsEditor.clear();
-                loginPrefsEditor.commit();
-            }
-              startActivity();
-            }
-            else
-            {
                 Context context = getActivity().getApplicationContext();
-                Toast.makeText(context, "Wrong username or password" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Wrong username or password", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     public void startActivity() {
-        Intent intent = new Intent(getActivity(),MainActivity.class);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         delegate.finishFra();
     }

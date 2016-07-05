@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Itzik on 27/06/2016.
  */
 
-public  class ServerPopUp {
+public class ServerPopUp {
 
     Double idPopUp;
     String text;
@@ -25,7 +25,7 @@ public  class ServerPopUp {
         this.text = text;
         this.popUpTamplates = popUpTamplates;
         this.personId = personId;
-        this.senderId=senderId;
+        this.senderId = senderId;
     }
 
     public void setPerson(ServerPerson person) {
@@ -79,8 +79,9 @@ public  class ServerPopUp {
     public void setPersonId(ServerPerson personId) {
         this.personId = personId;
     }
-    public SMSOrPopup convertServerPopUp(){
-        SMSOrPopup smsOrPopup = new SMSOrPopup(1,"PopUp template",getSenderId().getPersonId(),getSenderId().getPersonId(),getDateTimeShow().toString(),getText());
+
+    public SMSOrPopup convertServerPopUp() {
+        SMSOrPopup smsOrPopup = new SMSOrPopup(1, "PopUp template", getSenderId().getPersonId(), getSenderId().getPersonId(), getDateTimeShow().toString(), getText());
         return smsOrPopup;
     }
 }

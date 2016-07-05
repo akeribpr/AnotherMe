@@ -20,41 +20,42 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:orientation="vertical"
         android:paddingTop="?android:attr/actionBarSize">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:gravity="center"
             android:background="@color/colorPrimary"
+            android:gravity="center"
             android:text="Popup templates"
-            />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#fff"
+            android:textStyle="bold" />
 
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:layout_margin="@dimen/fab_margin"
-                    android:src="@android:drawable/ic_input_add" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@android:drawable/ic_input_add" />
 
-                <ListView
-                    android:layout_width="fill_parent"
-                    android:id="@+id/pop_up_list"
-                    android:background="@color/summer"
-                    android:layout_height="match_parent"/>
+            <ListView
+                android:id="@+id/pop_up_list"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@color/summer" />
 
         </FrameLayout>
 

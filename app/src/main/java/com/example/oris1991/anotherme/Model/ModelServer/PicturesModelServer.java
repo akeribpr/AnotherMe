@@ -3,14 +3,7 @@ package com.example.oris1991.anotherme.Model.ModelServer;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
-import com.example.oris1991.anotherme.Model.Entities.Solution;
-import com.example.oris1991.anotherme.Model.Entities.Task;
-import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
-import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
-import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerPictures;
-import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,7 +25,6 @@ public class PicturesModelServer {
     private String urlAddSharePictures = "/AddPictureToShare";
     private String urlGetPictures = "/GetPictures";
     private String urlGetUpdate = "/GetShareToDo";
-
 
 
     String result;
@@ -161,7 +153,7 @@ public class PicturesModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                if (result!=null&&result.isEmpty()) {
+                if (result != null && result.isEmpty()) {
                     Log.d("SharePictureOrText", result);
                     PicturesModelServer.this.result = result;
                 }
@@ -178,12 +170,10 @@ public class PicturesModelServer {
         }
         // 3. Convert received JSON to Article
         try {
-            if (result==null) {
+            if (result == null) {
                 return null;
-            }
-            else {
-                if (!result.equals("null"))
-                {
+            } else {
+                if (!result.equals("null")) {
                     List<ClientShare> myObjects = mapper.readValue(result, new TypeReference<List<ClientShare>>() {
                     });
                     ArrayList<SharePictureOrText> share = new ArrayList<SharePictureOrText>();
@@ -194,8 +184,7 @@ public class PicturesModelServer {
 
                     Log.d("Get", "Array list");
                     return share;
-              }
-                else return null;
+                } else return null;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -204,41 +193,48 @@ public class PicturesModelServer {
 
     }
 
-        public static class ClientShare{
-            public String pictureName;
-            public String person;
-            public String withPerson;
-            public String txt;
+    public static class ClientShare {
+        public String pictureName;
+        public String person;
+        public String withPerson;
+        public String txt;
 
-            public ClientShare() {
-                // TODO Auto-generated constructor stub
-            }
-            public String getPictureName() {
-                return pictureName;
-            }
-            public void setPictureName(String pictureName) {
-                this.pictureName = pictureName;
-            }
-            public String getPerson() {
-                return person;
-            }
-            public void setPerson(String person) {
-                this.person = person;
-            }
-
-            public String getWithPerson() {
-                return withPerson;
-            }
-            public void setWithPerson(String withPerson) {
-                this.withPerson = withPerson;
-            }
-            public String getTxt() {
-                return txt;
-            }
-            public void setTxt(String txt) {
-                this.txt = txt;
-            }
-
+        public ClientShare() {
+            // TODO Auto-generated constructor stub
         }
+
+        public String getPictureName() {
+            return pictureName;
+        }
+
+        public void setPictureName(String pictureName) {
+            this.pictureName = pictureName;
+        }
+
+        public String getPerson() {
+            return person;
+        }
+
+        public void setPerson(String person) {
+            this.person = person;
+        }
+
+        public String getWithPerson() {
+            return withPerson;
+        }
+
+        public void setWithPerson(String withPerson) {
+            this.withPerson = withPerson;
+        }
+
+        public String getTxt() {
+            return txt;
+        }
+
+        public void setTxt(String txt) {
+            this.txt = txt;
+        }
+
+    }
 
 }

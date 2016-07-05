@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/template_popup_txt"
@@ -11,32 +12,29 @@
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:textSize="15sp" >
-    </EditText>
+        android:textSize="15sp"></EditText>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pick_contact">
+        android:layout_below="@+id/pick_contact"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="68dp"
-            android:text="Cancel"
             android:id="@+id/cancelPopupTemplate"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-            />
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="68dp"
-            android:text="Submit"
-            android:id="@+id/submitPopupTemplate"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
-            />
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/submitPopupTemplate"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="Submit" />
 
 
     </LinearLayout>

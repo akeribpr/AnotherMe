@@ -1,58 +1,59 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-   >
+    android:orientation="horizontal">
 
     <FrameLayout
+        android:id="@+id/rowImageFrame"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rowImageFrame">
+        android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/pic"
             android:layout_width="74dp"
             android:layout_height="56dp"
-            android:id="@+id/pic"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:src="@drawable/a_m_icon" />
 
         <ProgressBar
+            android:id="@+id/rowImageProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rowImageProgressBar"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </FrameLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
         <CheckBox
+            android:id="@+id/ifGet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:focusable="false"
-            android:id="@+id/ifGet"/>
+            android:focusable="false" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/from"
                 android:layout_width="251dp"
                 android:layout_height="37dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="first"
-                android:id="@+id/from" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
             <TextView
+                android:id="@+id/massegeTextHistory"
                 android:layout_width="261dp"
                 android:layout_height="37dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="last"
-                android:id="@+id/massegeTextHistory" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
     </RelativeLayout>
 

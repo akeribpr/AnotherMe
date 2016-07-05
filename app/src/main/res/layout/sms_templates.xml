@@ -20,38 +20,39 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:orientation="vertical"
         android:paddingTop="?android:attr/actionBarSize">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="#fff"
                 android:background="@color/colorPrimary"
-                android:text="sms templates"
                 android:paddingRight="140dip"
-                />
+                android:text="sms templates"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="bold"
-                android:textColor="#fff"
-                android:text="send to"
                 android:paddingRight="35dip"
-                />
+                android:text="send to"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -70,16 +71,13 @@
 
 
             <ListView
-                android:layout_width="fill_parent"
                 android:id="@+id/sms_list"
-                android:background="@color/summer"
-                android:layout_height="match_parent"/>
-
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="@color/summer" />
 
 
         </FrameLayout>
-
-
 
 
     </LinearLayout>

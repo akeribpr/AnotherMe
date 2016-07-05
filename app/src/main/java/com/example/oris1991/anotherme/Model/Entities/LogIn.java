@@ -7,9 +7,9 @@ public class LogIn {
     String personId;
     String password;
 
-    public  LogIn(String personId, String password){
-        this.personId=personId;
-        this.password=password;
+    public LogIn(String personId, String password) {
+        this.personId = personId;
+        this.password = password;
     }
 
     public String getPersonId() {
@@ -27,7 +27,6 @@ public class LogIn {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 
 }

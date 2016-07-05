@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +27,10 @@ import java.util.Locale;
 /**
  * Created by oris1991 on 07/05/2016.
  */
-public class CalendarViewFragment extends Fragment{
+public class CalendarViewFragment extends Fragment {
 
 
-    interface Delegate{
+    interface Delegate {
 
         //  public void plusButton(int code);
         public void startEdit(int pos);
@@ -74,7 +73,7 @@ public class CalendarViewFragment extends Fragment{
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.calendar_fragment, container, false);
         final Delegate delegate = (Delegate) getActivity();
-        mContext=container.getContext();
+        mContext = container.getContext();
 
 
         Locale.setDefault(Locale.US);
@@ -98,7 +97,7 @@ public class CalendarViewFragment extends Fragment{
         handler.post(calendarUpdater);
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText(android.text.format.DateFormat.format("MMMM yyyy", month));
-        mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString())-1;
+        mmonth = Integer.valueOf(android.text.format.DateFormat.format("M", month).toString()) - 1;
         year = Integer.valueOf(android.text.format.DateFormat.format("yyyy", month).toString());
         Calendar calendar = Calendar.getInstance();
         gridvalue = calendar.get(Calendar.DAY_OF_MONTH);
@@ -133,7 +132,7 @@ public class CalendarViewFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                if (Utility.eventId.get(time.get(position))!="0")
+                if (Utility.eventId.get(time.get(position)) != "0")
                     delegate.startEdit(time.get(position));
                 adapter.notifyDataSetChanged();
                 handler.post(calendarUpdater);
@@ -149,7 +148,7 @@ public class CalendarViewFragment extends Fragment{
 
 
                 desc = new ArrayList<String>();
-                time =new ArrayList<Integer>();
+                time = new ArrayList<Integer>();
 
                 ((CalendarAdapter) parent.getAdapter()).setSelected(v);
                 String selectedGridDate = CalendarAdapter.dayString
@@ -157,7 +156,7 @@ public class CalendarViewFragment extends Fragment{
                 String[] separatedTime = selectedGridDate.split("-");
                 String gridvalueString = separatedTime[2].replaceFirst("^0*",
                         "");// taking last part of date. ie; 2 from 2012-12-02.
-                 gridvalue = Integer.parseInt(gridvalueString);
+                gridvalue = Integer.parseInt(gridvalueString);
                 // navigate to next or previous month on clicking offdays.
                 if ((gridvalue > 10) && (position < 8)) {
                     setPreviousMonth();
@@ -175,19 +174,16 @@ public class CalendarViewFragment extends Fragment{
                 }
 
                 int temp;
-                for (int i=0;i<time.size();i++)
-                    for (int j=i;j<time.size();j++)
-                    {
-                        if (Utility.startTime.get(time.get(i)).compareTo(Utility.startTime.get(time.get(j)))>0)
-                        {
-                            temp=time.get(i);
-                            time.set(i,time.get(j));
-                            time.set(j,temp);
+                for (int i = 0; i < time.size(); i++)
+                    for (int j = i; j < time.size(); j++) {
+                        if (Utility.startTime.get(time.get(i)).compareTo(Utility.startTime.get(time.get(j))) > 0) {
+                            temp = time.get(i);
+                            time.set(i, time.get(j));
+                            time.set(j, temp);
                         }
                     }
-                for (int i=0;i<time.size();i++)
-                {
-                    desc.add(Utility.nameOfEvent.get(time.get(i))+"  "+Utility.startTime.get(time.get(i)));
+                for (int i = 0; i < time.size(); i++) {
+                    desc.add(Utility.nameOfEvent.get(time.get(i)) + "  " + Utility.startTime.get(time.get(i)));
                 }
 
 
@@ -247,8 +243,8 @@ public class CalendarViewFragment extends Fragment{
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             String itemvalue;
             event = Utility.readCalendarEvent(getActivity().getApplicationContext());
-           // Log.d("=====Task====", event.toString());
-           // Log.d("=====Date ARRAY====", Utility.startDates.toString());
+            // Log.d("=====Task====", event.toString());
+            // Log.d("=====Date ARRAY====", Utility.startDates.toString());
 
             for (int i = 0; i < Utility.startDates.size(); i++) {
                 itemvalue = df.format(itemmonth.getTime());
@@ -265,7 +261,7 @@ public class CalendarViewFragment extends Fragment{
 
         @Override
         public int getCount() {
-            if (desc!=null)
+            if (desc != null)
                 return desc.size();
             else
                 return 0;
@@ -285,7 +281,7 @@ public class CalendarViewFragment extends Fragment{
         @Override
         public View getView(int position, View convertView,
                             ViewGroup parent) {
-            if(convertView == null){
+            if (convertView == null) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
                 convertView = inflater.inflate(R.layout.event_row, null);
             }
@@ -293,10 +289,9 @@ public class CalendarViewFragment extends Fragment{
             ImageView image = (ImageView) convertView.findViewById(R.id.event_row_image);
 
             eventName.setText(desc.get(position));
-            if (Utility.eventId.get(time.get(position))=="0") {
+            if (Utility.eventId.get(time.get(position)) == "0") {
                 image.setImageResource(R.drawable.google_icon);
-            }
-            else
+            } else
                 image.setImageResource(android.R.color.transparent);
             return convertView;
         }

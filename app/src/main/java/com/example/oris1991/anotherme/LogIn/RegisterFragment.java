@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import android.widget.Toast;
 
 import com.example.oris1991.anotherme.MainActivity;
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
-import com.example.oris1991.anotherme.R;
 import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,13 +28,13 @@ import java.util.Calendar;
  */
 public class RegisterFragment extends Fragment {
 
-    interface Delegate{
+    interface Delegate {
         public void finishFra();
     }
 
-    EditText usernameText,passwordText,password2Text;
+    EditText usernameText, passwordText, password2Text;
     ProgressBar progressBar;
-    String pass1,pass2,user;
+    String pass1, pass2, user;
     Context mcontext;
     Delegate delegate;
     private Model model;
@@ -45,47 +44,40 @@ public class RegisterFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.register_fragment, container, false);
         delegate = (Delegate) getActivity();
-        usernameText = (EditText)view.findViewById(R.id.usernameEditText);
-        passwordText = (EditText)view.findViewById(R.id.passwordEditText);
-        password2Text = (EditText)view.findViewById(R.id.password2EditText);
+        usernameText = (EditText) view.findViewById(R.id.usernameEditText);
+        passwordText = (EditText) view.findViewById(R.id.passwordEditText);
+        password2Text = (EditText) view.findViewById(R.id.password2EditText);
         progressBar = (ProgressBar) view.findViewById(R.id.sdProgressBar);
         mcontext = getActivity().getApplicationContext();
 
 
-        Button submit= (Button) view.findViewById(R.id.submitB);
-        Button exit= (Button) view.findViewById(R.id.exitB);
+        Button submit = (Button) view.findViewById(R.id.submitB);
+        Button exit = (Button) view.findViewById(R.id.exitB);
         progressBar.setVisibility(View.INVISIBLE);
         submit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                user =  usernameText.getText().toString();
+                user = usernameText.getText().toString();
                 pass1 = passwordText.getText().toString();
                 pass2 = password2Text.getText().toString();
 
-                if(pass1.compareTo(pass2)!=0)
-                {
+                if (pass1.compareTo(pass2) != 0) {
 
                     Toast.makeText(mcontext, "The passwords don't match", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.INVISIBLE);
-                }
-                else
-                {
+                } else {
                     progressBar.setVisibility(View.VISIBLE);// check length of password
-                    if (pass1.length()<1)
-                    {
+                    if (pass1.length() < 1) {
 
                         Toast.makeText(mcontext, "The password must consist at least 6 digits", Toast.LENGTH_LONG).show();
 
-                    }
-
-                    else
-                    {
+                    } else {
                         progressBar.setVisibility(View.VISIBLE);
-                        LogIn logIn = new LogIn(user,pass1);
+                        LogIn logIn = new LogIn(user, pass1);
 
-                        if(Model.instance().register(logIn)){
+                        if (Model.instance().register(logIn)) {
 
                             DateFormat df = new SimpleDateFormat(" d MMM yyyy");
                             String date = df.format(Calendar.getInstance().getTime());
@@ -93,7 +85,8 @@ public class RegisterFragment extends Fragment {
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                             SharedPreferences.Editor registerTime = prefs.edit();
 
-                            registerTime.putString("regTime",date);
+                            registerTime.putString("regTime", date);
+                            registerTime.putString("username",user);
                             registerTime.commit();
 
 
@@ -102,8 +95,7 @@ public class RegisterFragment extends Fragment {
 
                             startActivity(intent);
                             delegate.finishFra();
-                        }
-                        else{
+                        } else {
 
                             Toast.makeText(mcontext, "user already exists. please choose a different username", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.INVISIBLE);

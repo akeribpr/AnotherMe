@@ -2,13 +2,9 @@ package com.example.oris1991.anotherme;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,18 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
@@ -45,7 +35,7 @@ public class UsersFragment extends Fragment {
     String idFromList;
     MyAddapter adapter;
 
-    interface UsersFragmentInterface{
+    interface UsersFragmentInterface {
         public void upgateUsersFragment();
 
     }
@@ -73,7 +63,6 @@ public class UsersFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 idFromList = data.get(position).getname();
-                //  Toast.makeText(getActivity().getApplicationContext(),idFromList, Toast.LENGTH_LONG).show();
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -121,15 +110,13 @@ public class UsersFragment extends Fragment {
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_sms_templates)
-        {
+        if (id == R.id.action_sms_templates) {
             Intent intent = new Intent(getActivity(),
                     SmsTemplates.class);
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_popup_templates)
-        {
+        if (id == R.id.action_popup_templates) {
             Intent intent = new Intent(getActivity(),
                     PopupTemplates.class);
             startActivity(intent);

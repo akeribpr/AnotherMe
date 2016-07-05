@@ -11,7 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.CheckBoxPreference;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -27,7 +26,7 @@ import java.util.Date;
  * Created by Itzik on 10/06/2016.
  */
 
-    public  class GpsService extends Service implements LocationListener {
+public class GpsService extends Service implements LocationListener {
     protected LocationManager locManager;
     SharedPreferences sharedPreferencesGet;
 

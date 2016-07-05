@@ -1,160 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:background="@color/summer">
+    android:background="@color/summer"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-
-       >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Event title:"
-                android:id="@+id/event_text" />
-
-           <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="100"
-                android:id="@+id/EventTitleEditText"
-                android:layout_weight="1"
-                android:layout_marginLeft="5dp"
-                android:inputType="textAutoComplete|textPostalAddress"
-                android:editable="true" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="start date:"
-            android:id="@+id/textStartTime"
-            android:autoText="false"
-            android:textSize="20dp" />
-
-        <com.example.oris1991.anotherme.DateEditText
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:ems="10"
-            android:id="@+id/startDateEditText"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:inputType="date"
-            android:editable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="end date:"
-            android:autoText="false"
-            android:textSize="20dp" />
-
-        <com.example.oris1991.anotherme.DateEditText
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:ems="10"
-            android:id="@+id/endDateEditText"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:inputType="date"
-            android:editable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="start time:"
-            android:autoText="false"
-            android:textSize="20dp" />
-
-        <com.example.oris1991.anotherme.TimeEditText
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:ems="10"
-            android:id="@+id/startTimeEditText"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:inputType="time"
-            android:editable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="end time:"
-            android:autoText="false"
-            android:textSize="20dp" />
-
-        <com.example.oris1991.anotherme.TimeEditText
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:ems="10"
-            android:id="@+id/endTimeEditText"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:inputType="time"
-            android:editable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:layout_marginTop="20dp"
 
         >
+
+        <TextView
+            android:id="@+id/event_text"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="Event title:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/EventTitleEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="100"
+            android:inputType="textAutoComplete|textPostalAddress" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textStartTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:text="start date:"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.DateEditText
+            android:id="@+id/startDateEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Event location:"
-             />
+            android:autoText="false"
+            android:text="end date:"
+            android:textSize="20dp" />
 
-        <EditText
+        <com.example.oris1991.anotherme.DateEditText
+            android:id="@+id/endDateEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="100"
-            android:id="@+id/EventLocationEditText"
-            android:layout_weight="1"
+            android:autoText="false"
+            android:text="start time:"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.TimeEditText
+            android:id="@+id/startTimeEditText"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:layout_marginLeft="5dp"
-            android:inputType="textAutoComplete|textPostalAddress"
-            android:editable="true" />
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:text="end time:"
+            android:textSize="20dp" />
+
+        <com.example.oris1991.anotherme.TimeEditText
+            android:id="@+id/endTimeEditText"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="time" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event location:"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/EventLocationEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="100"
+            android:inputType="textAutoComplete|textPostalAddress" />
 
 
     </LinearLayout>
@@ -164,35 +166,35 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="What to do"
         android:background="@color/colorPrimary"
-        android:textColor="@color/text"/>
+        android:text="What to do"
+        android:textColor="@color/text" />
 
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="68dp"
-            android:text="Cancel"
             android:id="@+id/cancelB"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/text"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="68dp"
-            android:text="Save"
-            android:id="@+id/saveB"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:textColor="@color/text"/>
+            android:text="Cancel"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/saveB"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Save"
+            android:textColor="@color/text" />
 
 
     </LinearLayout>

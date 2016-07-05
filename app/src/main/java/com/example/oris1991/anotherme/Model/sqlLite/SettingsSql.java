@@ -12,7 +12,7 @@ import com.example.oris1991.anotherme.Model.Entities.Settings;
 public class SettingsSql {
 
 
-    private static final String  SETTINGS_TABLE = "Settings_table";
+    private static final String SETTINGS_TABLE = "Settings_table";
     private static final String PERSON_ID = "personId";
     private static final String FULL_NAME = "fullName";
     private static final String PHONE_NUMBER = "phoneNumber";
@@ -39,15 +39,14 @@ public class SettingsSql {
         values.put(SMS, sp.getSms());
         values.put(SOLUTION, sp.getSolution());
         values.put(GPS, sp.getGps());
-        db.insert(SETTINGS_TABLE, AGE,values);
+        db.insert(SETTINGS_TABLE, AGE, values);
     }
-
 
 
     public static Settings getSettings(SQLiteDatabase db) {
 
         Settings settings = null;
-        Cursor cursor = db.query(SETTINGS_TABLE,null,null,null, null, null, null);
+        Cursor cursor = db.query(SETTINGS_TABLE, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             int personId = cursor.getColumnIndex(PERSON_ID);
@@ -62,9 +61,9 @@ public class SettingsSql {
             int Solution = cursor.getColumnIndex(SOLUTION);
             int gps = cursor.getColumnIndex(GPS);
 
-            settings = new Settings(cursor.getString(personId),cursor.getString(fullName),cursor.getString(phoneNumber),Integer.parseInt(cursor.getString(age)),
-                    cursor.getString(password),cursor.getString(DateTimeRegister),cursor.getString(mail),Boolean.parseBoolean(cursor.getString(PopUps)),Boolean.parseBoolean(cursor.getString(Sms))
-                    ,Boolean.parseBoolean(cursor.getString(Solution)),Boolean.parseBoolean(cursor.getString(gps)));
+            settings = new Settings(cursor.getString(personId), cursor.getString(fullName), cursor.getString(phoneNumber), Integer.parseInt(cursor.getString(age)),
+                    cursor.getString(password), cursor.getString(DateTimeRegister), cursor.getString(mail), Boolean.parseBoolean(cursor.getString(PopUps)), Boolean.parseBoolean(cursor.getString(Sms))
+                    , Boolean.parseBoolean(cursor.getString(Solution)), Boolean.parseBoolean(cursor.getString(gps)));
         }
         return settings;
     }

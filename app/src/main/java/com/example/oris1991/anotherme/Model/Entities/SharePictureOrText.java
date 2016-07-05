@@ -11,13 +11,13 @@ public class SharePictureOrText {
     String text;
     Boolean send;
 
-    public SharePictureOrText( int id, String picName, String shardWtith, String text, Boolean send){
+    public SharePictureOrText(int id, String picName, String shardWtith, String text, Boolean send) {
 
-        this.id =id;
-        this.picName=picName;
-        this.shardWtith=shardWtith;
-        this.text=text;
-        this.send=send;
+        this.id = id;
+        this.picName = picName;
+        this.shardWtith = shardWtith;
+        this.text = text;
+        this.send = send;
     }
 
     public String getShardWtith() {
@@ -59,8 +59,6 @@ public class SharePictureOrText {
     public void setSend(Boolean send) {
         this.send = send;
     }
-
-
 
 
 }

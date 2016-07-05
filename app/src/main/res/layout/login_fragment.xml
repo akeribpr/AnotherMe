@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#fff"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <EditText
         android:id="@+id/editTextUsername"
@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:hint="Username"
-        android:inputType="textNoSuggestions"
-        android:imeOptions="actionNext" />
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -21,8 +21,8 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextUsername"
         android:hint="Password"
-        android:inputType="textPassword"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:inputType="textPassword" />
 
     <CheckBox
         android:id="@+id/saveLoginCheckBox"
@@ -41,6 +41,7 @@
         android:layout_below="@+id/saveLoginCheckBox"
         android:layout_marginTop="40dp"
         android:text="Login" />
+
     <Button
         android:id="@+id/buttonRegistar"
         android:layout_width="fill_parent"

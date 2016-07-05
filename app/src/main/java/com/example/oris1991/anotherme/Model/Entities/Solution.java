@@ -3,20 +3,21 @@ package com.example.oris1991.anotherme.Model.Entities;
 /**
  * Created by Itzik on 29/05/2016.
  */
-public  class Solution {
+public class Solution {
 
     int idSolution;
     SMSOrPopup sms;
     SMSOrPopup popUp;
     int whatToDo;
 
-    public Solution( int idSolution, SMSOrPopup sms, SMSOrPopup popUp,int whatToDo){
-        this.idSolution=idSolution;
-        this.sms=sms;
-        this.popUp=popUp;
-        this.whatToDo=whatToDo;
+    public Solution(int idSolution, SMSOrPopup sms, SMSOrPopup popUp, int whatToDo) {
+        this.idSolution = idSolution;
+        this.sms = sms;
+        this.popUp = popUp;
+        this.whatToDo = whatToDo;
 
     }
+
     public int getIdSolution() {
         return idSolution;
     }
@@ -32,7 +33,6 @@ public  class Solution {
     public void setSms(SMSOrPopup sms) {
         this.sms = sms;
     }
-
 
 
     public int getWhatToDo() {

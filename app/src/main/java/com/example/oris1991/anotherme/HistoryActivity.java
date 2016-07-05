@@ -1,8 +1,6 @@
 package com.example.oris1991.anotherme;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
 import com.example.oris1991.anotherme.PopUpAndSMS.SmsTemplates;
 
@@ -104,15 +102,13 @@ public class HistoryActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_popup_templates)
-        {
+        if (id == R.id.action_popup_templates) {
             Intent intent = new Intent(getApplicationContext(),
                     PopupTemplates.class);
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_sms_templates)
-        {
+        if (id == R.id.action_sms_templates) {
             Intent intent = new Intent(getApplicationContext(),
                     SmsTemplates.class);
             startActivity(intent);
@@ -121,7 +117,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     class MyAddapter extends BaseAdapter {
@@ -145,10 +140,10 @@ public class HistoryActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView,
                             ViewGroup parent) {
-            if(convertView == null){
+            if (convertView == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 convertView = inflater.inflate(R.layout.history_row, null);
-            }else{
+            } else {
                 Log.d("TAG", "use convert view:" + position);
             }
 
@@ -161,7 +156,7 @@ public class HistoryActivity extends AppCompatActivity {
 
             type.setText(sp.getType());
             time.setText(sp.getTime());
-            sent_to.setText(sp.getSendto()+" "+sp.getSendtoName());
+            sent_to.setText(sp.getSendto() + " " + sp.getSendtoName());
             text.setText(sp.getText());
 
 

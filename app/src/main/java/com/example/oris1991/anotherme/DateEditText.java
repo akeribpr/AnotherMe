@@ -23,17 +23,17 @@ public class DateEditText extends EditText {
     int month;
     int day;
 
-    private void init(){
+    private void init() {
         Calendar calendar = new GregorianCalendar();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        setText("" + day + "/" + (1+month) + "/" + year);
+        setText("" + day + "/" + (1 + month) + "/" + year);
 
     }
 
-    public interface OnDateSetListener{
-        public void  dateSet(int year, int month, int day);
+    public interface OnDateSetListener {
+        public void dateSet(int year, int month, int day);
     }
 
     OnDateSetListener listener;
@@ -59,10 +59,10 @@ public class DateEditText extends EditText {
         init();
     }
 
-    public void set(int year,int month,int day) {
+    public void set(int year, int month, int day) {
         this.year = year;
-        this.month=month;
-        this.day=day;
+        this.month = month;
+        this.day = day;
     }
 
     public DateEditText(Context context, AttributeSet attrs) {
@@ -77,7 +77,7 @@ public class DateEditText extends EditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             InnerDatePicker datePicker = new InnerDatePicker();
             datePicker.init(year, month, day);
             datePicker.setListener(new InnerDatePicker.Listener() {
@@ -101,28 +101,32 @@ public class DateEditText extends EditText {
         int year;
         int month;
         int day;
+
         public void init(int year, int month, int day) {
             this.year = year;
             this.month = month;
             this.day = day;
         }
 
-        interface Listener{
+        interface Listener {
             public void done(int year, int month, int day);
         }
+
         Listener listener;
-        public void setListener(Listener listener){
+
+        public void setListener(Listener listener) {
             this.listener = listener;
         }
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             DatePickerDialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Log.d("TA", "date set" + year + "/" + monthOfYear + "/" + dayOfMonth);
-                    listener.done(year,monthOfYear,dayOfMonth);
+                    listener.done(year, monthOfYear, dayOfMonth);
                 }
-            },year,month,day);
+            }, year, month, day);
 
             return dialog;
         }

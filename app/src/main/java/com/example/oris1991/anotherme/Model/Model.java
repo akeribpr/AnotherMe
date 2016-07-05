@@ -1,16 +1,14 @@
 package com.example.oris1991.anotherme.Model;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
-import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
+import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
 import com.example.oris1991.anotherme.Model.ModelServer.ModelServer;
-import com.example.oris1991.anotherme.Model.sqlLite.*;
+import com.example.oris1991.anotherme.Model.sqlLite.ModelSql;
 
 import java.util.List;
 
@@ -19,7 +17,6 @@ import java.util.List;
  */
 public class Model implements ModelInterface {
     private final static Model instance = new Model();
-//ascacc
     ModelSql sqlModel;
     ModelServer modelServe;
 
@@ -34,7 +31,7 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public Boolean checkIfUserExist(LogIn logIn){
+    public Boolean checkIfUserExist(LogIn logIn) {
 
         return sqlModel.checkIfUserExist(logIn);
 
@@ -46,8 +43,8 @@ public class Model implements ModelInterface {
     }
 
 
-    public LogIn getUser(){
-      return  sqlModel.getUser();
+    public LogIn getUser() {
+        return sqlModel.getUser();
     }
 
     public List<SMSOrPopup> getSmsForPerson(String person) {
@@ -82,7 +79,7 @@ public class Model implements ModelInterface {
 
     public void addSolution(Solution sol) {
 
-         sqlModel.addSolution(sol);
+        sqlModel.addSolution(sol);
     }
 
     public List<Task> getTasks() {
@@ -92,12 +89,12 @@ public class Model implements ModelInterface {
 
     @Override
     public List<Task> checkUpdateTask() {
-        return  modelServe.checkUpdateTask();
+        return modelServe.checkUpdateTask();
     }
 
     @Override
     public int numberOfRowe(String table) {
-       return sqlModel.numberOfRowe(table);
+        return sqlModel.numberOfRowe(table);
     }
 
     @Override
@@ -124,11 +121,10 @@ public class Model implements ModelInterface {
     @Override
     public Boolean register(LogIn sp) {
 
-        if(modelServe.register(sp)){
+        if (modelServe.register(sp)) {
             sqlModel.register(sp);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -138,6 +134,7 @@ public class Model implements ModelInterface {
         sqlModel.addPic(sp);
         modelServe.addPic(sp);
     }
+
     @Override
     public void addUser(Users sp) {
         sqlModel.addUser(sp);
@@ -169,10 +166,11 @@ public class Model implements ModelInterface {
     }
 
     @Override
-    public  List<SharePictureOrText>  checkUpdateShare() {
-     return null;
+    public List<SharePictureOrText> checkUpdateShare() {
+        return null;
     }
-    public  void deleteSmsOrPopup(int id){
+
+    public void deleteSmsOrPopup(int id) {
         sqlModel.deleteSmsOrPopup(id);
     }
 
@@ -200,11 +198,11 @@ public class Model implements ModelInterface {
     @Override
     public void addTaskWithSolution(Task task) {
         sqlModel.addTaskWithSolution(task);
-       modelServe.addTask(task);
+        modelServe.addTask(task);
 
     }
 
-    public  int numberOfRow( ){
+    public int numberOfRow() {
 
         return sqlModel.numberOfRow();
     }
@@ -213,12 +211,11 @@ public class Model implements ModelInterface {
         sqlModel.addHistoryEvent(sp);
     }
 
-    public void deleteHistoryById( int id)
-    {
+    public void deleteHistoryById(int id) {
         sqlModel.deleteHistoryById(id);
     }
 
-    public List<SMSOrPopup> getHistory(){
+    public List<SMSOrPopup> getHistory() {
         return sqlModel.getHistory();
     }
 

@@ -1,7 +1,6 @@
 package com.example.oris1991.anotherme;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,22 +14,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.oris1991.anotherme.ExternalCalendar.Utility;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
-import com.example.oris1991.anotherme.Model.Entities.Task;
-import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelMain;
 import com.example.oris1991.anotherme.PopUpAndSMS.PopupTemplates;
@@ -41,7 +34,7 @@ import java.util.List;
 /**
  * Created by Itzik on 02/06/2016.
  */
-public class ShareHistoryFragment extends Fragment{
+public class ShareHistoryFragment extends Fragment {
 
     ProgressBar progressBar;
     ListView list;
@@ -49,10 +42,11 @@ public class ShareHistoryFragment extends Fragment{
     int idFromList;
     MyAddapter adapter;
 
-    interface ShareFragmentInterface{
+    interface ShareFragmentInterface {
         public void upgateShareFragment();
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -76,14 +70,14 @@ public class ShareHistoryFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, final long id) {
-               idFromList = data.get(position).getId();
+                idFromList = data.get(position).getId();
 
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                               Log.d("log", "Yes button clicked " + idFromList);
+                                Log.d("log", "Yes button clicked " + idFromList);
                                 Toast.makeText(getActivity().getApplicationContext(), "Done", Toast.LENGTH_LONG).show();
                                 ShareFragmentInterface interfaceUpdate = (ShareFragmentInterface) getActivity();
                                 interfaceUpdate.upgateShareFragment();
@@ -123,15 +117,13 @@ public class ShareHistoryFragment extends Fragment{
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_sms_templates)
-        {
+        if (id == R.id.action_sms_templates) {
             Intent intent = new Intent(getActivity(),
                     SmsTemplates.class);
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_popup_templates)
-        {
+        if (id == R.id.action_popup_templates) {
             Intent intent = new Intent(getActivity(),
                     PopupTemplates.class);
             startActivity(intent);
@@ -180,18 +172,17 @@ public class ShareHistoryFragment extends Fragment{
             withPerson.setText(st.getShardWtith());
             message.setText(st.getText());
             checkBox.setChecked(st.getSend());
-            if(st.getPicName() != null){
-                Log.d("TAG","list gets image " + st.getPicName());
+            if (st.getPicName() != null) {
+                Log.d("TAG", "list gets image " + st.getPicName());
                 final ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.rowImageProgressBar);
                 progress.setVisibility(View.VISIBLE);
-                ModelMain.getInstance().loadImage(st.getPicName(),new ModelMain.LoadImageListener() {
+                ModelMain.getInstance().loadImage(st.getPicName(), new ModelMain.LoadImageListener() {
                     @Override
                     public void onResult(Bitmap imageBmp) {
                         if (imageBmp != null) {
                             image.setImageBitmap(imageBmp);
                             progress.setVisibility(View.GONE);
-                        }
-                        else{
+                        } else {
                             String uri = "@drawable/a_m_icon";  // where myresource (without the extension) is the file
 
                             int imageResource = getResources().getIdentifier(uri, null, "drawable");

@@ -2,19 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.oris1991.anotherme.ShareHistoryFragment"
-    android:paddingTop="?android:attr/actionBarSize">
+    android:paddingTop="?android:attr/actionBarSize"
+    tools:context="com.example.oris1991.anotherme.ShareHistoryFragment">
 
     <ProgressBar
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/progressBarList"
         style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-        android:indeterminate="true"   />
-    <ListView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true" />
+
+    <ListView
         android:id="@+id/shareHistoryListview"
-    />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 </RelativeLayout>

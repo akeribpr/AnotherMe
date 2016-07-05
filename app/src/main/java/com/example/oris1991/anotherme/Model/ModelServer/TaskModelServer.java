@@ -5,29 +5,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
-import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
-import com.example.oris1991.anotherme.Model.ModelServer.Solution.ServerSolution;
-import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerPopUp;
-import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
-import com.example.oris1991.anotherme.Model.ModelServer.person.ServerPerson;
-import com.example.oris1991.anotherme.Model.ModelServer.pictures.ServerSharePictures;
-import com.example.oris1991.anotherme.Model.ModelServer.sms.ServerSMS;
 import com.example.oris1991.anotherme.MyApplication;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.std.ObjectArraySerializer;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -45,7 +30,7 @@ public class TaskModelServer {
     private String urlGetTask = "/GetTask";
     private String urlAddSms = "/AddSms";
     private String urlAddPopUp = "/AddPopUp";
-    Boolean checkConnection=false;
+    Boolean checkConnection = false;
 
     String result;
 
@@ -97,10 +82,10 @@ public class TaskModelServer {
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(checkConnection==false)
-                    Toast.makeText( MyApplication.getAppContext(), "Event has successfully sync on server", Toast.LENGTH_SHORT).show();
+                if (checkConnection == false)
+                    Toast.makeText(MyApplication.getAppContext(), "Event has successfully sync on server", Toast.LENGTH_SHORT).show();
                 else
-                    checkConnection=false;
+                    checkConnection = false;
 
             }
         };
@@ -235,7 +220,7 @@ public class TaskModelServer {
             // onPostExecute displays the results of the AsyncTask.
             @Override
             protected void onPostExecute(String result) {
-                if (result!=null) {
+                if (result != null) {
                     Log.d("getTasksToDO", result);
                     TaskModelServer.this.result = result;
                 }
@@ -254,22 +239,20 @@ public class TaskModelServer {
 
         // 3. Convert received JSON to Article
         try {
-            if (result==null) {
+            if (result == null) {
                 return null;
-            }
-            else
-                if (!result.equals("null")) {
-                    //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
-                    List<ClientTask> myObjects = mapper.readValue(result, new TypeReference<List<ClientTask>>() {
-                    });
-                    ArrayList<Task> task = new ArrayList<Task>();
-                    for (int i = 0; i < myObjects.size(); i++) {
-                        Task t = new Task(1, myObjects.get(i).getTaskText(), myObjects.get(i).getStart().getTime(), myObjects.get(i).getEnd().getTime(), myObjects.get(i).getAddress());
-                        SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
-                        SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
-                        t.setSolution(new Solution(1, sms, popup, myObjects.get(i).getWhatToDo()));
-                       task.add(t);
-          }
+            } else if (!result.equals("null")) {
+                //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
+                List<ClientTask> myObjects = mapper.readValue(result, new TypeReference<List<ClientTask>>() {
+                });
+                ArrayList<Task> task = new ArrayList<Task>();
+                for (int i = 0; i < myObjects.size(); i++) {
+                    Task t = new Task(1, myObjects.get(i).getTaskText(), myObjects.get(i).getStart().getTime(), myObjects.get(i).getEnd().getTime(), myObjects.get(i).getAddress());
+                    SMSOrPopup sms = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getSms()));
+                    SMSOrPopup popup = Model.instance().getSmsOrPopupById(Integer.parseInt(myObjects.get(i).getPopup()));
+                    t.setSolution(new Solution(1, sms, popup, myObjects.get(i).getWhatToDo()));
+                    task.add(t);
+                }
 // else {
 //                //List<itzik> myObjects =  mapper.readValue(result, new TypeReference<List<itzik>>(){});
 //                List<ClientTask> myObjects =  mapper.readValue(result, new TypeReference<List<ClientTask>>(){});
@@ -285,11 +268,10 @@ public class TaskModelServer {
 //                        task.add(t);
 //                    }
 
-                    Log.d("Get", "Array list");
-                    return task;
+                Log.d("Get", "Array list");
+                return task;
 //                return mapper.readValue(result, new ArrayList<ServerTask>().getClass());
-                }
-            else
+            } else
                 return null;
 
         } catch (IOException e) {
@@ -300,50 +282,62 @@ public class TaskModelServer {
     }
 
 
-  public static class   itzik{
+    public static class itzik {
 
-      public String it;
-      public String cc;
-      public n tt;
-      public n getTt() {
-          return tt;
-      }
+        public String it;
+        public String cc;
+        public n tt;
 
-      public void setTt(n tt) {
-          this.tt = tt;
-      }
+        public n getTt() {
+            return tt;
+        }
+
+        public void setTt(n tt) {
+            this.tt = tt;
+        }
 
 
-      public    itzik(){}
+        public itzik() {
+        }
+
         public String getIt() {
             return it;
         }
+
         public void setIt(String it) {
             this.it = it;
         }
+
         public String getCc() {
             return cc;
         }
+
         public void setCc(String cc) {
             this.cc = cc;
         }
     }
-    public static class   n{
+
+    public static class n {
 
 
         public String it;
         public String cc;
 
-        public   n(){}
+        public n() {
+        }
+
         public String getIt() {
             return it;
         }
+
         public void setIt(String it) {
             this.it = it;
         }
+
         public String getCc() {
             return cc;
         }
+
         public void setCc(String cc) {
             this.cc = cc;
         }
@@ -351,14 +345,14 @@ public class TaskModelServer {
 
     //getter and setter methods needed
 
-    public  static class  ClientTask{
-        public  String taskText;
-        public  Date start;
+    public static class ClientTask {
+        public String taskText;
+        public Date start;
         public Date end;
-        public  String address;
+        public String address;
         public int whatToDo;
         public String withPerson;
-        public  int timeToArriving;
+        public int timeToArriving;
         public String Sms;
         public Date DateTimeSend;// if it send if not ->null
         public String Popup;
@@ -367,39 +361,51 @@ public class TaskModelServer {
         public ClientTask() {
             // TODO Auto-generated constructor stub
         }
+
         public String getTaskText() {
             return taskText;
         }
+
         public void setTaskText(String taskText) {
             this.taskText = taskText;
         }
+
         public Date getStart() {
             return start;
         }
+
         public void setStart(Date start) {
             this.start = start;
         }
+
         public Date getEnd() {
             return end;
         }
+
         public void setEnd(Date end) {
             this.end = end;
         }
+
         public String getAddress() {
             return address;
         }
+
         public void setAddress(String address) {
             this.address = address;
         }
+
         public int getWhatToDo() {
             return whatToDo;
         }
+
         public void setWhatToDo(int whatToDo) {
             this.whatToDo = whatToDo;
         }
+
         public String getWithPerson() {
             return withPerson;
         }
+
         public void setWithPerson(String withPerson) {
             this.withPerson = withPerson;
         }
@@ -407,37 +413,44 @@ public class TaskModelServer {
         public int getTimeToArriving() {
             return timeToArriving;
         }
+
         public void setTimeToArriving(int timeToArriving) {
             this.timeToArriving = timeToArriving;
         }
+
         public String getSms() {
             return Sms;
         }
+
         public void setSms(String sms) {
             Sms = sms;
         }
+
         public Date getDateTimeSend() {
             return DateTimeSend;
         }
+
         public void setDateTimeSend(Date dateTimeSend) {
             DateTimeSend = dateTimeSend;
         }
+
         public String getPopup() {
             return Popup;
         }
+
         public void setPopup(String popup) {
             Popup = popup;
         }
+
         public Date getDateTimeShow() {
             return DateTimeShow;
         }
+
         public void setDateTimeShow(Date dateTimeShow) {
             DateTimeShow = dateTimeShow;
         }
 
     }
-
-
 
 
 //    public ServerTask getTask(Date date, String personId) throws IOException {
@@ -540,9 +553,6 @@ public class TaskModelServer {
 //    }
 
 
-
-
-
 //    ArrayList<ServerPopUp> getPopUps(String personId, String sendId, Boolean Default) throws IOException {
 //        String[] params = new String[]{ModelServer.url+urlTask, personId};
 //        new AsyncTask<String, Void, String>() {
@@ -592,7 +602,6 @@ public class TaskModelServer {
 //        return mapper.readValue(result, new ArrayList<ServerPopUp>().getClass());
 ////        return mapper.readValue(result, new TypeReference<ArrayList<ServerTask>>(){});
 //    }
-
 
 
 //    public ArrayList<ServerSMS> getSms(String personId, String sendId, Boolean Default) {
@@ -655,7 +664,6 @@ public class TaskModelServer {
 //
 //
 //
-
 
 
 //    private static String convertInputStreamToString(InputStream inputStream) throws IOException {

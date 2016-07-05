@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/template_sms_txt"
@@ -12,8 +11,7 @@
         android:gravity="center_vertical|center_horizontal"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
-        android:textSize="15sp" >
-    </EditText>
+        android:textSize="15sp"></EditText>
 
     <Button
         android:id="@+id/pick_contact"
@@ -25,36 +23,32 @@
         android:layout_marginTop="15dp"
         android:text="Pick a contact"
 
-         >
-    </Button>
+        ></Button>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pick_contact">
+        android:layout_below="@+id/pick_contact"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="68dp"
-            android:text="Cancel"
             android:id="@+id/cancelSmsTemplate"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-            />
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="68dp"
-            android:text="Submit"
-            android:id="@+id/submitSmsTemplate"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
-            />
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/submitSmsTemplate"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="Submit" />
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

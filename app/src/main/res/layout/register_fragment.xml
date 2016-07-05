@@ -1,124 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/summer">
+    android:background="@color/summer"
+    android:orientation="vertical">
 
     <ProgressBar
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/sdProgressBar"
         style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:indeterminate="true" />
+
     <ImageView
         android:id="@+id/previous"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/a_m_icon"/>
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:src="@drawable/a_m_icon" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
+        android:orientation="horizontal"
         android:paddingTop="?android:attr/actionBarSize"
 
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="enter username:"
-            />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
             android:id="@+id/usernameEditText"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:inputType="textAutoComplete|textPostalAddress"
-            android:editable="true" />
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="textAutoComplete|textPostalAddress" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingTop="?android:attr/actionBarSize"
-        >
+        android:orientation="horizontal"
+        android:paddingTop="?android:attr/actionBarSize">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="enter password:"
-            />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
+            android:id="@+id/passwordEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/passwordEditText"
-            android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:inputType="textPassword"
-            android:editable="true" />
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingTop="?android:attr/actionBarSize"
-        >
+        android:orientation="horizontal"
+        android:paddingTop="?android:attr/actionBarSize">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="enter password again:"
-            />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
+            android:id="@+id/password2EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/password2EditText"
-            android:layout_weight="1"
             android:layout_marginLeft="5dp"
-            android:inputType="textPassword"
-            android:editable="true" />
+            android:layout_weight="1"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="68dp"
-            android:text="Exit"
             android:id="@+id/exitB"
-            android:layout_weight="1"
-            android:layout_gravity="bottom" />
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="68dp"
-            android:text="Submit"
-            android:id="@+id/submitB"
+            android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:layout_gravity="bottom" />
+            android:text="Exit" />
+
+        <Button
+            android:id="@+id/submitB"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:text="Submit" />
 
 
     </LinearLayout>

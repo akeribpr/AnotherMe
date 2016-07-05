@@ -23,19 +23,19 @@ public class TimeEditText extends EditText {
     int hour;
     int minutes;
 
-    private void init(){
+    private void init() {
         Calendar calendar = new GregorianCalendar();
         hour = calendar.get(Calendar.HOUR);
         minutes = calendar.get(Calendar.MINUTE);
-        if (minutes/10==0)
-            setText("" + hour + ":" +"0"+minutes);
+        if (minutes / 10 == 0)
+            setText("" + hour + ":" + "0" + minutes);
         else
             setText("" + hour + ":" + minutes);
 
     }
 
-    public interface OnTimeSetListener{
-        public void  timeSet(int hour, int minutes);
+    public interface OnTimeSetListener {
+        public void timeSet(int hour, int minutes);
     }
 
     OnTimeSetListener listener;
@@ -68,14 +68,14 @@ public class TimeEditText extends EditText {
         init();
     }
 
-    public void set(int hour,int minutes) {
+    public void set(int hour, int minutes) {
         this.hour = hour;
-        this.minutes=minutes;
+        this.minutes = minutes;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             InnerTimePicker timePicker = new InnerTimePicker();
             timePicker.init(hour, minutes);
             timePicker.setListener(new InnerTimePicker.Listener() {
@@ -83,14 +83,14 @@ public class TimeEditText extends EditText {
                 public void done(int hour, int minutes) {
                     TimeEditText.this.hour = hour;
                     TimeEditText.this.minutes = minutes;
-                    String minutes_text=null;
-                    if (minutes/10==0)
-                        minutes_text="0"+minutes;
+                    String minutes_text = null;
+                    if (minutes / 10 == 0)
+                        minutes_text = "0" + minutes;
                     else
-                        minutes_text=String.valueOf(minutes);
-                    setText("" + hour + ":" + minutes_text );
+                        minutes_text = String.valueOf(minutes);
+                    setText("" + hour + ":" + minutes_text);
                     if (listener != null) {
-                        listener.timeSet(hour,minutes);
+                        listener.timeSet(hour, minutes);
                     }
                 }
             });
@@ -103,7 +103,7 @@ public class TimeEditText extends EditText {
         int hour;
         int minutes;
 
-        public void init(int hour, int minutes ) {
+        public void init(int hour, int minutes) {
             this.hour = hour;
             this.minutes = minutes;
         }
@@ -125,7 +125,8 @@ public class TimeEditText extends EditText {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     listener.done(hourOfDay, minute);
                     Log.d("TA", "date set" + hourOfDay + ":" + minute);
-                } }, hour, minutes,false);
+                }
+            }, hour, minutes, false);
 
             return dialog;
         }

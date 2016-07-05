@@ -19,17 +19,17 @@ public class GpsSql {
 
     public static Gps getGps(SQLiteDatabase db) {
 
-        Cursor cursor = db.query(LOCATION_TABLE,null, null,null, null, null, null);
+        Cursor cursor = db.query(LOCATION_TABLE, null, null, null, null, null, null);
 
-        Gps gp=null;
+        Gps gp = null;
         if (cursor.moveToFirst()) {
             int typeIndex = cursor.getColumnIndex(LON);
             int sentIndex = cursor.getColumnIndex(LAT);
             int timeIndex = cursor.getColumnIndex(GPS_TIME);
-                String lon = cursor.getString(typeIndex);
-                String lat = cursor.getString(sentIndex);
-                String time = cursor.getString(timeIndex);
-               gp = new Gps(time,lon,lat);
+            String lon = cursor.getString(typeIndex);
+            String lat = cursor.getString(sentIndex);
+            String time = cursor.getString(timeIndex);
+            gp = new Gps(time, lon, lat);
         }
 
         return gp;
@@ -40,30 +40,11 @@ public class GpsSql {
 
         ContentValues values = new ContentValues();
         values.put(LON, gps.getLongitude());
-        values.put(LAT,gps.getLatitude());
+        values.put(LAT, gps.getLatitude());
         values.put(GPS_TIME, gps.getTime());
-        db.update(LOCATION_TABLE,values,null,null);
-  /*      String[] params = new String[1];
-        params[0] = stId;
-        ContentValues values = new ContentValues();
-        values.put(STUDENTS_ID, st.getId());
-        values.put(STUDENTS_FNAME, st.getFname());
-        values.put(STUDENTS_LNAME, st.getLname());
-        values.put(STUDENTS_PHONE, st.getPhone());
-        values.put(STUDENTS_ADDRESS, st.getAddress());
-        values.put(STUDENTS_IMAGE_NAME, st.getImageName());
-        if (st.isChecked()) {
-            values.put(STUDENTS_CHECKED, "YES");
-        } else {
-            values.put(STUDENTS_CHECKED, "NO");
-        }
-        values.put(STUDENTS_BIRTH_DATE, st.getBirthDate());
-        values.put(STUDENTS_BIRTH_TIME, st.getBirthTime());
-        db.update(STUDENTS_TABLE, values, STUDENTS_ID + " = ?",params);*/
-
+        db.update(LOCATION_TABLE, values, null, null);
 
     }
-
 
 
     public static void create(SQLiteDatabase db) {
@@ -77,7 +58,6 @@ public class GpsSql {
     public static void drop(SQLiteDatabase db) {
         db.execSQL("drop table " + LOCATION_TABLE);
     }
-
 
 
 }

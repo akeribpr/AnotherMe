@@ -23,16 +23,16 @@ public class UploadImage {
     DownloadImage dd;
     private final static Cloudinary instance = new Cloudinary();
 
-    public UploadImage(){
+    public UploadImage() {
         cloudinary = new Cloudinary("cloudinary://351742125169825:y3l-NLJcziTM7xMCUrhQH7jjPL0@dqfossdgc");
 
     }
 
-    public static Cloudinary getInstance(){
+    public static Cloudinary getInstance() {
         return instance;
     }
 
-    public void  saveImage(final Bitmap imageBitmap, final String imageName) {
+    public void saveImage(final Bitmap imageBitmap, final String imageName) {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -41,10 +41,9 @@ public class UploadImage {
                     imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
                     byte[] bitmapdata = bos.toByteArray();
                     ByteArrayInputStream bs = new ByteArrayInputStream(bitmapdata);
-                    String name = imageName.substring(0,imageName.lastIndexOf("."));
-                    Log.d("name","----------------------------------------"+name);
-                   Map res = cloudinary.uploader().upload(bs , ObjectUtils.asMap("public_id", name));
-                 //   Log.d("TAG","save image to url" + res.get("url").toString());
+                    String name = imageName.substring(0, imageName.lastIndexOf("."));
+                    Log.d("name", "----------------------------------------" + name);
+                    Map res = cloudinary.uploader().upload(bs, ObjectUtils.asMap("public_id", name));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -68,7 +67,6 @@ public class UploadImage {
         }
         Log.d("TAG", "url" + url);
 
-        //http://res.cloudinary.com/menachi/image/upload/v1460463378/test.jpg.png
         return null;
     }
 }

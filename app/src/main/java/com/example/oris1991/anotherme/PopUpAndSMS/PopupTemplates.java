@@ -24,16 +24,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oris1991.anotherme.HistoryActivity;
-import com.example.oris1991.anotherme.R;
-import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
+import com.example.oris1991.anotherme.Model.Model;
+import com.example.oris1991.anotherme.R;
 
 import java.util.List;
 
 /**
  * Created by oris1991 on 21/05/2016.
  */
-public class PopupTemplates  extends AppCompatActivity{
+public class PopupTemplates extends AppCompatActivity {
 
     ListView list;
     List<SMSOrPopup> data;
@@ -97,8 +97,6 @@ public class PopupTemplates  extends AppCompatActivity{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(intent, PICK_CONTACT_REQUEST);*/
                 newTemplatePopupDialog("Enter template text:", PopupTemplates.this);
             }
 
@@ -112,12 +110,10 @@ public class PopupTemplates  extends AppCompatActivity{
         myDialog.setTitle(title);
         myDialog.setCancelable(false);
 
-        Button submitButton= (Button) myDialog.findViewById(R.id.submitPopupTemplate);
+        Button submitButton = (Button) myDialog.findViewById(R.id.submitPopupTemplate);
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 templateText = (EditText) myDialog.findViewById(R.id.template_popup_txt);
-               // int i = Model.instance().numberOfRow();
-                //i++;
                 SMSOrPopup sp = new SMSOrPopup(1, "Popup template", null, null, null, templateText.getText().toString());
                 Model.instance().addSmsOrPop(sp);
                 data = Model.instance().getPopupsTemplates();
@@ -126,7 +122,7 @@ public class PopupTemplates  extends AppCompatActivity{
             }
         });
 
-        Button cancelButton= (Button) myDialog.findViewById(R.id.cancelPopupTemplate);
+        Button cancelButton = (Button) myDialog.findViewById(R.id.cancelPopupTemplate);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 myDialog.dismiss();
@@ -157,8 +153,7 @@ public class PopupTemplates  extends AppCompatActivity{
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_sms_templates)
-        {
+        if (id == R.id.action_sms_templates) {
             Intent intent = new Intent(getApplicationContext(),
                     SmsTemplates.class);
             startActivity(intent);
@@ -167,7 +162,6 @@ public class PopupTemplates  extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     class MyAddapter extends BaseAdapter {
@@ -191,10 +185,10 @@ public class PopupTemplates  extends AppCompatActivity{
         @Override
         public View getView(int position, View convertView,
                             ViewGroup parent) {
-            if(convertView == null){
+            if (convertView == null) {
                 LayoutInflater inflater = getLayoutInflater();
                 convertView = inflater.inflate(R.layout.popup_template_row, null);
-            }else{
+            } else {
                 Log.d("TAG", "use convert view:" + position);
             }
 

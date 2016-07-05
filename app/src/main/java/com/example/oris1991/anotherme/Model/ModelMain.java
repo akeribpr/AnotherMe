@@ -27,31 +27,34 @@ public class ModelMain {
     private final static ModelMain instance = new ModelMain();
     UploadImage modelCloudinary;
     Context context;
-    private ModelMain(){
+
+    private ModelMain() {
         modelCloudinary = new UploadImage();
         context = MyApplication.getAppContext();
 
     }
-    public static ModelMain getInstance(){
+
+    public static ModelMain getInstance() {
         return instance;
     }
 
     public void saveImage(final Bitmap imageBitmap, final String imageName) {
-         saveImageToFile(imageBitmap,imageName); // synchronously save image locally
+        saveImageToFile(imageBitmap, imageName); // synchronously save image locally
         Thread d = new Thread(new Runnable() {  // asynchronously save image to parse
             @Override
             public void run() {
-                modelCloudinary.saveImage(imageBitmap,imageName);
+                modelCloudinary.saveImage(imageBitmap, imageName);
             }
         });
         d.start();
 
     }
+
     public void saveImageOncloudinary(final Bitmap imageBitmap, final String imageName) {
         Thread d = new Thread(new Runnable() {  // asynchronously save image to parse
             @Override
             public void run() {
-                modelCloudinary.saveImage(imageBitmap,imageName);
+                modelCloudinary.saveImage(imageBitmap, imageName);
             }
         });
         d.start();
@@ -59,7 +62,7 @@ public class ModelMain {
     }
 
     //convert Bitmap to image and save with name
-    private void saveImageToFile(Bitmap imageBitmap, String imageFileName){
+    private void saveImageToFile(Bitmap imageBitmap, String imageFileName) {
         FileOutputStream fos;
         OutputStream out = null;
         try {
@@ -69,7 +72,7 @@ public class ModelMain {
             if (!dir.exists()) {
                 dir.mkdir();
             }
-            File imageFile = new File(dir,imageFileName);
+            File imageFile = new File(dir, imageFileName);
             imageFile.createNewFile();
 
             out = new FileOutputStream(imageFile);
@@ -81,7 +84,7 @@ public class ModelMain {
             Uri contentUri = Uri.fromFile(imageFile);
             mediaScanIntent.setData(contentUri);
             context.sendBroadcast(mediaScanIntent);
-            Log.d("tag","add image to cache: " + imageFileName);
+            Log.d("tag", "add image to cache: " + imageFileName);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -90,19 +93,20 @@ public class ModelMain {
         }
     }
 
-    public interface LoadImageListener{
+    public interface LoadImageListener {
         public void onResult(Bitmap imageBmp);
     }
 
     //load Image from storage or cloudinary
     public void loadImage(final String imageName, final LoadImageListener listener) {
-        AsyncTask<String,String,Bitmap> task = new AsyncTask<String, String, Bitmap >() {
+        AsyncTask<String, String, Bitmap> task = new AsyncTask<String, String, Bitmap>() {
             @Override
             protected Bitmap doInBackground(String... params) {
                 Bitmap bmp = loadImageFromFile(imageName);              //first try to fin the image on the device
                 if (bmp == null) {                                      //if image not found - try downloading it from parse
                     bmp = modelCloudinary.loadImage(imageName);
-                    if (bmp != null) saveImageToFile(bmp,imageName);    //save the image locally for next time
+                    if (bmp != null)
+                        saveImageToFile(bmp, imageName);    //save the image locally for next time
                 }
                 return bmp;
             }
@@ -117,17 +121,17 @@ public class ModelMain {
 
 
     //get Image from storage
-    private Bitmap loadImageFromFile(String imageFileName){
+    private Bitmap loadImageFromFile(String imageFileName) {
         String str = null;
         Bitmap bitmap = null;
         try {
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File imageFile = new File(dir,imageFileName);
+            File imageFile = new File(dir, imageFileName);
 
             //File dir = context.getExternalFilesDir(null);
             InputStream inputStream = new FileInputStream(imageFile);
             bitmap = BitmapFactory.decodeStream(inputStream);
-            Log.d("tag","got image from cache: " + imageFileName);
+            Log.d("tag", "got image from cache: " + imageFileName);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

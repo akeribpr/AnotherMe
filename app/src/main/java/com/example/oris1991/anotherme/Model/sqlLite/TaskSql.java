@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 
@@ -34,22 +33,19 @@ public class TaskSql {
         values.put(START, sp.getStartTime());
         values.put(END, sp.getEndTime());
         values.put(LOCATION, sp.getLocation());
-        if(sp.getSolution()!=null)
+        if (sp.getSolution() != null)
             values.put(SOLUTION, sp.getSolution().getIdSolution());
-        db.insert(TASK_TABLE,ID,values);
+        db.insert(TASK_TABLE, ID, values);
     }
 
     public static void deleteTask(SQLiteDatabase db, int id) {
 
-       /* String[] args={String.valueOf(id)};
-        db.delete(TASK_TABLE, ID + " = ?" ,args);*/
-        db.delete(TASK_TABLE, ID + " = '" +id+"'", null);
+        db.delete(TASK_TABLE, ID + " = '" + id + "'", null);
     }
 
-    public static List<Task> getTasks(SQLiteDatabase db)
-    {
+    public static List<Task> getTasks(SQLiteDatabase db) {
 
-        Cursor cursor = db.query(TASK_TABLE,null,null,null, null, null, null);
+        Cursor cursor = db.query(TASK_TABLE, null, null, null, null, null, null);
 
         List<Task> list = new LinkedList<Task>();
         if (cursor.moveToFirst()) {
@@ -66,11 +62,10 @@ public class TaskSql {
                 String end = cursor.getString(endIndex);
                 String location = cursor.getString(locationIndex);
                 Task t = new Task(idd, title, Long.valueOf(start), Long.valueOf(end), location);
-                if (cursor.getString(solution) != null)
-                {
+                if (cursor.getString(solution) != null) {
                     int solutionn = Integer.valueOf(cursor.getString(solution));
                     t.setSolution(Model.instance().getSolution(solutionn));
-                 }
+                }
                 list.add(t);
             } while (cursor.moveToNext());
 
@@ -78,12 +73,13 @@ public class TaskSql {
         return list;
 
     }
-    public static Task getTaskById(SQLiteDatabase db,int idTask) {
+
+    public static Task getTaskById(SQLiteDatabase db, int idTask) {
 
         Task task = null;
 
-        String [] selectionArgs ={String.valueOf(idTask)};
-        Cursor cursor = db.query(TASK_TABLE,null,ID + " = ?",selectionArgs, null, null, null);
+        String[] selectionArgs = {String.valueOf(idTask)};
+        Cursor cursor = db.query(TASK_TABLE, null, ID + " = ?", selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {
             int id = cursor.getColumnIndex(ID);
             int titleIndex = cursor.getColumnIndex(TITLE);
@@ -122,7 +118,6 @@ public class TaskSql {
     public static void drop(SQLiteDatabase db) {
         db.execSQL("drop table " + TASK_TABLE);
     }
-
 
 
 }

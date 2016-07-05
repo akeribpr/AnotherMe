@@ -1,71 +1,64 @@
 package com.example.oris1991.anotherme.Model.ModelServer;
 
 import com.example.oris1991.anotherme.Model.Entities.LogIn;
+import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.Entities.SharePictureOrText;
 import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Entities.Users;
 import com.example.oris1991.anotherme.Model.Model;
 import com.example.oris1991.anotherme.Model.ModelInterface;
-import com.example.oris1991.anotherme.Model.Entities.SMSOrPopup;
 import com.example.oris1991.anotherme.Model.ModelServer.GPS.ServerGps;
-import com.example.oris1991.anotherme.Model.ModelServer.Task.ServerTask;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
  * Created by itzik on 31/05/2016.
  */
 public class ModelServer implements ModelInterface {
-    public static final String url= "http://192.168.1.5:8080/Another-Me";
+    public static final String url = "http://192.168.1.5:8080/Another-Me";
     PersonModelServer personModelServer;
     TaskModelServer taskModelServer;
-     GpsModelServer gpsModelServer;
+    GpsModelServer gpsModelServer;
     PicturesModelServer picturesModelServer;
-    public  ModelServer(){
+
+    public ModelServer() {
         taskModelServer = new TaskModelServer();
         personModelServer = new PersonModelServer();
-        gpsModelServer=new GpsModelServer();
-        picturesModelServer=new PicturesModelServer();
+        gpsModelServer = new GpsModelServer();
+        picturesModelServer = new PicturesModelServer();
     }
 
-    public Boolean register(LogIn login){
+    public Boolean register(LogIn login) {
         Boolean bool = false;
         try {
-         bool  = personModelServer.register(login.getPersonId(),login.getPassword(),null,"05555555555","default@gmail.com");
+            bool = personModelServer.register(login.getPersonId(), login.getPassword(), null, "05555555555", "default@gmail.com");
 
-           return bool;
+            return bool;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  bool;
+        return bool;
     }
 
     @Override
     public Boolean checkIfUserExist(LogIn logIn) {
-        return personModelServer.signIn(logIn.getPersonId(),logIn.getPassword());
+        return personModelServer.signIn(logIn.getPersonId(), logIn.getPassword());
     }
 
     @Override
     public void addSmsOrPop(SMSOrPopup sp) {
-               if ((sp.getType()).equals("Sms template")){
+        if ((sp.getType()).equals("Sms template")) {
 
-                   taskModelServer.addSms(true,sp.getText(),Model.instance().getUser().getPersonId(),sp.getSendtoName());
+            taskModelServer.addSms(true, sp.getText(), Model.instance().getUser().getPersonId(), sp.getSendtoName());
 
-               }
-        else{
+        } else {
 
-                   taskModelServer.addPopUp(sp.getText(),false,"",Model.instance().getUser().getPersonId());
+            taskModelServer.addPopUp(sp.getText(), false, "", Model.instance().getUser().getPersonId());
 
-               }
+        }
 
     }
 
@@ -103,13 +96,11 @@ public class ModelServer implements ModelInterface {
     @Override
     public void addTask(Task task) {
 
-        if(task.getSolution()==null){
+        if (task.getSolution() == null) {
             taskModelServer.addNewTask
-                    (Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getLocation(),7,null,null,null,0);
-        }
-
-else {
-            taskModelServer.addNewTask(Model.instance().getUser().getPersonId(),task.getTitle(),new Date(task.getStartTime()) ,new Date(task.getEndTime()),task.getLocation(),7,task.getSolution().getSms().getSendtoName(),(double)task.getSolution().getPopUp().getId(),(double)task.getSolution().getSms().getId(),task.getSolution().getWhatToDo());
+                    (Model.instance().getUser().getPersonId(), task.getTitle(), new Date(task.getStartTime()), new Date(task.getEndTime()), task.getLocation(), 7, null, null, null, 0);
+        } else {
+            taskModelServer.addNewTask(Model.instance().getUser().getPersonId(), task.getTitle(), new Date(task.getStartTime()), new Date(task.getEndTime()), task.getLocation(), 7, task.getSolution().getSms().getSendtoName(), (double) task.getSolution().getPopUp().getId(), (double) task.getSolution().getSms().getId(), task.getSolution().getWhatToDo());
 
         }
 
@@ -121,13 +112,13 @@ else {
     }
 
     @Override
-    public void addNewGpsLocation(ServerGps gps){
+    public void addNewGpsLocation(ServerGps gps) {
         gpsModelServer.addNewGpsLocation(gps);
     }
 
     @Override
     public void addPic(SharePictureOrText sp) {
-        picturesModelServer.addPicturesToShare(sp.getPicName(),Model.instance().getUser().getPersonId(),sp.getShardWtith(),sp.getText());
+        picturesModelServer.addPicturesToShare(sp.getPicName(), Model.instance().getUser().getPersonId(), sp.getShardWtith(), sp.getText());
     }
 
     @Override
@@ -162,12 +153,11 @@ else {
 
     @Override
     public List<SharePictureOrText> checkUpdateShare() {
-     List<SharePictureOrText> share = picturesModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
+        List<SharePictureOrText> share = picturesModelServer.getSharedPictures(Model.instance().getUser().getPersonId());
 
-        if(share==null){
+        if (share == null) {
             return null;
-        }
-        else{
+        } else {
             return share;
         }
     }
@@ -187,10 +177,9 @@ else {
 
         List<Task> taskServer = taskModelServer.getTasksToDO(Model.instance().getUser().getPersonId());
 
-        if(taskServer==null){
+        if (taskServer == null) {
             return null;
-        }
-        else{
+        } else {
             return taskServer;
         }
 
@@ -231,13 +220,14 @@ else {
         return null;
     }
 
-    public void deleteHistoryById(int id){
+    public void deleteHistoryById(int id) {
     }
-    public List<SMSOrPopup> getHistory()
-    {
+
+    public List<SMSOrPopup> getHistory() {
         return null;
     }
-    public void addHistoryEvent(SMSOrPopup sp){
+
+    public void addHistoryEvent(SMSOrPopup sp) {
 
     }
 }

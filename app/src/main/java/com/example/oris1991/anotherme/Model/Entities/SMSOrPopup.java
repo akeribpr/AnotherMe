@@ -21,13 +21,13 @@ public class SMSOrPopup {
         this.sendtoName = sendtoName;
     }
 
-    public SMSOrPopup(int id,String type, String sendto, String sendtoName, String time, String text) {
+    public SMSOrPopup(int id, String type, String sendto, String sendtoName, String time, String text) {
         this.id = id;
         this.type = type;
         this.sendto = sendto;
         this.time = time;
         this.text = text;
-        this.sendtoName=sendtoName;
+        this.sendtoName = sendtoName;
 
 
     }
@@ -65,6 +65,7 @@ public class SMSOrPopup {
     public String getText() {
         return text;
     }
+
     public int getId() {
         return id;
     }

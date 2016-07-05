@@ -34,18 +34,17 @@ public class HistorySql {
 
     }
 
-    public static int numberOfRow(SQLiteDatabase db){
+    public static int numberOfRow(SQLiteDatabase db) {
         String countQuery = "SELECT  * FROM " + HISTORY_TABLE;
         Cursor cursor = db.rawQuery(countQuery, null);
         int cnt = cursor.getCount();
-        //  cursor.close();
         return cnt;
     }
 
 
     public static List<SMSOrPopup> getHistory(SQLiteDatabase db) {
-        String [] selectionArgs ={"SMS","Popup"};
-        Cursor cursor = db.query(HISTORY_TABLE,null, SP_TYPE + " = ?" +"or " + SP_TYPE + " = ?",selectionArgs, null, null, null);
+        String[] selectionArgs = {"SMS", "Popup"};
+        Cursor cursor = db.query(HISTORY_TABLE, null, SP_TYPE + " = ?" + "or " + SP_TYPE + " = ?", selectionArgs, null, null, null);
 
         List<SMSOrPopup> list = new LinkedList<SMSOrPopup>();
         if (cursor.moveToFirst()) {
@@ -56,13 +55,13 @@ public class HistorySql {
             int timeIndex = cursor.getColumnIndex(SP_TIME);
             int textIndex = cursor.getColumnIndex(SP_TEXT);
             do {
-                int idd =  Integer.parseInt(cursor.getString(id));
+                int idd = Integer.parseInt(cursor.getString(id));
                 String type = cursor.getString(typeIndex);
                 String sent = cursor.getString(sentIndex);
                 String sentName = cursor.getString(sentNameIndex);
                 String time = cursor.getString(timeIndex);
                 String text = cursor.getString(textIndex);
-                SMSOrPopup sp = new SMSOrPopup(idd,type,sent,sentName,time,text);
+                SMSOrPopup sp = new SMSOrPopup(idd, type, sent, sentName, time, text);
                 list.add(sp);
             } while (cursor.moveToNext());
 
@@ -72,12 +71,10 @@ public class HistorySql {
     }
 
 
-
     public static void deleteHistoryById(SQLiteDatabase db, int id) {
 
         db.delete(HISTORY_TABLE, ID + " = '" + id + "'", null);
     }
-
 
 
     public static void create(SQLiteDatabase db) {

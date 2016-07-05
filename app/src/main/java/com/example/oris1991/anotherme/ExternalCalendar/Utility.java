@@ -15,15 +15,10 @@
  */
 package com.example.oris1991.anotherme.ExternalCalendar;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CalendarContract;
-import android.util.Log;
 
-
-import com.example.oris1991.anotherme.Model.Entities.Solution;
 import com.example.oris1991.anotherme.Model.Entities.Task;
 import com.example.oris1991.anotherme.Model.Model;
 
@@ -33,82 +28,82 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * @author Mukesh Y
  */
 public class Utility {
-	public static ArrayList<String> nameOfEvent = new ArrayList<String>();
-	public static ArrayList<String> locations = new ArrayList<String>();
-	public static ArrayList<String> startDates = new ArrayList<String>();
-	public static ArrayList<String> endDates = new ArrayList<String>();
-	public static ArrayList<String> startTime = new ArrayList<String>();
-	public static ArrayList<String> endTime = new ArrayList<String>();
-	public static ArrayList<String> startDateAndTime = new ArrayList<String>();
-	public static ArrayList<String> endDateAndTime = new ArrayList<String>();
-	public static ArrayList<String> eventId = new ArrayList<String>();
-	public static List<Task> taskArry = new ArrayList<Task>();
-	public static ArrayList<String> readCalendarEvent(Context context) {
-		Cursor cursor = context.getContentResolver()
-				.query(Uri.parse("content://com.android.calendar/events"),
-						new String[] { "calendar_id", "title", "description",
-								"dtstart", "dtend", "eventLocation"},"deleted != 1",
-						null, null);
-		cursor.moveToFirst();
+    public static ArrayList<String> nameOfEvent = new ArrayList<String>();
+    public static ArrayList<String> locations = new ArrayList<String>();
+    public static ArrayList<String> startDates = new ArrayList<String>();
+    public static ArrayList<String> endDates = new ArrayList<String>();
+    public static ArrayList<String> startTime = new ArrayList<String>();
+    public static ArrayList<String> endTime = new ArrayList<String>();
+    public static ArrayList<String> startDateAndTime = new ArrayList<String>();
+    public static ArrayList<String> endDateAndTime = new ArrayList<String>();
+    public static ArrayList<String> eventId = new ArrayList<String>();
+    public static List<Task> taskArry = new ArrayList<Task>();
 
-		taskArry=Model.instance().getTasks();
+    public static ArrayList<String> readCalendarEvent(Context context) {
+        Cursor cursor = context.getContentResolver()
+                .query(Uri.parse("content://com.android.calendar/events"),
+                        new String[]{"calendar_id", "title", "description",
+                                "dtstart", "dtend", "eventLocation"}, "deleted != 1",
+                        null, null);
+        cursor.moveToFirst();
 
-		// fetching calendars name
-		String CNames[] = new String[cursor.getCount()];
+        taskArry = Model.instance().getTasks();
 
-		SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        // fetching calendars name
+        String CNames[] = new String[cursor.getCount()];
 
-		// fetching calendars id
-		nameOfEvent.clear();
-		startDates.clear();
-		endDates.clear();
-		endTime.clear();
-		locations.clear();
-		startTime.clear();
-		eventId.clear();
-		startDateAndTime.clear();
-		endDateAndTime.clear();
-		for (int i = 0; i < CNames.length; i++) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-			nameOfEvent.add(cursor.getString(1));//text
-			locations.add(cursor.getString(5));
-			startDates.add(getDate(Long.parseLong(cursor.getString(3))));//start date
-			CNames[i] = cursor.getString(1);
-			startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
-			startDateAndTime.add(cursor.getString(3));
-			endDateAndTime.add(cursor.getString(4));
-			eventId.add("0");
+        // fetching calendars id
+        nameOfEvent.clear();
+        startDates.clear();
+        endDates.clear();
+        endTime.clear();
+        locations.clear();
+        startTime.clear();
+        eventId.clear();
+        startDateAndTime.clear();
+        endDateAndTime.clear();
+        for (int i = 0; i < CNames.length; i++) {
 
-			cursor.moveToNext();
-		}
-		for (int i = 0; i <taskArry.size(); i++) {
-			nameOfEvent.add(taskArry.get(i).getTitle());
-			locations.add(taskArry.get(i).getLocation());
-			startDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime()))));
-			startTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime())))));
-			endDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime()))));
-			endTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime())))));
-			startDateAndTime.add(String.valueOf(taskArry.get(i).getStartTime()));
-			endDateAndTime.add(String.valueOf(taskArry.get(i).getEndTime()));
-			eventId.add(String.valueOf(taskArry.get(i).getId()));
-		}
+            nameOfEvent.add(cursor.getString(1));//text
+            locations.add(cursor.getString(5));
+            startDates.add(getDate(Long.parseLong(cursor.getString(3))));//start date
+            CNames[i] = cursor.getString(1);
+            startTime.add(format.format(new Date(Long.parseLong(cursor.getString(3)))));
+            startDateAndTime.add(cursor.getString(3));
+            endDateAndTime.add(cursor.getString(4));
+            eventId.add("0");
 
-		return nameOfEvent;
-	}
+            cursor.moveToNext();
+        }
+        for (int i = 0; i < taskArry.size(); i++) {
+            nameOfEvent.add(taskArry.get(i).getTitle());
+            locations.add(taskArry.get(i).getLocation());
+            startDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime()))));
+            startTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getStartTime())))));
+            endDates.add(getDate(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime()))));
+            endTime.add(format.format(new Date(Long.parseLong(String.valueOf(taskArry.get(i).getEndTime())))));
+            startDateAndTime.add(String.valueOf(taskArry.get(i).getStartTime()));
+            endDateAndTime.add(String.valueOf(taskArry.get(i).getEndTime()));
+            eventId.add(String.valueOf(taskArry.get(i).getId()));
+        }
+
+        return nameOfEvent;
+    }
 
 
-	public static String getDate(long milliSeconds) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(milliSeconds);
-		return formatter.format(calendar.getTime());
-	}
+    public static String getDate(long milliSeconds) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
+    }
 
 
 }
